@@ -19,3 +19,5 @@ It is a SaaS platform designed for businesses to manage their contacts, create s
 - Manage message templates like "text" and "text & image"
 
 - Manage and launch campaigns for selected tags of contacts and selecting templates, and view campaign status
+
+- .........
