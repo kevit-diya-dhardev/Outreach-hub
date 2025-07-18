@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Segoe UI", sans-serif;
+  color: #212121;
 }
 body {
   width: 100vw;
@@ -15,7 +16,7 @@ body {
 
   /* background: linear-gradient(135deg, #f0e9f9, #e4e3ed); */
   /* background: linear-gradient(135deg, #2d2d2d, #1a1a1a); */
-  background: linear-gradient(135deg, #f4f4f4, #dcdcdc);
+  background: #f4f6f5;
 }
 header {
   font-size: 1.6rem;

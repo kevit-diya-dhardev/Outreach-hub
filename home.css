@@ -1,0 +1,224 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  --maincolor: #d5bdaf;
+  --secondaryColor: black;
+  font-family: sans-serif;
+}
+body {
+  width: 100%;
+  height: 100vh;
+}
+/* nav bar styling*/
+header {
+  max-width: 100%;
+  height: 8%;
+}
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  max-width: 100%;
+  background-color: var(--maincolor);
+  font-size: 1.2rem;
+}
+.navContainer {
+  display: flex;
+  justify-content: flex-start;
+  min-width: 40%;
+  max-width: 60%;
+  margin: 0rem 2rem;
+  position: relative;
+  right: 2rem;
+}
+.navContainer a {
+  margin: 2rem;
+}
+#logoutBtn {
+  display: flex;
+  justify-content: flex-start;
+  width: 10%;
+}
+a {
+  color: var(--secondaryColor);
+  text-decoration: none;
+}
+/* welcome page styling*/
+main {
+  width: 100%;
+  height: 70vh;
+}
+.welcome-msg {
+  display: flex;
+  padding: 0.75rem;
+  border-radius: 6px;
+  color: var(--secondaryColor);
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+  color: var(--secondaryColor);
+  font-size: 2rem;
+  background: url("https://thumbs.dreamstime.com/b/conceptual-image-depicting-business-professionals-networking-modern-office-setting-foreground-features-interconnected-321236496.jpg")
+    no-repeat center center/cover;
+}
+
+.charts {
+  display: flex;
+  background-color: var(--maincolor);
+  height: 70vh;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.barcharts {
+  border-radius: 1.5rem;
+}
+#chartimg1 {
+  background: url("./imagesUsed/welcomeimg.png") no-repeat center center/cover;
+  width: 40%;
+  height: 100%;
+}
+#chartimg2 {
+  background: url("./imagesUsed/bar_chart_theme.png") no-repeat center
+    center/cover;
+  padding: 0.75rem;
+  border-radius: 6px;
+  color: var(--secondaryColor);
+  width: 40%;
+  height: 100%;
+}
+.dashboard-features {
+  margin-bottom: 2rem;
+}
+
+/* Quick Stats */
+.quick-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-bottom: 5rem;
+  height: 20vh;
+  padding: 0.75rem;
+  border-radius: 6px;
+  color: var(--secondaryColor);
+}
+
+.stat-card {
+  background: var(--maincolor);
+  border: 1px solid #d6d6d6;
+  border-radius: 8px;
+  padding: 1rem;
+  background-color: var(--maincolor);
+  text-align: center;
+}
+
+.stat-card h3 {
+  color: var(--secondaryColor);
+  font-size: 1.8rem;
+  transform: translate(0, 100%);
+}
+
+.stat-card p {
+  font-size: 1.7rem;
+  color: var(--secondaryColor);
+  font-weight: bold;
+  transform: translate(0, 100%);
+}
+
+/* Campaign Health */
+.campaign-health {
+  background: var(--maincolor);
+  border: 1px solid #d6d6d6;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 5rem;
+  height: 16vh;
+}
+.campaign-health h2 {
+  font-size: 2rem;
+}
+.health-grid {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2.75rem;
+  flex-wrap: wrap;
+}
+
+.health-box {
+  flex: 1 1 120px;
+  text-align: center;
+  padding: 0.75rem;
+  border-radius: 6px;
+  color: var(--secondaryColor);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.health-box.running {
+  background-color: #43a047;
+}
+.health-box.scheduled {
+  background-color: #fb8c00;
+}
+.health-box.paused {
+  background-color: #616161;
+}
+.health-box.draft {
+  background-color: #d32f2f;
+}
+
+.stat-card h3 {
+  color: var(--secondaryColor);
+  font-size: 1.8rem;
+  transform: translate(0, 100%);
+}
+
+.stat-card p {
+  font-size: 1.7rem;
+  color: var(--secondaryColor);
+  font-weight: bold;
+  transform: translate(0, 100%);
+}
+
+/* Campaign Health */
+.campaign-health {
+  background: var(--maincolor);
+  border: 1px solid #d6d6d6;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 5rem;
+  height: 16vh;
+}
+.campaign-health h2 {
+  font-size: 2rem;
+}
+.health-grid {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2.75rem;
+  flex-wrap: wrap;
+}
+
+.health-box {
+  flex: 1 1 120px;
+  text-align: center;
+  padding: 0.75rem;
+  border-radius: 6px;
+  color: var(--secondaryColor);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.health-box.running {
+  background-color: #43a047;
+}
+.health-box.scheduled {
+  background-color: #fb8c00;
+}
+.health-box.paused {
+  background-color: #616161;
+}
+.health-box.draft {
+  background-color: #d32f2f;
+}

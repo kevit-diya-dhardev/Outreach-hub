@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home page</title>
+    <link rel="stylesheet" href="home.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="navContainer">
+          <a href="#" class="navlinks">Home</a>
+          <a href="#" class="navlinks">Campaigns</a>
+          <a href="#" class="navlinks">Contacts</a>
+          <a href="#" class="navlinks">Message</a>
+        </div>
+        <div id="logoutBtn">
+          <a href="login.html">Logout</a>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <div class="welcome-msg">
+        <h1>Welcome to outreach hub</h1>
+      </div>
+      <!-- features section -->
+       <!-- 🌟 Feature Section: Quick Stats + Campaign Status + Actions -->
+<section class="dashboard-features">
+  <!-- Quick Stats -->
+  <div class="quick-stats">
+    <div class="stat-card">
+      <h3>Total Campaigns</h3>
+      <p>28</p>
+    </div>
+    <div class="stat-card">
+      <h3>Total Contacts</h3>
+      <p>1,230</p>
+    </div>
+    <div class="stat-card">
+      <h3>Templates</h3>
+      <p>15</p>
+    </div>
+    <div class="stat-card">
+      <h3>Users</h3>
+      <p>4</p>
+    </div>
+  </div>
+
+  <!-- Campaign Health Status -->
+  <div class="campaign-health">
+    <h2>Campaign Status</h2>
+    <div class="health-grid">
+      <div class="health-box running">Running: 3</div>
+      <div class="health-box scheduled">Scheduled: 2</div>
+      <div class="health-box paused">Paused: 1</div>
+      <div class="health-box draft">Drafts: 5</div>
+    </div>
+  </div>
+
+      <div class="charts">
+        <div id="chartimg1" class="barcharts"></div>
+        <div id="chartimg2" class="barcharts"></div>
+      </div>
+    </main>
+  </body>
+</html>
