@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact form</title>
+    <link rel="stylesheet" href="" />
+  </head>
+  <body>
+    <div class="Contactform">
+      <form action="">
+        <div id="header">
+          <h1>Contact details</h1>
+          <button id="crossBtn">X</button>
+        </div>
+        <div class="name userInputs">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Enter name"
+            required
+          />
+        </div>
+        <div class="email userInputs">
+          <label for="inputEmail">Email</label>
+          <input
+            type="email"
+            name="email"
+            id="inputEmail"
+            placeholder="Enter email"
+            required
+          />
+        </div>
+        <div class="contact userInputs">
+          <label for="contact">Contact no.</label>
+          <input
+            type="number"
+            name="contact"
+            id="inputContact"
+            placeholder="Enter Contact no."
+            required
+          />
+        </div>
+        <div class="Create">
+          <input type="submit" name="contact" id="newContact" value="Create" />
+        </div>
+      </form>
+    </div>
+    <script src="Createcontact.js"></script>
+  </body>
+</html>
