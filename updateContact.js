@@ -20,7 +20,7 @@ const getData = async () => {
   nameBtn.innerText = data[id].name;
   emailBtn.innerText = data[id].email;
   contactBtn.innerText = data[id].contact;
-  id = data[id].id;   
+  id = data[id].id;
 };
 
 const updateData = async () => {
