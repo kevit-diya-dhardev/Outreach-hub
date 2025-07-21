@@ -45,5 +45,5 @@ newContactBtn.addEventListener("click", (e) => {
 
 crossBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  window.open("contacts.html", "_self");
+  window.open("DisplayContact.html", "_self");
 });

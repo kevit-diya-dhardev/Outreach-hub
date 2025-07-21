@@ -50,12 +50,14 @@ document.addEventListener("click", async (e) => {
   if (btn.getAttribute("class") == "view") {
     const id = Number(btn.getAttribute("id"));
     localStorage.setItem("id", id);
-    window.open("viewContact.html", "_blank");
+    localStorage.setItem("button", "view");
+    window.open("updateContact.html", "_self");
   } else if (btn.getAttribute("class") == "delete") {
     const value = confirm("Are you sure you want to delete this contact?");
     if (value) {
-      let id = Number(btn.getAttribute("id"));
-      id++;
+      console.log(data);
+      let idx = Number(btn.getAttribute("id"));
+      let id = Number(data[idx].id);
       const response = await fetch(url + "/" + id, {
         method: "DELETE",
       });
@@ -64,12 +66,13 @@ document.addEventListener("click", async (e) => {
   } else if (btn.getAttribute("class") == "update") {
     const id = btn.getAttribute("id");
     localStorage.setItem("id", id);
-    window.open("updateContact.html", "_blank");
+    localStorage.setItem("button", "update");
+    window.open("updateContact.html", "_self");
   }
 });
 
 createContactBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  window.open("contact-form.html", "_self", true);
+  window.open("Createcontact.html", "_self", true);
 });
 getContact();
