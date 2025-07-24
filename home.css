@@ -36,11 +36,7 @@ nav {
 .navContainer a {
   margin: 2rem;
 }
-#logoutBtn {
-  display: flex;
-  justify-content: flex-start;
-  width: 10%;
-}
+
 a {
   color: var(--secondaryColor);
   text-decoration: none;

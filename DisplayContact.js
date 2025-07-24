@@ -1,10 +1,15 @@
 //main contact page
 const createContactBtn = document.querySelector("#createContactBtn");
 const contactList = document.querySelector(".contact-list");
-const url = "https://6878e85e63f24f1fdc9ff7c5.mockapi.io/Contacts";
-let data;
+const url = "http://localhost:3000/contacts";
+const token = localStorage.getItem("token");
+if (token == null) {
+  window.open("login.html", "_self");
+}
+let requiredData;
+
 const displayContact = () => {
-  for (i = 0; i < data.length; i++) {
+  for (i = 0; i < requiredData.length; i++) {
     const parentDiv = document.createElement("div");
     const viewBtn = document.createElement("button");
     const updateBtn = document.createElement("button");
@@ -21,8 +26,7 @@ const displayContact = () => {
     deleteBtn.innerText = "Delete";
     deleteBtn.setAttribute("class", "delete");
     deleteBtn.setAttribute("id", i);
-
-    parentDiv.innerText = data[i].name;
+    parentDiv.innerText = requiredData[i].name;
 
     parentDiv.appendChild(viewBtn);
     parentDiv.appendChild(updateBtn);
@@ -34,8 +38,15 @@ const displayContact = () => {
 const getContact = async () => {
   console.log("Enter");
   try {
-    const response = await fetch(url);
-    data = await response.json();
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const jsonData = await response.json();
+    requiredData = jsonData.data;
     displayContact();
   } catch (e) {
     console.log("error");
@@ -55,12 +66,17 @@ document.addEventListener("click", async (e) => {
   } else if (btn.getAttribute("class") == "delete") {
     const value = confirm("Are you sure you want to delete this contact?");
     if (value) {
-      console.log(data);
+      console.log(requiredData);
       let idx = Number(btn.getAttribute("id"));
-      let id = Number(data[idx].id);
+      let id = Number(requiredData[idx].id);
       const response = await fetch(url + "/" + id, {
         method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "content-type": "application/json",
+        },
       });
+      console.log(response);
       btn.parentElement.remove();
     }
   } else if (btn.getAttribute("class") == "update") {

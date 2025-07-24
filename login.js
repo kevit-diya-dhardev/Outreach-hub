@@ -1,32 +1,30 @@
-const url = "https://6878e85e63f24f1fdc9ff7c5.mockapi.io/login";
+const url = "http://localhost:3000/auth/login";
 const submitBtn = document.querySelector("#inputLogin");
-const emailBtn = document.querySelector("#inputEmail");
+const usernameBtn = document.querySelector("#inputUsername");
 const passBtn = document.querySelector("#inputPassword");
 
 const checkData = () => {
-  if (emailBtn.value != "" && passBtn.value != "") {
-    return true;
+  if (usernameBtn.value != "editor" && passBtn.value != "editor") {
+    return false;
   }
-  return false;
+  return true;
 };
 
 const verify = async () => {
   try {
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify({
+        username: usernameBtn.value,
+        password: passBtn.value,
+      }),
+      headers: {
+        "Content-type": "application/json",
+      },
+    });
     const data = await response.json();
-    console.log(data[0]);
-
-    const email = emailBtn.value;
-    const pass = passBtn.value;
-
-    if (
-      data.find((obj) => obj.email == email) &&
-      data.find((obj) => obj.password == pass)
-    ) {
-      window.open("home.html", "_self");
-    } else {
-      console.log("Invalid inputs");
-    }
+    localStorage.setItem("token", data.access_token);
+    window.open("home.html", "_self");
   } catch (e) {
     console.log("Error occured");
     console.log(e);

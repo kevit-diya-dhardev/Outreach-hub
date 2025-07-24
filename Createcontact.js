@@ -1,13 +1,13 @@
 //contact-form
 const newContactBtn = document.querySelector("#newContact");
 const name = document.querySelector("#name");
-const email = document.querySelector("#inputEmail");
 const number = document.querySelector("#inputContact");
+const tags = document.querySelector("#tags");
 const crossBtn = document.querySelector("#crossBtn");
-const url = "https://6878e85e63f24f1fdc9ff7c5.mockapi.io/Contacts";
+const url = "http://localhost:3000/contacts";
+const token = localStorage.getItem("token");
 const checkContactDetails = () => {
-  if (name.value != "" && email.value != "" && number.value != "") {
-    console.log(typeof Number(number.value));
+  if (name.value != "" && number.value != "") {
     return true;
   }
   return false;
@@ -19,15 +19,17 @@ const newContact = async () => {
       method: "POST",
       body: JSON.stringify({
         name: name.value,
-        email: email.value,
-        contact: Number(number.value),
+        phoneNumber: Number(number.value),
+        tags: tags.value.split(","),
       }),
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
     const data = await response.json();
-    newContactBtn.textContent = "Contact created !";
+    console.log(data);
+    console.log("Success!");
   } catch (e) {
     console.log("Error");
     console.log(e);
