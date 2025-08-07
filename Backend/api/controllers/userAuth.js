@@ -1,13 +1,12 @@
-const admin = require("../models/admin");
+const User = require("../models/users");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 //login Auth
 const login = (req, res) => {
-  const username = req.body.username;
+  const email = req.body.email;
   const password = req.body.password;
-  admin
-    .findOne({ username: username })
+  User.findOne({ email: email })
     .exec()
     .then((response) => {
       if (response) {
@@ -15,11 +14,11 @@ const login = (req, res) => {
         bcrypt.compare(password, response.password, (error, result) => {
           if (error) {
             return res.status(500).json({
-              error: error,
+              error,
             });
           }
           if (result) {
-            const token = jwt.sign({ username, id }, process.env.JWT_KEY, {
+            const token = jwt.sign({ email, id }, process.env.JWT_KEY, {
               expiresIn: "10h",
             });
             res.status(200).json({
@@ -38,7 +37,7 @@ const login = (req, res) => {
     })
     .catch((error) => {
       res.status(500).json({
-        error: error,
+        error,
       });
     });
 };
