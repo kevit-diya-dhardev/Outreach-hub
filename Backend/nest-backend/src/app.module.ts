@@ -3,6 +3,9 @@ import { WorkspaceModule } from './workspace/workspace.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './users/users.module';
 import { ContactsModule } from './contacts/contacts.module';
+import { AuthModule } from './Auth/auth.module';
+import { AuthGuard } from './Auth/auth.guard';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -12,6 +15,7 @@ import { ContactsModule } from './contacts/contacts.module';
     WorkspaceModule,
     UsersModule,
     ContactsModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],

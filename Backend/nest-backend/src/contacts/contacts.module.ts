@@ -24,12 +24,11 @@ import { IsContactEditorType } from 'src/Middlewares/contacts.middleware';
   providers: [ContactsService],
   controllers: [ContactsController],
 })
-// export class ContactsModule implements NestModule {
-//   configure(consumer: MiddlewareConsumer) {
-//     consumer
-//       .apply(IsContactEditorType)
-//       .exclude({ path: 'contacts', method: RequestMethod.GET })
-//       .forRoutes(ContactsController);
-//   }
-// }
-export class ContactsModule {}
+export class ContactsModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(IsContactEditorType)
+      .exclude({ path: 'contacts', method: RequestMethod.GET })
+      .forRoutes(ContactsController);
+  }
+}

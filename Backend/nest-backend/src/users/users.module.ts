@@ -19,9 +19,9 @@ import { IsAdminType } from 'src/Middlewares/admin.middleware';
   controllers: [UserController],
   providers: [UserService],
 })
-// export class UsersModule implements NestModule {
-//   configure(consumer: MiddlewareConsumer) {
-//     consumer.apply(IsAdminType).forRoutes('users');
-//   }
-// }
-export class UsersModule {}
+export class UsersModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(IsAdminType).forRoutes('users');
+  }
+}
+

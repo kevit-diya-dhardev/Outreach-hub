@@ -18,9 +18,8 @@ import { IsAdminType } from 'src/Middlewares/admin.middleware';
   providers: [WorkspaceService],
   controllers: [WorkspaceController],
 })
-// export class WorkspaceModule implements NestModule {
-//   configure(consumer: MiddlewareConsumer) {
-//     consumer.apply(IsAdminType).forRoutes('workspace');
-//   }
-// }
-export class WorkspaceModule {}
+export class WorkspaceModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(IsAdminType).forRoutes('workspace');
+  }
+}
