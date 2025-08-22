@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const workspace_dto_1 = require("./dto/workspace.dto");
 const workspace_service_1 = require("./workspace.service");
 const updateWorkspace_schema_dto_1 = require("./dto/updateWorkspace.schema.dto");
+const auth_guard_1 = require("../Auth/auth.guard");
 let WorkspaceController = class WorkspaceController {
     workspaceService;
     constructor(workspaceService) {
@@ -65,6 +66,7 @@ __decorate([
 ], WorkspaceController.prototype, "getWorkspaces", null);
 __decorate([
     (0, common_1.Post)(),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     (0, common_1.UsePipes)(new common_1.ValidationPipe()),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -73,6 +75,7 @@ __decorate([
 ], WorkspaceController.prototype, "createWorkspace", null);
 __decorate([
     (0, common_1.Get)(':id'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     (0, common_1.UsePipes)(new common_1.ValidationPipe()),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
@@ -81,6 +84,7 @@ __decorate([
 ], WorkspaceController.prototype, "getSingleWokspace", null);
 __decorate([
     (0, common_1.Patch)(':id'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     (0, common_1.UsePipes)(new common_1.ValidationPipe()),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
@@ -91,6 +95,7 @@ __decorate([
 ], WorkspaceController.prototype, "updateWorkspace", null);
 __decorate([
     (0, common_1.Delete)(':id'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     (0, common_1.UsePipes)(new common_1.ValidationPipe()),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),

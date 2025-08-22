@@ -8,6 +8,8 @@ import {
 import { AuthDto } from 'src/Auth/dto/auth.dto';
 import { AuthService } from './auth.service';
 
+//Below controller for login route
+
 @Controller('login')
 export class AuthController {
   constructor(private authService: AuthService) {}

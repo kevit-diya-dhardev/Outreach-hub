@@ -10,12 +10,14 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import { workspaceSchemaDto } from './dto/workspace.dto';
 import { WorkspaceService } from './workspace.service';
 import { updateWorkspaceDto } from './dto/updateWorkspace.schema.dto';
+import { AuthGuard } from 'src/Auth/auth.guard';
 
 @Controller('workspace')
 export class WorkspaceController {
@@ -31,6 +33,7 @@ export class WorkspaceController {
   }
 
   @Post()
+  @UseGuards(AuthGuard)
   @UsePipes(new ValidationPipe())
   async createWorkspace(@Body() workspaceData: workspaceSchemaDto) {
     const workspace =
@@ -42,6 +45,7 @@ export class WorkspaceController {
   }
 
   @Get(':id')
+  @UseGuards(AuthGuard)
   @UsePipes(new ValidationPipe())
   async getSingleWokspace(@Param('id') id: String) {
     const workspace = await this.workspaceService.getSingleWorkspace(id);
@@ -55,6 +59,7 @@ export class WorkspaceController {
   }
 
   @Patch(':id')
+  @UseGuards(AuthGuard)
   @UsePipes(new ValidationPipe())
   async updateWorkspace(
     @Param('id') id: String,
@@ -71,6 +76,7 @@ export class WorkspaceController {
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard)
   @UsePipes(new ValidationPipe())
   async deleteWorkspace(@Param('id') id: String) {
     const deletedWorkspace = await this.workspaceService.deleteWorkspace(id);
