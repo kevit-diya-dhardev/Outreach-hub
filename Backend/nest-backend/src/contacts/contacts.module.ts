@@ -12,6 +12,7 @@ import { ContactsService } from './contacts.service';
 import { User, UserSchema } from 'src/users/users.schema';
 import { Workspace, WorkspaceSchema } from 'src/workspace/workspace.schema';
 import { IsContactEditorType } from 'src/Middlewares/contacts.middleware';
+import { IsAdminType } from 'src/Middlewares/admin.middleware';
 
 @Module({
   imports: [
@@ -30,5 +31,7 @@ export class ContactsModule implements NestModule {
       .apply(IsContactEditorType)
       .exclude({ path: 'contacts', method: RequestMethod.GET })
       .forRoutes(ContactsController);
+
+    consumer.apply(IsAdminType).forRoutes(ContactsController);
   }
 }

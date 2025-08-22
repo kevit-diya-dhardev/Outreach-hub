@@ -14,10 +14,12 @@ export class AuthService {
 
   async generateToken(authData: AuthDto) {
     let email = authData.email,
-      password = authData.password;
+      password = authData.password,
+      isValid;
     const findUser = await this.userModel.findOne({ email: email });
-    if (!findUser) throw new UnauthorizedException('User not found!');
-    const isValid = await bcrypt.compare(password, findUser.password);
+    if (!findUser) throw new UnauthorizedException('User not found!!');
+    // const isValid = await bcrypt.compare(password, findUser.password);
+    if (password == findUser.password) isValid = true;
     if (!isValid) throw new UnauthorizedException('User not found!');
     let isAdmin = findUser.isAdmin,
       id = findUser._id,
