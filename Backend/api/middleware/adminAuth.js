@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const Admin = require("../models/admin");
 
 const verifyToken = (req, res, next) => {
+  console.log("Admin middleware");
   const header = req.headers.authorization;
   const token = header.split(" ")[1];
 
@@ -17,7 +18,7 @@ const verifyToken = (req, res, next) => {
           res.status(200);
           next();
         } else {
-          return res.status(404).json({ message: "Not found" });
+          return res.status(404).json({ message: "Admin not found!!" });
         }
       })
       .catch((error) => {
