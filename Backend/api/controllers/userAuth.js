@@ -11,6 +11,7 @@ const login = (req, res) => {
     .then((response) => {
       if (response) {
         const id = response._id;
+        const workspace_id = response.workspace_id;
         bcrypt.compare(password, response.password, (error, result) => {
           if (error) {
             return res.status(500).json({
@@ -18,9 +19,13 @@ const login = (req, res) => {
             });
           }
           if (result) {
-            const token = jwt.sign({ email, id }, process.env.JWT_KEY, {
-              expiresIn: "10h",
-            });
+            const token = jwt.sign(
+              { email, id, workspace_id },
+              process.env.JWT_KEY,
+              {
+                expiresIn: "10h",
+              }
+            );
             res.status(200).json({
               message: "Auth successfull",
               token: token,

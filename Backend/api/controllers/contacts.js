@@ -1,9 +1,6 @@
-const jwt = require("jsonwebtoken");
-const { default: mongoose } = require("mongoose");
-const User = require("../models/users");
+require("mongoose");
 const { Workspace } = require("../models/workspaces");
-const bcrypt = require("bcrypt");
-const contact = require("../models/contacts");
+const Contact = require("../models/contacts");
 // create contact
 
 const createContact = (req, res) => {
@@ -11,8 +8,7 @@ const createContact = (req, res) => {
     .exec()
     .then((response) => {
       if (response) {
-        contact
-          .findOne({ phoneNumber: req.body.phoneNumber })
+        Contact.findOne({ phoneNumber: req.body.phoneNumber })
           .exec()
           .then((response) => {
             if (response) {
@@ -20,7 +16,7 @@ const createContact = (req, res) => {
                 .status(409)
                 .json({ message: "Contact with this number already exists" });
             } else {
-              const newContact = new contact({
+              const newContact = new Contact({
                 workspace_id: req.body.workspace_id,
                 contact_name: req.body.contact_name,
                 phoneNumber: req.body.phoneNumber,
@@ -59,8 +55,7 @@ const createContact = (req, res) => {
 
 //get contact
 const getContacts = (req, res) => {
-  contact
-    .find({})
+  Contact.find({})
     .exec()
     .then((response) => {
       if (response.length >= 1) {
@@ -79,8 +74,7 @@ const getContacts = (req, res) => {
 //get single contact
 const getSingleContact = (req, res) => {
   const id = req.params.contact_id;
-  contact
-    .findOne({ _id: id })
+  Contact.findOne({ _id: id })
     .exec()
     .then((response) => {
       if (response) {
@@ -99,18 +93,17 @@ const getSingleContact = (req, res) => {
 //update user
 const updateContact = (req, res) => {
   const id = req.params.contact_id;
-  contact
-    .findOneAndUpdate(
-      { _id: id },
-      {
-        $set: {
-          contact_name: req.body.contact_name,
-          phoneNumber: req.body.phoneNumber,
-          tags: req.body.tags,
-        },
+  Contact.findOneAndUpdate(
+    { _id: id },
+    {
+      $set: {
+        contact_name: req.body.contact_name,
+        phoneNumber: req.body.phoneNumber,
+        tags: req.body.tags,
       },
-      { returnDocument: "after" }
-    )
+    },
+    { returnDocument: "after" }
+  )
     .exec()
     .then((response) => {
       if (response) {
@@ -129,13 +122,11 @@ const updateContact = (req, res) => {
 // delete user
 const deleteContact = (req, res) => {
   const id = req.params.contact_id;
-  contact
-    .findOne({ _id: id })
+  Contact.findOne({ _id: id })
     .exec()
     .then((response) => {
       if (response) {
-        contact
-          .deleteOne({ _id: id })
+        Contact.deleteOne({ _id: id })
           .exec()
           .then((response) => {
             res
