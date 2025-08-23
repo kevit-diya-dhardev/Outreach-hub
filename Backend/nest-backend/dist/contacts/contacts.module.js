@@ -15,14 +15,12 @@ const contacts_service_1 = require("./contacts.service");
 const users_schema_1 = require("../users/users.schema");
 const workspace_schema_1 = require("../workspace/workspace.schema");
 const contacts_middleware_1 = require("../Middlewares/contacts.middleware");
-const admin_middleware_1 = require("../Middlewares/admin.middleware");
 let ContactsModule = class ContactsModule {
     configure(consumer) {
         consumer
             .apply(contacts_middleware_1.IsContactEditorType)
             .exclude({ path: 'contacts', method: common_1.RequestMethod.GET })
             .forRoutes(contacts_controller_1.ContactsController);
-        consumer.apply(admin_middleware_1.IsAdminType).forRoutes(contacts_controller_1.ContactsController);
     }
 };
 exports.ContactsModule = ContactsModule;
