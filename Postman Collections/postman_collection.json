@@ -71,6 +71,34 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTcxNzBiNjA1NTNmNTU1NGVjNzgwNyIsInJvbGUiOiJFZGl0b3IiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3NTYzNzU3OTcsImV4cCI6MTc1NjQxMTc5N30.U6pZwquAEqN4fUK-SqJ3mVUZO-uNk90PM7Eb_HoZmzs",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Dhanashree\",\n    \"email\":\"dhanashree123@gmail.com\",\n    \"password\":\"dhanashree123\",\n    \"workspace_id\":\"W102\",\n    \"role\":\"Viewer\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/users/"
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "f8216df7-c646-4d56-95d0-d591ca5f6715",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
 						"method": "GET",
 						"header": []
 					},
