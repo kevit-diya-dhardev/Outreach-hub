@@ -1,0 +1,91 @@
+{
+	"info": {
+		"_postman_id": "5d65c6f2-b26b-4b27-a49d-00986c548516",
+		"name": "Outreach-hub",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Workspace",
+			"item": [
+				{
+					"name": "New Request",
+					"id": "109b7c1a-f0ee-4c5a-bdc4-8f30b5c2cec2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"workspace_name\":\"Botpro Solutions\",\n    \"description\":\"A chatbot company\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/workspace/W101"
+					},
+					"response": []
+				}
+			],
+			"id": "34bc5ff2-9e10-4f84-bf46-d04f88583e72"
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "New Request",
+					"id": "9e658956-fab6-486b-a174-ad1faada8592",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			],
+			"id": "dc3fc02e-a899-4c9d-a881-3f711c67e2c2"
+		},
+		{
+			"name": "Contacts",
+			"item": [
+				{
+					"name": "New Request",
+					"id": "301ea34f-5442-4bdd-8d1d-4b0e7e95e303",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			],
+			"id": "bf45251a-7959-49ab-9a62-b216b9186d60"
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "New Request",
+					"id": "5e5b7292-402d-40bb-9eb2-6093b731e081",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			],
+			"id": "7735e5aa-75c0-4c5e-bc0e-56b91fcbddd5"
+		}
+	]
+}
