@@ -44,6 +44,34 @@
 					},
 					"request": {
 						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTcxNzBiNjA1NTNmNTU1NGVjNzgwNyIsInJvbGUiOiJFZGl0b3IiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3NTYzNzU3OTcsImV4cCI6MTc1NjQxMTc5N30.U6pZwquAEqN4fUK-SqJ3mVUZO-uNk90PM7Eb_HoZmzs",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"diya123@gmail.com\",\n    \"password\":\"diya123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/users/"
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "169b0412-dec7-43d6-8cd9-fbfecae70f9b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
 						"header": []
 					},
 					"response": []
@@ -79,8 +107,25 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRpeWFAZ21haWwuY29tIiwiaWQiOiI2ODk0N2JmYWNkYTQ5ZDU3ZTkzOWQ5N2EiLCJ3b3Jrc3BhY2VfaWQiOiJXMTAxIiwiaWF0IjoxNzU1ODU1OTc4LCJleHAiOjE3NTU4OTE5Nzh9.NiP0ATM6W6tEMYMZwYUclMWKC4wyYhYCg1HPGQC3fzU",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"diya123@gmail.com\",\n    \"password\": \"diya123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/login"
 					},
 					"response": []
 				}
