@@ -8,6 +8,8 @@ import { jwtConstants } from './constants';
 import { AuthController } from './auth.controller';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth.guard';
+import { RolesGuard } from './roles.guard';
+import { UsersModule } from 'src/users/users.module';
 
 //For auth configuration
 
@@ -19,8 +21,9 @@ import { AuthGuard } from './auth.guard';
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '10h' },
     }),
+    UsersModule,
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard, RolesGuard],
   controllers: [AuthController],
   exports: [AuthService],
 })

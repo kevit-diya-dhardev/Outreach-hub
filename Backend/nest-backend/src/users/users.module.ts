@@ -4,7 +4,7 @@ import { User, UserSchema } from './users.schema';
 import { UserController } from './users.controller';
 import { UserService } from './users.service';
 import { Workspace, WorkspaceSchema } from 'src/workspace/workspace.schema';
-import { IsAdminType } from 'src/Middlewares/admin.middleware';
+import { RolesGuard } from 'src/Auth/roles.guard';
 
 @Module({
   imports: [
@@ -17,11 +17,7 @@ import { IsAdminType } from 'src/Middlewares/admin.middleware';
     ]),
   ],
   controllers: [UserController],
-  providers: [UserService],
+  providers: [UserService, RolesGuard],
+  exports: [UserService],
 })
-export class UsersModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(IsAdminType).forRoutes('users');
-  }
-}
-
+export class UsersModule {}

@@ -14,14 +14,9 @@ const contacts_controller_1 = require("./contacts.controller");
 const contacts_service_1 = require("./contacts.service");
 const users_schema_1 = require("../users/users.schema");
 const workspace_schema_1 = require("../workspace/workspace.schema");
-const contacts_middleware_1 = require("../Middlewares/contacts.middleware");
+const roles_guard_1 = require("../Auth/roles.guard");
+const users_module_1 = require("../users/users.module");
 let ContactsModule = class ContactsModule {
-    configure(consumer) {
-        consumer
-            .apply(contacts_middleware_1.IsContactEditorType)
-            .exclude({ path: 'contacts', method: common_1.RequestMethod.GET })
-            .forRoutes(contacts_controller_1.ContactsController);
-    }
 };
 exports.ContactsModule = ContactsModule;
 exports.ContactsModule = ContactsModule = __decorate([
@@ -32,8 +27,9 @@ exports.ContactsModule = ContactsModule = __decorate([
                 { name: users_schema_1.User.name, schema: users_schema_1.UserSchema },
                 { name: workspace_schema_1.Workspace.name, schema: workspace_schema_1.WorkspaceSchema },
             ]),
+            users_module_1.UsersModule,
         ],
-        providers: [contacts_service_1.ContactsService],
+        providers: [contacts_service_1.ContactsService, roles_guard_1.RolesGuard],
         controllers: [contacts_controller_1.ContactsController],
     })
 ], ContactsModule);

@@ -10,8 +10,9 @@ import { ContactsController } from './contacts.controller';
 import { ContactsService } from './contacts.service';
 import { User, UserSchema } from 'src/users/users.schema';
 import { Workspace, WorkspaceSchema } from 'src/workspace/workspace.schema';
-import { IsContactEditorType } from 'src/Middlewares/contacts.middleware';
-import { userMiddleware } from 'src/Middlewares/user.middleware';
+import { UserService } from 'src/users/users.service';
+import { RolesGuard } from 'src/Auth/roles.guard';
+import { UsersModule } from 'src/users/users.module';
 
 @Module({
   imports: [
@@ -20,17 +21,9 @@ import { userMiddleware } from 'src/Middlewares/user.middleware';
       { name: User.name, schema: UserSchema },
       { name: Workspace.name, schema: WorkspaceSchema },
     ]),
+    UsersModule,
   ],
-  providers: [ContactsService],
+  providers: [ContactsService, RolesGuard],
   controllers: [ContactsController],
 })
-export class ContactsModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(IsContactEditorType)
-      .exclude({ path: 'contacts', method: RequestMethod.GET })
-      .forRoutes(ContactsController);
-
-    consumer.apply(userMiddleware).forRoutes(ContactsController);
-  }
-}
+export class ContactsModule {}

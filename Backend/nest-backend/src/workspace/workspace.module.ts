@@ -4,7 +4,9 @@ import { WorkspaceService } from './workspace.service';
 import { Mongoose } from 'mongoose';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Workspace, WorkspaceSchema } from './workspace.schema';
-import { IsAdminType } from 'src/Middlewares/admin.middleware';
+import { UserService } from 'src/users/users.service';
+import { RolesGuard } from 'src/Auth/roles.guard';
+import { UsersModule } from 'src/users/users.module';
 
 @Module({
   imports: [
@@ -14,12 +16,9 @@ import { IsAdminType } from 'src/Middlewares/admin.middleware';
         schema: WorkspaceSchema,
       },
     ]),
+    UsersModule,
   ],
-  providers: [WorkspaceService],
+  providers: [WorkspaceService, RolesGuard],
   controllers: [WorkspaceController],
 })
-export class WorkspaceModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(IsAdminType).forRoutes('workspace');
-  }
-}
+export class WorkspaceModule {}

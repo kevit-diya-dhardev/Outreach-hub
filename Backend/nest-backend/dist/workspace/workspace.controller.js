@@ -18,6 +18,8 @@ const workspace_dto_1 = require("./dto/workspace.dto");
 const workspace_service_1 = require("./workspace.service");
 const updateWorkspace_schema_dto_1 = require("./dto/updateWorkspace.schema.dto");
 const auth_guard_1 = require("../Auth/auth.guard");
+const roles_guard_1 = require("../Auth/roles.guard");
+const roles_decorator_1 = require("../Auth/roles.decorator");
 let WorkspaceController = class WorkspaceController {
     workspaceService;
     constructor(workspaceService) {
@@ -103,6 +105,8 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], WorkspaceController.prototype, "deleteWorkspace", null);
 exports.WorkspaceController = WorkspaceController = __decorate([
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard, roles_guard_1.RolesGuard),
+    (0, roles_decorator_1.Roles)('admin'),
     (0, common_1.Controller)('workspace'),
     __metadata("design:paramtypes", [workspace_service_1.WorkspaceService])
 ], WorkspaceController);

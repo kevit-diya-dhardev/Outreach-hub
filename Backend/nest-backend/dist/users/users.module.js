@@ -13,11 +13,8 @@ const users_schema_1 = require("./users.schema");
 const users_controller_1 = require("./users.controller");
 const users_service_1 = require("./users.service");
 const workspace_schema_1 = require("../workspace/workspace.schema");
-const admin_middleware_1 = require("../Middlewares/admin.middleware");
+const roles_guard_1 = require("../Auth/roles.guard");
 let UsersModule = class UsersModule {
-    configure(consumer) {
-        consumer.apply(admin_middleware_1.IsAdminType).forRoutes('users');
-    }
 };
 exports.UsersModule = UsersModule;
 exports.UsersModule = UsersModule = __decorate([
@@ -32,7 +29,8 @@ exports.UsersModule = UsersModule = __decorate([
             ]),
         ],
         controllers: [users_controller_1.UserController],
-        providers: [users_service_1.UserService],
+        providers: [users_service_1.UserService, roles_guard_1.RolesGuard],
+        exports: [users_service_1.UserService],
     })
 ], UsersModule);
 //# sourceMappingURL=users.module.js.map

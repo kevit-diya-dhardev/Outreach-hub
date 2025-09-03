@@ -17,6 +17,8 @@ const common_1 = require("@nestjs/common");
 const contacts_service_1 = require("./contacts.service");
 const contacts_dto_1 = require("./dto/contacts.dto");
 const auth_guard_1 = require("../Auth/auth.guard");
+const roles_guard_1 = require("../Auth/roles.guard");
+const roles_decorator_1 = require("../Auth/roles.decorator");
 let ContactsController = class ContactsController {
     contactService;
     constructor(contactService) {
@@ -41,7 +43,7 @@ let ContactsController = class ContactsController {
 exports.ContactsController = ContactsController;
 __decorate([
     (0, common_1.Post)(),
-    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, roles_decorator_1.Roles)('Editor'),
     (0, common_1.UsePipes)(new common_1.ValidationPipe()),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -50,7 +52,7 @@ __decorate([
 ], ContactsController.prototype, "createContact", null);
 __decorate([
     (0, common_1.Get)(':id'),
-    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, roles_decorator_1.Roles)('Viewer'),
     (0, common_1.UsePipes)(new common_1.ValidationPipe()),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
@@ -59,7 +61,7 @@ __decorate([
 ], ContactsController.prototype, "getSingleContact", null);
 __decorate([
     (0, common_1.Get)(),
-    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, roles_decorator_1.Roles)('Viewer'),
     (0, common_1.UsePipes)(new common_1.ValidationPipe()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
@@ -67,7 +69,7 @@ __decorate([
 ], ContactsController.prototype, "getContacts", null);
 __decorate([
     (0, common_1.Patch)(':id'),
-    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, roles_decorator_1.Roles)('Editor'),
     (0, common_1.UsePipes)(new common_1.ValidationPipe()),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
@@ -77,7 +79,7 @@ __decorate([
 ], ContactsController.prototype, "updateContact", null);
 __decorate([
     (0, common_1.Delete)(':id'),
-    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, roles_decorator_1.Roles)('Editor'),
     (0, common_1.UsePipes)(new common_1.ValidationPipe()),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
@@ -85,6 +87,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ContactsController.prototype, "deleteContact", null);
 exports.ContactsController = ContactsController = __decorate([
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard, roles_guard_1.RolesGuard),
     (0, common_1.Controller)('contacts'),
     __metadata("design:paramtypes", [contacts_service_1.ContactsService])
 ], ContactsController);

@@ -13,41 +13,43 @@ import {
 import { ContactsService } from './contacts.service';
 import { ContactsDto } from './dto/contacts.dto';
 import { AuthGuard } from 'src/Auth/auth.guard';
-
+import { RolesGuard } from 'src/Auth/roles.guard';
+import { Roles } from 'src/Auth/roles.decorator';
+@UseGuards(AuthGuard, RolesGuard)
 @Controller('contacts')
 export class ContactsController {
   constructor(private contactService: ContactsService) {}
 
   @Post()
-  @UseGuards(AuthGuard)
+  @Roles('Editor')
   @UsePipes(new ValidationPipe())
   createContact(@Body() contactData: ContactsDto) {
     return this.contactService.createContact(contactData);
   }
 
   @Get(':id')
-  @UseGuards(AuthGuard)
+  @Roles('Viewer')
   @UsePipes(new ValidationPipe())
   getSingleContact(@Param('id') id: String) {
     return this.contactService.getSingleContact(id);
   }
 
   @Get()
-  @UseGuards(AuthGuard)
+  @Roles('Viewer')
   @UsePipes(new ValidationPipe())
   getContacts() {
     return this.contactService.getContacts();
   }
 
   @Patch(':id')
-  @UseGuards(AuthGuard)
+  @Roles('Editor')
   @UsePipes(new ValidationPipe())
   updateContact(@Param('id') id: String, @Body() contactData: ContactsDto) {
     return this.contactService.updateContact(id, contactData);
   }
 
   @Delete(':id')
-  @UseGuards(AuthGuard)
+  @Roles('Editor')
   @UsePipes(new ValidationPipe())
   deleteContact(@Param('id') id: String) {
     return this.contactService.deleteContact(id);

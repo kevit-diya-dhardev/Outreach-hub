@@ -8,7 +8,6 @@ import { AuthDto } from './dto/auth.dto';
 
 //Service that generates token
 
-
 export class AuthService {
   constructor(
     @InjectModel(User.name) private userModel: Model<User>,
@@ -16,6 +15,7 @@ export class AuthService {
   ) {}
 
   async generateToken(authData: AuthDto) {
+    console.log('Inside auth service');
     let email = authData.email,
       password = authData.password;
 
@@ -23,7 +23,7 @@ export class AuthService {
     if (!findUser) throw new UnauthorizedException('User not found!!');
 
     const isValid = await bcrypt.compare(password, findUser.password);
-    if (!isValid) throw new UnauthorizedException('User not found!');
+    if (!isValid) throw new UnauthorizedException('User not found!!!!');
 
     let isAdmin = findUser.isAdmin,
       id = findUser._id,

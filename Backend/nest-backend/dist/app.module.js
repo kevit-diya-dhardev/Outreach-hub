@@ -13,6 +13,7 @@ const mongoose_1 = require("@nestjs/mongoose");
 const users_module_1 = require("./users/users.module");
 const contacts_module_1 = require("./contacts/contacts.module");
 const auth_module_1 = require("./Auth/auth.module");
+const messages_module_1 = require("./messages/messages.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -24,6 +25,7 @@ exports.AppModule = AppModule = __decorate([
             users_module_1.UsersModule,
             contacts_module_1.ContactsModule,
             auth_module_1.AuthModule,
+            messages_module_1.MessaegeModule,
         ],
         controllers: [],
         providers: [],

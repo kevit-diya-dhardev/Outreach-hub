@@ -9,20 +9,29 @@ import { jwtConstants } from './constants';
 
 //Guard to validate token
 
-
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(private jwtService: JwtService) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     console.log('Inside auth-guard!');
-    const request = await context.switchToHttp().getRequest();
-    const token = request.headers.authorization.split(' ')[1];
+    const req = context.switchToHttp().getRequest();
+    const authHeader = req.headers['authorization'];
+
+    if (!authHeader) {
+      throw new UnauthorizedException('Authorization header missing');
+    }
+
+    const [bearer, token] = authHeader.split(' ');
+
+    if (bearer !== 'Bearer' || !token) {
+      throw new UnauthorizedException('Invalid authorization header format');
+    }
     try {
       const payload = await this.jwtService.verifyAsync(token, {
         secret: jwtConstants.secret,
       });
-      request.userData = payload;
+      req.userData = payload;
     } catch (error) {
       console.log(error);
       throw new UnauthorizedException();

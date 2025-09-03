@@ -12,11 +12,9 @@ const workspace_controller_1 = require("./workspace.controller");
 const workspace_service_1 = require("./workspace.service");
 const mongoose_1 = require("@nestjs/mongoose");
 const workspace_schema_1 = require("./workspace.schema");
-const admin_middleware_1 = require("../Middlewares/admin.middleware");
+const roles_guard_1 = require("../Auth/roles.guard");
+const users_module_1 = require("../users/users.module");
 let WorkspaceModule = class WorkspaceModule {
-    configure(consumer) {
-        consumer.apply(admin_middleware_1.IsAdminType).forRoutes('workspace');
-    }
 };
 exports.WorkspaceModule = WorkspaceModule;
 exports.WorkspaceModule = WorkspaceModule = __decorate([
@@ -28,8 +26,9 @@ exports.WorkspaceModule = WorkspaceModule = __decorate([
                     schema: workspace_schema_1.WorkspaceSchema,
                 },
             ]),
+            users_module_1.UsersModule,
         ],
-        providers: [workspace_service_1.WorkspaceService],
+        providers: [workspace_service_1.WorkspaceService, roles_guard_1.RolesGuard],
         controllers: [workspace_controller_1.WorkspaceController],
     })
 ], WorkspaceModule);

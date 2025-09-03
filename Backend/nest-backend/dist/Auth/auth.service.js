@@ -60,13 +60,14 @@ let AuthService = class AuthService {
         this.jwtService = jwtService;
     }
     async generateToken(authData) {
+        console.log('Inside auth service');
         let email = authData.email, password = authData.password;
         const findUser = await this.userModel.findOne({ email: email });
         if (!findUser)
             throw new common_1.UnauthorizedException('User not found!!');
         const isValid = await bcrypt.compare(password, findUser.password);
         if (!isValid)
-            throw new common_1.UnauthorizedException('User not found!');
+            throw new common_1.UnauthorizedException('User not found!!!!');
         let isAdmin = findUser.isAdmin, id = findUser._id, role = findUser.role;
         const payload = { id, role, isAdmin };
         const token = await this.jwtService.signAsync(payload);
