@@ -18,7 +18,12 @@ import { workspaceSchemaDto } from './dto/workspace.dto';
 import { WorkspaceService } from './workspace.service';
 import { updateWorkspaceDto } from './dto/updateWorkspace.schema.dto';
 import { AuthGuard } from 'src/Auth/auth.guard';
+import { RolesGuard } from 'src/Auth/roles.guard';
+import { Roles } from 'src/Auth/roles.decorator';
 
+
+@UseGuards(AuthGuard, RolesGuard)
+@Roles('admin')
 @Controller('workspace')
 export class WorkspaceController {
   constructor(private workspaceService: WorkspaceService) {}

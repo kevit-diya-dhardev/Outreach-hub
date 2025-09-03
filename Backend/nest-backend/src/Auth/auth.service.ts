@@ -6,7 +6,8 @@ import { User } from 'src/users/users.schema';
 import * as bcrypt from 'bcrypt';
 import { AuthDto } from './dto/auth.dto';
 
-//Auth service for generating token
+//Service that generates token
+
 
 export class AuthService {
   constructor(

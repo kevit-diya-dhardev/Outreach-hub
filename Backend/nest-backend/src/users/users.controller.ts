@@ -12,8 +12,12 @@ import {
 } from '@nestjs/common';
 import { updateUserDto, userDto } from './dto/user.dto';
 import { UserService } from './users.service';
+import { Roles } from 'src/Auth/roles.decorator';
 import { AuthGuard } from 'src/Auth/auth.guard';
+import { RolesGuard } from 'src/Auth/roles.guard';
 
+@UseGuards(AuthGuard, RolesGuard)
+@Roles('admin')
 @Controller('users')
 export class UserController {
   constructor(private userService: UserService) {}

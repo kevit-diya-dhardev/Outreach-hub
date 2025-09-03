@@ -1,0 +1,102 @@
+// Variables
+$primary: #9f44d3;
+$secondary: #4f46e5;
+$text-dark: #333;
+$text-label: #444;
+$border: #ccc;
+
+// Full-page gradient background
+// body {
+//   margin: 0;
+//   height: 100vh;
+//   font-family: "Segoe UI", sans-serif;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   background: url("./login-image.jpg") no-repeat center center/cover;
+
+//   // fallback gradient (if image fails)
+//   background-color: $primary;
+//   background-image: linear-gradient(135deg, $primary, $secondary);
+// }
+:host {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background: url("./login-image.jpg") no-repeat center center/cover,
+    linear-gradient(135deg, $primary, $secondary);
+}
+
+// Centered login card
+.loginform {
+  background: white;
+  padding: 40px 50px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: $text-dark;
+  }
+
+  // Form groups
+
+  .username,
+  .password {
+    min-height: 110px;
+  }
+  .username,
+  .password,
+  .login {
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: $text-label;
+  }
+  .validateInputs {
+    color: red;
+    margin-top: 2px;
+  }
+
+  input {
+    &[type="text"],
+    &[type="password"] {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid $border;
+      font-size: 14px;
+      outline: none;
+      transition: border 0.3s ease;
+
+      &:focus {
+        border-color: $primary;
+      }
+    }
+
+    &[type="submit"] {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(to right, $primary, $secondary);
+      border: none;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+  }
+}

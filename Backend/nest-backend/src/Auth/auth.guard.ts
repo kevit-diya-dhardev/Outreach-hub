@@ -7,7 +7,8 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
 
-//This guard is used to verify the incoming token!
+//Guard to validate token
+
 
 @Injectable()
 export class AuthGuard implements CanActivate {
