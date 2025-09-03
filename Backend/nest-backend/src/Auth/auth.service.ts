@@ -6,6 +6,8 @@ import { User } from 'src/users/users.schema';
 import * as bcrypt from 'bcrypt';
 import { AuthDto } from './dto/auth.dto';
 
+//Service that generates token
+
 export class AuthService {
   constructor(
     @InjectModel(User.name) private userModel: Model<User>,
