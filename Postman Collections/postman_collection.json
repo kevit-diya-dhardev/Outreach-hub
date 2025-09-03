@@ -146,6 +146,25 @@
 					},
 					"request": {
 						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTQyNzZlNmQwMjFhYTkwNzZhYTUxZiIsInJvbGUiOiJWaWV3ZXIiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzU2OTA2MDg3LCJleHAiOjE3NTY5NDIwODd9.PtZWGk8xtCCY77enLDATqn7Xn3WpmblapGpZ10_QNdg",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:3000/contacts/68a41332711aefe74c328c85"
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "9287a3fd-95b4-485d-91fc-078159f22612",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
 						"header": []
 					},
 					"response": []
