@@ -6,6 +6,7 @@ import { ContactsModule } from './contacts/contacts.module';
 import { AuthModule } from './Auth/auth.module';
 import { AuthGuard } from './Auth/auth.guard';
 import { APP_GUARD } from '@nestjs/core';
+import { MessaegeModule } from './messages/messages.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { APP_GUARD } from '@nestjs/core';
     UsersModule,
     ContactsModule,
     AuthModule,
+    MessaegeModule,
   ],
   controllers: [],
   providers: [],

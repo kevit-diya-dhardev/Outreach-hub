@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 
 export class IsContactEditorType implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
+    console.log('Inside middleware!');
     if (!req.headers.authorization)
       throw new JsonWebTokenError('Token not found!');
     const token = req.headers.authorization.split(' ')[1];

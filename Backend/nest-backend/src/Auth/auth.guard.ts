@@ -9,11 +9,13 @@ import { jwtConstants } from './constants';
 
 //Guard to validate token
 
+
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(private jwtService: JwtService) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
+    console.log('Inside auth-guard!');
     const request = await context.switchToHttp().getRequest();
     const token = request.headers.authorization.split(' ')[1];
     try {

@@ -4,6 +4,8 @@ const adminAuth = require("./api/routes/adminAuth");
 const workspaces = require("./api/routes/workspaces");
 const users = require("./api/routes/users");
 const contacts = require("./api/routes/contacts");
+const message = require("./api/routes/messages");
+const campaigns = require("./api/routes/campaigns");
 const app = express();
 
 ///parsing body
@@ -24,6 +26,12 @@ app.use("/users", users);
 //contacts route
 app.use("/contacts", contacts);
 
+//messages route
+app.use("/messages", message);
+
+//campaigns route
+app.use("/campaigns", campaigns);
+
 //error handling
 app.use((req, res, next) => {
   const error = new Error("Not found!!");
@@ -33,7 +41,7 @@ app.use((req, res, next) => {
 
 app.use((err, req, res, next) => {
   res.status(err.status || 500).json({
-    
+    message: "Here",
     error: err.message,
   });
 });
