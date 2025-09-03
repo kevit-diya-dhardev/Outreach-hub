@@ -176,8 +176,70 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTQyNzZlNmQwMjFhYTkwNzZhYTUxZiIsInJvbGUiOiJWaWV3ZXIiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzU2OTA2MDg3LCJleHAiOjE3NTY5NDIwODd9.PtZWGk8xtCCY77enLDATqn7Xn3WpmblapGpZ10_QNdg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"contact_name\":\"Aarchisata\",\n    \"phoneNumber\":8975641232,\n    \"tags\":[\"VIP\",\"Friend\"],\n    \"workspace_id\":\"W101\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/contacts/"
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "4bd2c156-2110-4172-97a3-6adb4523b199",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTQyNzZlNmQwMjFhYTkwNzZhYTUxZiIsInJvbGUiOiJWaWV3ZXIiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzU2OTA2MDg3LCJleHAiOjE3NTY5NDIwODd9.PtZWGk8xtCCY77enLDATqn7Xn3WpmblapGpZ10_QNdg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"contact_name\":\"Aarchisata\",\n    \"phoneNumber\":8975641232,\n    \"tags\":[\"VIP\",\"Friend\"],\n    \"workspace_id\":\"W101\"\n}"
+						},
+						"url": "http://localhost:3000/contacts/68a41332711aefe74c328c85"
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "48ca5c5b-c680-4084-acf0-19f49d4847ad",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTQyNzZlNmQwMjFhYTkwNzZhYTUxZiIsInJvbGUiOiJWaWV3ZXIiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzU2OTA2MDg3LCJleHAiOjE3NTY5NDIwODd9.PtZWGk8xtCCY77enLDATqn7Xn3WpmblapGpZ10_QNdg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"contact_name\":\"Aarchisata\",\n    \"phoneNumber\":8975641232,\n    \"tags\":[\"VIP\",\"Friend\"],\n    \"workspace_id\":\"W101\"\n}"
+						},
+						"url": "http://localhost:3000/contacts/68a41332711aefe74c328c85"
 					},
 					"response": []
 				}
