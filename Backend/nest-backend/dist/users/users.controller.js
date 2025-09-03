@@ -16,6 +16,7 @@ exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
 const user_dto_1 = require("./dto/user.dto");
 const users_service_1 = require("./users.service");
+const auth_guard_1 = require("../Auth/auth.guard");
 let UserController = class UserController {
     userService;
     constructor(userService) {
@@ -40,6 +41,7 @@ let UserController = class UserController {
 exports.UserController = UserController;
 __decorate([
     (0, common_1.Post)(),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     (0, common_1.UsePipes)(new common_1.ValidationPipe()),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -48,6 +50,7 @@ __decorate([
 ], UserController.prototype, "createUser", null);
 __decorate([
     (0, common_1.Get)(),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     (0, common_1.UsePipes)(new common_1.ValidationPipe()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
@@ -55,6 +58,7 @@ __decorate([
 ], UserController.prototype, "getUsers", null);
 __decorate([
     (0, common_1.Get)(':id'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     (0, common_1.UsePipes)(new common_1.ValidationPipe()),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
@@ -63,6 +67,7 @@ __decorate([
 ], UserController.prototype, "getSingleUser", null);
 __decorate([
     (0, common_1.Patch)(':id'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     (0, common_1.UsePipes)(new common_1.ValidationPipe()),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
@@ -72,6 +77,7 @@ __decorate([
 ], UserController.prototype, "updateUser", null);
 __decorate([
     (0, common_1.Delete)(':id'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     (0, common_1.UsePipes)(new common_1.ValidationPipe()),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
