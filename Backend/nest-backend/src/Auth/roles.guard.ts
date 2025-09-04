@@ -12,19 +12,19 @@ export class RolesGuard implements CanActivate {
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    console.log('Inside Role guard');
+    
     const requiredRoles = this.reflector.getAllAndOverride<string[]>(
       ROLES_KEY,
       [context.getHandler(), context.getClass()],
     );
-    console.log('Succss');
+  
     const req = context.switchToHttp().getRequest();
     const userId = req.userData.id;
     const findUser = await this.userService.getSingleUser(userId);
     const isAdmin = findUser.isAdmin;
     console.log('isAdmin: ', isAdmin, 'requiredRoles: ', requiredRoles);
     if (requiredRoles[0] == 'admin' && isAdmin) {
-      console.log('Admin:true');
+      req.userData.isAdmin = true;
       return true;
     }
     const role = findUser.role;

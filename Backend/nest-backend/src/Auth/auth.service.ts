@@ -26,11 +26,10 @@ export class AuthService {
     if (!isValid) throw new UnauthorizedException('User not found!!!!');
 
     let isAdmin = findUser.isAdmin,
-      id = findUser._id,
-      role = findUser.role;
+      id = findUser._id;
 
-    const payload = { id, role, isAdmin };
+    const payload = { id };
     const token = await this.jwtService.signAsync(payload);
-    return token;
+    return { token: token, isAdmin: isAdmin };
   }
 }

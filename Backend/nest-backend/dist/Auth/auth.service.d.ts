@@ -6,5 +6,8 @@ export declare class AuthService {
     private userModel;
     private jwtService;
     constructor(userModel: Model<User>, jwtService: JwtService);
-    generateToken(authData: AuthDto): Promise<string>;
+    generateToken(authData: AuthDto): Promise<{
+        token: string;
+        isAdmin: boolean | undefined;
+    }>;
 }

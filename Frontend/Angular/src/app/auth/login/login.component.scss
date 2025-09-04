@@ -5,20 +5,6 @@ $text-dark: #333;
 $text-label: #444;
 $border: #ccc;
 
-// Full-page gradient background
-// body {
-//   margin: 0;
-//   height: 100vh;
-//   font-family: "Segoe UI", sans-serif;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   background: url("./login-image.jpg") no-repeat center center/cover;
-
-//   // fallback gradient (if image fails)
-//   background-color: $primary;
-//   background-image: linear-gradient(135deg, $primary, $secondary);
-// }
 :host {
   display: flex;
   height: 100vh;
@@ -44,12 +30,16 @@ $border: #ccc;
   }
 
   // Form groups
+  button[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 
-  .username,
+  .email,
   .password {
     min-height: 110px;
   }
-  .username,
+  .email,
   .password,
   .login {
     margin-bottom: 20px;
@@ -63,9 +53,13 @@ $border: #ccc;
   }
   .validateInputs {
     color: red;
-    margin-top: 2px;
+    margin-top: 6px;
   }
-
+  .invalidMessage {
+    color: red;
+    position: relative;
+    left: 50px;
+  }
   input {
     &[type="text"],
     &[type="password"] {

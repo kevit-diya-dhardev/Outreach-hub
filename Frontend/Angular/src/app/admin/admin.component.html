@@ -1,0 +1,35 @@
+<div class="layout-container">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h3>Admin Panel</h3>
+    </div>
+    <nav class="sidebar-nav">
+      <a routerLink="/dashboard/workspaces" routerLinkActive="active">
+        <i class="icon-workspaces"></i> <span>Workspaces</span>
+      </a>
+      <a routerLink="/dashboard/users" routerLinkActive="active">
+        <i class="icon-users"></i>
+        <span>Users</span>
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="btn-logout">Logout</button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="main-header">
+      <div class="header-title">
+        <h1>Workspaces</h1>
+      </div>
+      <div class="user-profile">
+        <span>Admin User</span>
+        <img src="path/to/avatar.png" alt="User Avatar" />
+      </div>
+    </header>
+
+    <div class="content-area">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

@@ -3,11 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { LoginModule } from './login/login.module';
+import { LoginComponent } from './auth/login/login.component';
+import { LoginModule } from './auth/login/login.module';
 import { RouterModule, RouterOutlet } from '@angular/router';
 
 import { PageNotFoundModule } from './pagenotfound/pagenotfound.module';
+import { AdminComponent } from './admin/admin.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AdminInterceptor } from './admin/admin-interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,7 +22,9 @@ import { PageNotFoundModule } from './pagenotfound/pagenotfound.module';
     RouterModule,
     PageNotFoundModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AdminInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

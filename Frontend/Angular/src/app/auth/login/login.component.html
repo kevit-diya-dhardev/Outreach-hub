@@ -1,23 +1,19 @@
 <div class="loginform">
-  <form [formGroup]="loginForm" (ngSubmit)="validateForm()">
+  <form [formGroup]="loginForm" (ngSubmit)="sendFormData()">
     <h1>Login</h1>
-    <div class="username">
-      <label for="inputUsername">Enter username</label>
-      <input
-        type="text"
-        name="username"
-        id="inputUsername"
-        formControlName="username"
-      />
+    <div class="email">
+      <label for="inputemail">Enter email</label>
+      <input type="text" name="email" id="inputemail" formControlName="email" />
       <div
-        *ngIf="username?.invalid && (username?.touched || username?.dirty)"
+        *ngIf="email?.invalid && (email?.touched || email?.dirty || submitted)"
         class="validateInputs"
       >
-        username is required
+        <div *ngIf="email?.errors?.['required']">email is required</div>
+        <div *ngIf="email?.errors?.['email']">Enter valid email</div>
       </div>
     </div>
 
-    <!-- Validation of username -->
+    <!-- Validation of password -->
 
     <div class="password">
       <label for="inputPassword">Enter password</label>
@@ -28,7 +24,10 @@
         formControlName="password"
       />
       <div
-        *ngIf="password?.invalid && (password?.touched || password?.dirty)"
+        *ngIf="
+          password?.invalid &&
+          (password?.touched || password?.dirty || submitted)
+        "
         class="validateInputs"
       >
         <div *ngIf="password?.errors?.['required']">password is required</div>
@@ -39,6 +38,9 @@
     </div>
     <div class="login">
       <input type="submit" value="login" name="login" id="inputLogin" />
+    </div>
+    <div *ngIf="!valid && submitted" class="invalidMessage">
+      Invalid credentials!
     </div>
   </form>
 </div>
