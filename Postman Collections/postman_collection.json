@@ -29,6 +29,23 @@
 						"url": "http://localhost:3000/workspace/W101"
 					},
 					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "1b2b37e8-8e2a-47e9-b360-b49c80f7c1e2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"workspace_name\":\"Botpro Solutions\",\n    \"description\":\"A chatbot company\"\n}"
+						},
+						"url": "http://localhost:3000/workspace/"
+					},
+					"response": []
 				}
 			],
 			"id": "34bc5ff2-9e10-4f84-bf46-d04f88583e72"
