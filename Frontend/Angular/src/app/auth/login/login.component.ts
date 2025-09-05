@@ -3,7 +3,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService, User } from './login.service';
 import { HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -44,8 +43,9 @@ export class LoginComponent {
       password: this.userData.password!,
     };
     this.loginService.sendLoginData(user).subscribe({
-      next: (response: any) => {
+      next: async (response: any) => {
         localStorage.setItem('token', response.token);
+
         this.router.navigate(['/admin']);
       },
       error: (error) => {

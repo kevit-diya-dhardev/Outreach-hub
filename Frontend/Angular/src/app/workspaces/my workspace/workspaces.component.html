@@ -1,0 +1,41 @@
+<div class="workspaces-page">
+  <header class="page-header">
+    <h1>Manage Workspaces</h1>
+    <button class="add-new-btn">
+      <span class="icon">+</span> Add New Workspace
+    </button>
+  </header>
+
+  <div class="workspaces-grid">
+    <div class="workspace-card" *ngFor="let ws of workspaces">
+      <div class="card-header">
+        <h3 class="workspace-name">{{ ws.workspace_name }}</h3>
+        <span
+          class="status-badge"
+          [ngClass]="{
+            'status-active': ws.status === 'Active',
+            'status-inactive': ws.status === 'Inactive',
+            'status-trial': ws.status === 'Trial'
+          }"
+        >
+        </span>
+      </div>
+
+      <div class="card-body">
+        <p>{{ ws.description }}</p>
+      </div>
+
+      <div class="card-footer">
+        <button class="btn btn-secondary" (click)="viewUsers(ws.id)">
+          View Workspaces
+        </button>
+        <button class="btn btn-primary" (click)="editWorkspace(ws.id)">
+          Edit
+        </button>
+        <button class="btn btn-danger" (click)="deleteWorkspace(ws.id)">
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

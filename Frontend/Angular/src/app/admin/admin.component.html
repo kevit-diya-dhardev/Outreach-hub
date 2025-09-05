@@ -1,35 +1,81 @@
-<div class="layout-container">
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <h3>Admin Panel</h3>
+<!-- navbar header area -->
+<header class="navbar">
+  <div class="navbar-container">
+    <div class="navbar-left">
+      <i class="fa-solid fa-bars" (click)="toggleSidebar()"></i>
+
+      <div class="navbar-brand">
+        <h3>Outreach Hub</h3>
+        <span>Admin Portal</span>
+      </div>
+      <nav class="navbar-links">
+        <a
+          routerLink="/admin/dashboard"
+          routerLinkActive="active"
+          class="nav-link"
+          >Home</a
+        >
+        <a
+          routerLink="/admin/analytics"
+          routerLinkActive="active"
+          class="nav-link"
+          >Analytics</a
+        >
+        <a
+          routerLink="/admin/billing"
+          routerLinkActive="active"
+          class="nav-link"
+          >Billing</a
+        >
+        <a
+          routerLink="/admin/subscriptions"
+          routerLinkActive="active"
+          class="nav-link"
+          >Subscriptions</a
+        >
+      </nav>
     </div>
-    <nav class="sidebar-nav">
-      <a routerLink="/dashboard/workspaces" routerLinkActive="active">
-        <i class="icon-workspaces"></i> <span>Workspaces</span>
+
+    <div class="navbar-right">
+      <button class="logout-button">
+        <span class="icon">&#128682;</span>
+        <span>Logout</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- dashboard main content -->
+
+<div
+  class="admin-dashboard-layout"
+  [class.sidebar-collapsed]="isSidebarCollapsed"
+>
+  <aside class="sidebar">
+    <nav class="nav-menu">
+      <a
+        class="nav-link"
+        routerLink="/admin/workspaces"
+        routerLinkActive="sidebar-fields"
+      >
+        <span class="icon" *ngIf="isSidebarCollapsed">W</span>
+        Workspaces
       </a>
-      <a routerLink="/dashboard/users" routerLinkActive="active">
-        <i class="icon-users"></i>
-        <span>Users</span>
+      <a
+        href="#"
+        class="nav-link"
+        routerLink="/admin/users"
+        routerLinkActive="sidebar-fields"
+      >
+        <span class="icon" *ngIf="isSidebarCollapsed">U</span> Users
       </a>
     </nav>
     <div class="sidebar-footer">
-      <button class="btn-logout">Logout</button>
+      <button class="settings-button">
+        <span class="icon"><i class="fa-solid fa-gear"></i></span>
+        Settings
+      </button>
     </div>
   </aside>
-
-  <main class="main-content">
-    <header class="main-header">
-      <div class="header-title">
-        <h1>Workspaces</h1>
-      </div>
-      <div class="user-profile">
-        <span>Admin User</span>
-        <img src="path/to/avatar.png" alt="User Avatar" />
-      </div>
-    </header>
-
-    <div class="content-area">
-      <router-outlet></router-outlet>
-    </div>
-  </main>
+  <div class="content-page"><router-outlet></router-outlet></div>
 </div>

@@ -11,6 +11,9 @@ import { PageNotFoundModule } from './pagenotfound/pagenotfound.module';
 import { AdminComponent } from './admin/admin.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AdminInterceptor } from './admin/admin-interceptor';
+import { WorkspacesComponent } from './workspaces/my workspace/workspaces.component';
+import { UsersComponent } from './users/users.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [AppComponent],

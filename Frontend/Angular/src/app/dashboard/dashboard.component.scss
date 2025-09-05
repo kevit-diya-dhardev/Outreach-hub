@@ -1,0 +1,69 @@
+.main-content {
+  flex-grow: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+.main-content .dashboard-header {
+  margin-bottom: 2rem;
+}
+.main-content .dashboard-header h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0;
+}
+.main-content .dashboard-header p {
+  font-size: 1.1rem;
+  color: #555;
+}
+.main-content .stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+.main-content .stat-card {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #e0e6ed;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+.main-content .stat-card .stat-title {
+  font-size: 1rem;
+  color: #666;
+  margin: 0 0 0.5rem 0;
+  font-weight: 500;
+}
+.main-content .stat-card .stat-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #7f56d9;
+  margin: 0 0 0.5rem 0;
+}
+.main-content .stat-card .stat-description {
+  font-size: 0.9rem;
+  color: #888;
+}
+.main-content .recent-activity {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #e0e6ed;
+}
+.main-content .recent-activity h2 {
+  margin-top: 0;
+}
+.main-content .recent-activity .activity-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+.main-content .recent-activity .activity-list li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e0e6ed;
+}
+.main-content .recent-activity .activity-list li:last-child {
+  border-bottom: none;
+}
+.stat-card {
+  cursor: pointer;
+}

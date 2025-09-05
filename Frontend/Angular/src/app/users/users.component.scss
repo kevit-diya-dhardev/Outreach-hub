@@ -1,0 +1,187 @@
+// --- Purple Theme Color Variables ---
+$primary-color: #7f56d9;
+$background-color: #ebeaff;
+$border-color: #eaecf0;
+$text-color: #1d2939;
+$text-light: #667085;
+
+// --- Page Layout (reusable from workspaces) ---
+
+.users-page {
+  margin: 2em 2em;
+}
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  h1 {
+    margin: 0;
+    font-size: 1.8rem;
+  }
+}
+
+.add-new-btn {
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  .icon {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+  }
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+}
+
+// --- Responsive Card Grid ---
+.users-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 1.5rem;
+}
+
+// --- Individual User Card Styling ---
+.user-card {
+  background-color: $background-color;
+  border: 1px solid $border-color;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, box-shadow 0.2s;
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  }
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  padding: 1.25rem;
+  border-bottom: 1px solid $border-color;
+  gap: 1rem;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #f9f5ff;
+  color: $primary-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.user-info {
+  flex-grow: 1;
+  .user-name {
+    margin: 0;
+    font-size: 1.1rem;
+    color: $text-color;
+  }
+  .user-email {
+    margin: 0;
+    font-size: 0.9rem;
+    color: $text-light;
+  }
+}
+
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 16px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+
+  &.status-active {
+    background-color: #ecfdf3;
+    color: #027a48;
+  }
+  &.status-pending {
+    background-color: #fffaeb;
+    color: #b54708;
+  }
+  &.status-deactivated {
+    background-color: #f8f9fc;
+    color: #344054;
+  }
+}
+
+.card-body {
+  padding: 1.25rem;
+  display: flex;
+  justify-content: space-around;
+  background-color: #f8f9fc; // A slightly different background for the body
+}
+
+.detail-item {
+  text-align: center;
+  .detail-label {
+    display: block;
+    color: $text-light;
+    font-size: 0.8rem;
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+  }
+  .detail-value {
+    display: block;
+    color: $text-color;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+}
+
+.card-footer {
+  border-top: 1px solid $border-color;
+  padding: 1.25rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: auto; // Pushes footer to the bottom
+
+  .btn {
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+  .btn-primary {
+    background-color: $primary-color;
+    color: white;
+  }
+  .btn-secondary {
+    background-color: #f2f4f7;
+    color: #344054;
+  }
+  .btn-danger {
+    background-color: #fee4e2;
+    color: #d92d20;
+  }
+  .edit-button {
+    background-color: $primary-color;
+    color: white;
+  }
+  .delete-button {
+    background-color: #fee4e2;
+    color: #d92d20;
+  }
+}

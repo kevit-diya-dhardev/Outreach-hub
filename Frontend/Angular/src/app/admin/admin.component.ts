@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AdminService } from './admin.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -7,33 +8,9 @@ import { AdminService } from './admin.service';
   styleUrl: './admin.component.scss',
 })
 export class AdminComponent {
-  constructor(private adminService: AdminService) {}
-  selected: string = '';
-  workspaces: any[] = [];
-  users: any[] = [];
-
-  getWorkspaces() {
-    this.selected = 'workspaces';
-    this.adminService.getWorkspaces().subscribe({
-      next: (response: any) => {
-        this.workspaces = response;
-        console.log(response);
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
-  }
-
-  getUsers() {
-    this.selected = 'users';
-    this.adminService.getUsers().subscribe({
-      next: (response: any) => {
-        this.users = response;
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
+  constructor(private adminService: AdminService, private router: Router) {}
+  isSidebarCollapsed = false;
+  toggleSidebar(): void {
+    this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }
 }

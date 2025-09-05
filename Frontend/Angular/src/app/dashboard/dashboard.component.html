@@ -1,0 +1,33 @@
+<div class="admin-dashboard-layout">
+  <main class="main-content">
+    <header class="dashboard-header">
+      <h1>Welcome, Admin!</h1>
+      <p>
+        Here's a summary of your platform for managing workspaces and users.
+      </p>
+    </header>
+
+    <div class="stats-grid">
+      <div class="stat-card" (click)="navigateToWorkspaces()">
+        <h3 class="stat-title">Total Workspaces</h3>
+        <p class="stat-value">5</p>
+        <span class="stat-description">Managed business workspaces</span>
+      </div>
+
+      <div class="stat-card" (click)="navigateToUsers()">
+        <h3 class="stat-title">Total Workspace Users</h3>
+        <p class="stat-value">25</p>
+        <span class="stat-description">Across all workspaces</span>
+      </div>
+    </div>
+
+    <div class="recent-activity">
+      <h2>Recent Workspaces Created</h2>
+      <ul class="activity-list">
+        <li>Workspace "Innovate Inc." created.</li>
+        <li>Workspace "Quantum Solutions" created.</li>
+        <li>Workspace "NextGen Innovations" created.</li>
+      </ul>
+    </div>
+  </main>
+</div>

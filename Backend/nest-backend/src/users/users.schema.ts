@@ -9,7 +9,7 @@ export class User {
   @Prop({ required: true, unique: true })
   email: String;
 
-  @Prop({ required: true, select: false })
+  @Prop({ required: true })
   password: String;
 
   @Prop({ required: true, enum: ['Editor', 'Viewer'] })
