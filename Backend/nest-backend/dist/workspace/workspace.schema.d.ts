@@ -3,6 +3,7 @@ export declare class Workspace {
     workspace_name: String;
     description: String;
     createdAt: String;
+    createdBy: String;
 }
 export declare const WorkspaceSchema: import("mongoose").Schema<Workspace, import("mongoose").Model<Workspace, any, any, any, import("mongoose").Document<unknown, any, Workspace, any, {}> & Workspace & {
     _id: import("mongoose").Types.ObjectId;

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { WorkspacesServices } from '../workspaces.services';
+import { WorkspacesServices } from '../workspaces.service';
 import { Workspace } from '../models/workspace';
 
 @Component({
@@ -22,7 +22,7 @@ export class WorkspacesComponent {
   workspaces: any[] = [];
   ngOnInit() {
     this.selected = 'workspaces';
-    this.workspacesService.getWorkspaces().subscribe({
+    this.workspacesService.getMyWorkspaces().subscribe({
       next: (response: any) => {
         this.workspaces = response;
         console.log(response);

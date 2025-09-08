@@ -30,6 +30,6 @@ export class AuthService {
 
     const payload = { id };
     const token = await this.jwtService.signAsync(payload);
-    return { token: token, isAdmin: isAdmin };
+    return { token: token };
   }
 }

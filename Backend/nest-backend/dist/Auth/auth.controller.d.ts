@@ -5,6 +5,5 @@ export declare class AuthController {
     constructor(authService: AuthService);
     login(userData: AuthDto): Promise<{
         token: string;
-        isAdmin: boolean | undefined;
     }>;
 }

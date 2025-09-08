@@ -9,11 +9,16 @@ export declare class WorkspaceController {
     } & {
         __v: number;
     })[]>;
-    createWorkspace(workspaceData: workspaceSchemaDto): Promise<import("mongoose").Document<unknown, {}, import("./workspace.schema").Workspace, {}, {}> & import("./workspace.schema").Workspace & {
+    createWorkspace(workspaceData: workspaceSchemaDto, request: any): Promise<import("mongoose").Document<unknown, {}, import("./workspace.schema").Workspace, {}, {}> & import("./workspace.schema").Workspace & {
         _id: import("mongoose").Types.ObjectId;
     } & {
         __v: number;
     }>;
+    getMyWorkspaces(req: any): Promise<(import("mongoose").Document<unknown, {}, import("./workspace.schema").Workspace, {}, {}> & import("./workspace.schema").Workspace & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    })[]>;
     getSingleWokspace(id: String): Promise<import("mongoose").Document<unknown, {}, import("./workspace.schema").Workspace, {}, {}> & import("./workspace.schema").Workspace & {
         _id: import("mongoose").Types.ObjectId;
     } & {

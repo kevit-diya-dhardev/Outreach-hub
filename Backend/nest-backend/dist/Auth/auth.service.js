@@ -71,7 +71,7 @@ let AuthService = class AuthService {
         let isAdmin = findUser.isAdmin, id = findUser._id;
         const payload = { id };
         const token = await this.jwtService.signAsync(payload);
-        return { token: token, isAdmin: isAdmin };
+        return { token: token };
     }
 };
 exports.AuthService = AuthService;

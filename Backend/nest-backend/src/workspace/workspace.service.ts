@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Req } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Workspace } from './workspace.schema';
 import { Model } from 'mongoose';
 import { workspaceSchemaDto } from './dto/workspace.dto';
 import { updateWorkspaceDto } from './dto/updateWorkspace.schema.dto';
+import { Request } from 'express';
 
 @Injectable()
 export class WorkspaceService {
@@ -11,10 +12,10 @@ export class WorkspaceService {
     @InjectModel(Workspace.name) private workspaceModel: Model<Workspace>,
   ) {}
 
-  async createWorkspace({
-    workspace_id,
-    ...workspaceData
-  }: workspaceSchemaDto) {
+  async createWorkspace(
+    { workspace_id, ...workspaceData }: workspaceSchemaDto,
+    req: any,
+  ) {
     const exists = await this.workspaceModel.findOne({
       workspace_id: workspace_id,
     });
@@ -24,6 +25,7 @@ export class WorkspaceService {
     const newWorkspace = new this.workspaceModel({
       workspace_id,
       ...workspaceData,
+      createdBy: req.userData.id,
     });
     const savedWorkspace = await newWorkspace.save();
     return savedWorkspace;
@@ -60,5 +62,10 @@ export class WorkspaceService {
       workspace_id: id,
     });
     return deletedWorkspace;
+  }
+
+  async getMyWorkspaces(req: any) {
+    const workspaces = this.workspaceModel.find({ createdBy: req.userData.id });
+    return workspaces;
   }
 }

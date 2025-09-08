@@ -228,6 +228,64 @@ $border-color: #eaecf0;
   }
 }
 
+/* --- Add these styles for the dropdown sub-menu --- */
+
+// Container for a navigation item that might have a sub-menu
+.nav-item {
+  margin: 0.25rem 0;
+}
+
+// Style for the main toggle button
+.nav-toggle {
+  // Inherit styles from .nav-link for consistency
+  @extend .nav-link;
+  width: 100%;
+  justify-content: space-between; // Pushes arrow to the far right
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+// The dropdown arrow icon
+.arrow-icon {
+  font-size: 0.7rem;
+  transition: transform 0.2s ease-in-out;
+}
+
+// When the toggle is active (menu is open), rotate the arrow
+.nav-toggle.active .arrow-icon {
+  transform: rotate(90deg);
+}
+
+// Container for the sub-menu links
+.sub-menu {
+  padding-left: 1.5rem; // Indent the sub-menu
+  margin-top: 0.5rem;
+  border-left: 2px solid #eaecf0;
+  margin-left: 2.75rem;
+}
+
+// Styling for the individual sub-menu links
+.sub-nav-link {
+  display: block;
+  padding: 0.6rem 1rem;
+  color: $text-light;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.9rem;
+
+  &:hover {
+    color: $text-color;
+    background-color: #f8f9fc;
+  }
+
+  &.active {
+    color: $primary-color;
+    font-weight: 600;
+  }
+}
+
 // ===================================
 // Responsive Design
 // ===================================

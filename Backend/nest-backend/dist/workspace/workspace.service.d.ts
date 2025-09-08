@@ -5,7 +5,7 @@ import { updateWorkspaceDto } from './dto/updateWorkspace.schema.dto';
 export declare class WorkspaceService {
     private workspaceModel;
     constructor(workspaceModel: Model<Workspace>);
-    createWorkspace({ workspace_id, ...workspaceData }: workspaceSchemaDto): Promise<(import("mongoose").Document<unknown, {}, Workspace, {}, {}> & Workspace & {
+    createWorkspace({ workspace_id, ...workspaceData }: workspaceSchemaDto, req: any): Promise<(import("mongoose").Document<unknown, {}, Workspace, {}, {}> & Workspace & {
         _id: import("mongoose").Types.ObjectId;
     } & {
         __v: number;
@@ -26,4 +26,9 @@ export declare class WorkspaceService {
         __v: number;
     }) | null>;
     deleteWorkspace(id: String): Promise<import("mongodb").DeleteResult | null>;
+    getMyWorkspaces(req: any): Promise<(import("mongoose").Document<unknown, {}, Workspace, {}, {}> & Workspace & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    })[]>;
 }

@@ -10,6 +10,7 @@ import {
   Param,
   Patch,
   Post,
+  Req,
   UseGuards,
   UsePipes,
   ValidationPipe,
@@ -21,14 +22,12 @@ import { AuthGuard } from 'src/Auth/auth.guard';
 import { RolesGuard } from 'src/Auth/roles.guard';
 import { Roles } from 'src/Auth/roles.decorator';
 
-
 @UseGuards(AuthGuard, RolesGuard)
 @Roles('admin')
 @Controller('workspace')
 export class WorkspaceController {
   constructor(private workspaceService: WorkspaceService) {}
   @Get()
-  @UsePipes(new ValidationPipe())
   async getWorkspaces() {
     const workspaces = await this.workspaceService.getWorkspaces();
     if (!workspaces) {
@@ -40,18 +39,31 @@ export class WorkspaceController {
   @Post()
   @UseGuards(AuthGuard)
   @UsePipes(new ValidationPipe())
-  async createWorkspace(@Body() workspaceData: workspaceSchemaDto) {
-    const workspace =
-      await this.workspaceService.createWorkspace(workspaceData);
+  async createWorkspace(
+    @Body() workspaceData: workspaceSchemaDto,
+    @Req() request: any,
+  ) {
+    const workspace = await this.workspaceService.createWorkspace(
+      workspaceData,
+      request,
+    );
     if (!workspace) {
       throw new ConflictException('Workspace with this id already exists!');
     }
     return workspace;
   }
 
+  @Get('my-workspaces')
+  @UseGuards(AuthGuard)
+  async getMyWorkspaces(@Req() req: any) {
+    return this.workspaceService.getMyWorkspaces(req).catch((error) => {
+      console.log(error);
+      throw new HttpException('Server error in workspace fetching', 500);
+    });
+  }
+
   @Get(':id')
   @UseGuards(AuthGuard)
-  @UsePipes(new ValidationPipe())
   async getSingleWokspace(@Param('id') id: String) {
     const workspace = await this.workspaceService.getSingleWorkspace(id);
     if (!workspace)
@@ -82,7 +94,6 @@ export class WorkspaceController {
 
   @Delete(':id')
   @UseGuards(AuthGuard)
-  @UsePipes(new ValidationPipe())
   async deleteWorkspace(@Param('id') id: String) {
     const deletedWorkspace = await this.workspaceService.deleteWorkspace(id);
     if (!deletedWorkspace)

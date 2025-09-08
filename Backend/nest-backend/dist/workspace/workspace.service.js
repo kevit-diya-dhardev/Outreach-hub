@@ -23,7 +23,7 @@ let WorkspaceService = class WorkspaceService {
     constructor(workspaceModel) {
         this.workspaceModel = workspaceModel;
     }
-    async createWorkspace({ workspace_id, ...workspaceData }) {
+    async createWorkspace({ workspace_id, ...workspaceData }, req) {
         const exists = await this.workspaceModel.findOne({
             workspace_id: workspace_id,
         });
@@ -33,6 +33,7 @@ let WorkspaceService = class WorkspaceService {
         const newWorkspace = new this.workspaceModel({
             workspace_id,
             ...workspaceData,
+            createdBy: req.userData.id,
         });
         const savedWorkspace = await newWorkspace.save();
         return savedWorkspace;
@@ -65,6 +66,10 @@ let WorkspaceService = class WorkspaceService {
             workspace_id: id,
         });
         return deletedWorkspace;
+    }
+    async getMyWorkspaces(req) {
+        const workspaces = this.workspaceModel.find({ createdBy: req.userData.id });
+        return workspaces;
     }
 };
 exports.WorkspaceService = WorkspaceService;

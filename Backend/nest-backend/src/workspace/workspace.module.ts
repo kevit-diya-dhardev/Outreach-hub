@@ -7,6 +7,7 @@ import { Workspace, WorkspaceSchema } from './workspace.schema';
 import { UserService } from 'src/users/users.service';
 import { RolesGuard } from 'src/Auth/roles.guard';
 import { UsersModule } from 'src/users/users.module';
+import { AuthService } from 'src/Auth/auth.service';
 
 @Module({
   imports: [

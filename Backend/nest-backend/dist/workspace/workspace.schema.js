@@ -16,6 +16,7 @@ let Workspace = class Workspace {
     workspace_name;
     description;
     createdAt;
+    createdBy;
 };
 exports.Workspace = Workspace;
 __decorate([
@@ -34,6 +35,10 @@ __decorate([
     (0, mongoose_1.Prop)({ required: true, type: Date, default: Date.now() }),
     __metadata("design:type", String)
 ], Workspace.prototype, "createdAt", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ type: String, ref: 'User' }),
+    __metadata("design:type", String)
+], Workspace.prototype, "createdBy", void 0);
 exports.Workspace = Workspace = __decorate([
     (0, mongoose_1.Schema)()
 ], Workspace);

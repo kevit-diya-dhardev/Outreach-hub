@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { User } from 'src/users/users.schema';
 
 @Schema()
 export class Workspace {
@@ -13,6 +14,9 @@ export class Workspace {
 
   @Prop({ required: true, type: Date, default: Date.now() })
   createdAt: String;
+
+  @Prop({ type: String, ref: 'User' })
+  createdBy: String;
 }
 
 export const WorkspaceSchema = SchemaFactory.createForClass(Workspace);

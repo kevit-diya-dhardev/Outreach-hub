@@ -32,12 +32,18 @@ let WorkspaceController = class WorkspaceController {
         }
         return workspaces;
     }
-    async createWorkspace(workspaceData) {
-        const workspace = await this.workspaceService.createWorkspace(workspaceData);
+    async createWorkspace(workspaceData, request) {
+        const workspace = await this.workspaceService.createWorkspace(workspaceData, request);
         if (!workspace) {
             throw new common_1.ConflictException('Workspace with this id already exists!');
         }
         return workspace;
+    }
+    async getMyWorkspaces(req) {
+        return this.workspaceService.getMyWorkspaces(req).catch((error) => {
+            console.log(error);
+            throw new common_1.HttpException('Server error in workspace fetching', 500);
+        });
     }
     async getSingleWokspace(id) {
         const workspace = await this.workspaceService.getSingleWorkspace(id);
@@ -61,7 +67,6 @@ let WorkspaceController = class WorkspaceController {
 exports.WorkspaceController = WorkspaceController;
 __decorate([
     (0, common_1.Get)(),
-    (0, common_1.UsePipes)(new common_1.ValidationPipe()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
@@ -71,14 +76,22 @@ __decorate([
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     (0, common_1.UsePipes)(new common_1.ValidationPipe()),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [workspace_dto_1.workspaceSchemaDto]),
+    __metadata("design:paramtypes", [workspace_dto_1.workspaceSchemaDto, Object]),
     __metadata("design:returntype", Promise)
 ], WorkspaceController.prototype, "createWorkspace", null);
 __decorate([
+    (0, common_1.Get)('my-workspaces'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], WorkspaceController.prototype, "getMyWorkspaces", null);
+__decorate([
     (0, common_1.Get)(':id'),
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
-    (0, common_1.UsePipes)(new common_1.ValidationPipe()),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -98,7 +111,6 @@ __decorate([
 __decorate([
     (0, common_1.Delete)(':id'),
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
-    (0, common_1.UsePipes)(new common_1.ValidationPipe()),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

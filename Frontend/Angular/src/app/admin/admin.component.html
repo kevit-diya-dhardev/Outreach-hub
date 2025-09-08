@@ -53,22 +53,56 @@
 >
   <aside class="sidebar">
     <nav class="nav-menu">
-      <a
-        class="nav-link"
-        routerLink="/admin/workspaces"
-        routerLinkActive="sidebar-fields"
+      <button
+        class="nav-toggle"
+        (click)="toggleWorkspacesMenu()"
+        [class.active]="isWorkspacesMenuOpen"
       >
-        <span class="icon" *ngIf="isSidebarCollapsed">W</span>
-        Workspaces
-      </a>
-      <a
-        href="#"
-        class="nav-link"
-        routerLink="/admin/users"
-        routerLinkActive="sidebar-fields"
+        <span class="icon">W</span>
+        <span class="link-text">Workspaces</span>
+        <span class="arrow-icon">&#x25B8;</span>
+      </button>
+
+      <div class="sub-menu" *ngIf="isWorkspacesMenuOpen">
+        <a
+          class="sub-nav-link"
+          routerLink="/admin/workspaces/my-workspace"
+          routerLinkActive="active"
+        >
+          My Workspace
+        </a>
+        <a
+          class="sub-nav-link"
+          routerLink="/admin/workspaces/all"
+          routerLinkActive="active"
+        >
+          All Workspaces
+        </a>
+      </div>
+
+      <button
+        class="nav-toggle"
+        (click)="toggleUsersMenu()"
+        [class.active]="isUsersMenuOpen"
       >
-        <span class="icon" *ngIf="isSidebarCollapsed">U</span> Users
-      </a>
+        <span class="icon">U</span>
+        <span class="link-text">Users</span>
+        <span class="arrow-icon">&#x25B8;</span>
+      </button>
+      <div class="sub-menu" *ngIf="isUsersMenuOpen">
+        <a
+          class="sub-nav-link"
+          routerLink="/admin/users/all"
+          routerLinkActive="active"
+          >All Users</a
+        >
+        <a
+          class="sub-nav-link"
+          routerLink="/admin/users/invited"
+          routerLinkActive="active"
+          >My Users</a
+        >
+      </div>
     </nav>
     <div class="sidebar-footer">
       <button class="settings-button">

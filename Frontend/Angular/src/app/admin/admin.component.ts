@@ -8,9 +8,17 @@ import { Router } from '@angular/router';
   styleUrl: './admin.component.scss',
 })
 export class AdminComponent {
+  isWorkspacesMenuOpen: boolean = false;
+  isUsersMenuOpen: boolean = false;
   constructor(private adminService: AdminService, private router: Router) {}
   isSidebarCollapsed = false;
   toggleSidebar(): void {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
+  }
+  toggleWorkspacesMenu(): void {
+    this.isWorkspacesMenuOpen = !this.isWorkspacesMenuOpen;
+  }
+  toggleUsersMenu(): void {
+    this.isUsersMenuOpen = !this.isUsersMenuOpen;
   }
 }
