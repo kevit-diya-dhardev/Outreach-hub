@@ -46,6 +46,18 @@
 						"url": "http://localhost:3000/workspace/"
 					},
 					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "8db6c5d8-2d7d-48ca-b65a-15ccfab7fdef",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			],
 			"id": "34bc5ff2-9e10-4f84-bf46-d04f88583e72"
