@@ -54,8 +54,24 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTcxNzBiNjA1NTNmNTU1NGVjNzgwNyIsImlhdCI6MTc1NzMzODU2NiwiZXhwIjoxNzU3Mzc0NTY2fQ.gbgPA7aiy7cToXugrlcYoSVjTrPYXAXN7d69cWra__g",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"workspace_id\":\"W104\",\n    \"workspace_name\":\"Demo workspace2\",\n    \"description\":\"A chatbot company\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/workspace/"
 					},
 					"response": []
 				}
