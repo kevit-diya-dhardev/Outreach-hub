@@ -285,7 +285,38 @@ $border-color: #eaecf0;
     font-weight: 600;
   }
 }
+// --- SCSS Color Variables ---
+$danger-color: #d92d20; // A strong but not overly bright red for text/icons
+$danger-color-light: #fee4e2; // A very light red for the background
+$border-color: #fecdca; // A light red border
 
+.logout-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; // Space between icon and text
+
+  background-color: $danger-color-light;
+  border: 1px solid $border-color;
+  color: $danger-color;
+
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  // Smooth transition for the hover effect
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+
+  .icon {
+    font-size: 1.1rem;
+  }
+
+  &:hover {
+    background-color: darken($danger-color-light, 5%);
+    border-color: darken($border-color, 10%);
+  }
+}
 // ===================================
 // Responsive Design
 // ===================================

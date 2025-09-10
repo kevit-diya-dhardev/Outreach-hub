@@ -14,11 +14,23 @@ export class AdminComponent {
   isSidebarCollapsed = false;
   toggleSidebar(): void {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
+    if (this.isSidebarCollapsed == true) {
+      this.isUsersMenuOpen = false;
+      this.isWorkspacesMenuOpen = false;
+    }
   }
   toggleWorkspacesMenu(): void {
-    this.isWorkspacesMenuOpen = !this.isWorkspacesMenuOpen;
+    if (this.isSidebarCollapsed == true) {
+      this.isWorkspacesMenuOpen = false;
+    } else {
+      this.isWorkspacesMenuOpen = !this.isWorkspacesMenuOpen;
+    }
   }
   toggleUsersMenu(): void {
-    this.isUsersMenuOpen = !this.isUsersMenuOpen;
+    if (this.isSidebarCollapsed == true) {
+      this.isUsersMenuOpen = false;
+    } else {
+      this.isUsersMenuOpen = !this.isUsersMenuOpen;
+    }
   }
 }

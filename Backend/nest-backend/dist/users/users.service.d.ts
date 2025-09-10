@@ -6,7 +6,7 @@ export declare class UserService {
     private userModel;
     private workspaceModel;
     constructor(userModel: Model<User>, workspaceModel: Model<Workspace>);
-    createUser({ password, ...userData }: userDto): Promise<import("mongoose").Document<unknown, {}, User, {}, {}> & User & {
+    createUser({ password, ...userData }: userDto, req: any): Promise<import("mongoose").Document<unknown, {}, User, {}, {}> & User & {
         _id: import("mongoose").Types.ObjectId;
     } & {
         __v: number;
@@ -31,4 +31,9 @@ export declare class UserService {
     } & {
         __v: number;
     }>;
+    getMyUsers(req: any): Promise<(import("mongoose").Document<unknown, {}, User, {}, {}> & User & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    })[]>;
 }

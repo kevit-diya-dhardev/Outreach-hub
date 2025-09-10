@@ -7,6 +7,7 @@ export declare class User {
     workspace_id: String;
     createdAt: String;
     isAdmin?: boolean;
+    createdBy: string;
 }
 export declare const UserSchema: mongoose.Schema<User, mongoose.Model<User, any, any, any, mongoose.Document<unknown, any, User, any, {}> & User & {
     _id: mongoose.Types.ObjectId;

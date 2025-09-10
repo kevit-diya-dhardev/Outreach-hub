@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterEvent, RouterModule, Routes } from '@angular/router';
-import { WorkspacesComponent } from './my workspace/workspaces.component';
-import { CommonModule } from '@angular/common';
 
-export const routes: Routes = [
-  { path: '', component: WorkspacesComponent },
-  // { path: 'all-workspace' },
-];
+import { CommonModule } from '@angular/common';
+import { WorkspacesComponent } from './workspaces.component';
+
+export const routes: Routes = [{ path: '', component: WorkspacesComponent }];
 
 @NgModule({
   imports: [CommonModule, RouterModule.forChild(routes)],

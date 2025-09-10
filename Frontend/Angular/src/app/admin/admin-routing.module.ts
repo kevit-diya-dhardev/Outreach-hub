@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, RouterOutlet, Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
-import { WorkspacesComponent } from '../workspaces/my workspace/workspaces.component';
+import { WorkspacesComponent } from '../workspaces/workspaces.component';
+import { UsersComponent } from '../users/users.component';
 
 export const routes: Routes = [
   {
@@ -19,16 +20,20 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'workspaces',
-        loadChildren: () =>
-          import('../workspaces/workspaces.module').then(
-            (m) => m.WorkspacesModule
-          ),
+        path: 'my-workspaces',
+        component: WorkspacesComponent,
       },
       {
-        path: 'users',
-        loadChildren: () =>
-          import('../users/users.module').then((m) => m.UsersModule),
+        path: 'all-workspaces',
+        component: WorkspacesComponent,
+      },
+      {
+        path: 'my-users',
+        component: UsersComponent,
+      },
+      {
+        path: 'all-users',
+        component: UsersComponent,
       },
     ],
   },

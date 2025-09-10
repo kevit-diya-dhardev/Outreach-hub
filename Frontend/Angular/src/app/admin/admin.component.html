@@ -9,28 +9,16 @@
         <span>Admin Portal</span>
       </div>
       <nav class="navbar-links">
-        <a
-          routerLink="/admin/dashboard"
-          routerLinkActive="active"
-          class="nav-link"
+        <a routerLink="dashboard" routerLinkActive="active" class="nav-link"
           >Home</a
         >
-        <a
-          routerLink="/admin/analytics"
-          routerLinkActive="active"
-          class="nav-link"
+        <a routerLink="analytics" routerLinkActive="active" class="nav-link"
           >Analytics</a
         >
-        <a
-          routerLink="/admin/billing"
-          routerLinkActive="active"
-          class="nav-link"
+        <a routerLink="billing" routerLinkActive="active" class="nav-link"
           >Billing</a
         >
-        <a
-          routerLink="/admin/subscriptions"
-          routerLinkActive="active"
-          class="nav-link"
+        <a routerLink="subscriptions" routerLinkActive="active" class="nav-link"
           >Subscriptions</a
         >
       </nav>
@@ -38,7 +26,6 @@
 
     <div class="navbar-right">
       <button class="logout-button">
-        <span class="icon">&#128682;</span>
         <span>Logout</span>
       </button>
     </div>
@@ -66,14 +53,14 @@
       <div class="sub-menu" *ngIf="isWorkspacesMenuOpen">
         <a
           class="sub-nav-link"
-          routerLink="/admin/workspaces/my-workspace"
+          routerLink="/admin/my-workspaces"
           routerLinkActive="active"
         >
           My Workspace
         </a>
         <a
           class="sub-nav-link"
-          routerLink="/admin/workspaces/all"
+          routerLink="/admin/all-workspaces"
           routerLinkActive="active"
         >
           All Workspaces
@@ -90,16 +77,10 @@
         <span class="arrow-icon">&#x25B8;</span>
       </button>
       <div class="sub-menu" *ngIf="isUsersMenuOpen">
-        <a
-          class="sub-nav-link"
-          routerLink="/admin/users/all"
-          routerLinkActive="active"
+        <a class="sub-nav-link" routerLink="all-users" routerLinkActive="active"
           >All Users</a
         >
-        <a
-          class="sub-nav-link"
-          routerLink="/admin/users/invited"
-          routerLinkActive="active"
+        <a class="sub-nav-link" routerLink="my-users" routerLinkActive="active"
           >My Users</a
         >
       </div>

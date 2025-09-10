@@ -18,7 +18,7 @@ export class UserService {
     @InjectModel(Workspace.name) private workspaceModel: Model<Workspace>,
   ) {}
 
-  async createUser({ password, ...userData }: userDto) {
+  async createUser({ password, ...userData }: userDto, req: any) {
     const findUser = await this.userModel.findOne({
       $and: [
         { email: userData.email },
@@ -35,7 +35,11 @@ export class UserService {
 
     try {
       const hash = await bcrypt.hash(password, 10);
-      const newUser = new this.userModel({ password: hash, ...userData });
+      const newUser = new this.userModel({
+        password: hash,
+        ...userData,
+        createdBy: req.userData.id,
+      });
       return newUser.save();
     } catch (err) {
       console.log(err);
@@ -73,5 +77,9 @@ export class UserService {
     const deletedUser = await this.userModel.findOneAndDelete({ _id: id });
     if (!deletedUser) throw new NotFoundException('User not found!');
     return deletedUser;
+  }
+  async getMyUsers(req) {
+    const myUsers = await this.userModel.find({ createdBy: req.userData.id });
+    return myUsers;
   }
 }

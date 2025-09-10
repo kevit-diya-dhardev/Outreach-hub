@@ -24,11 +24,14 @@ let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
     }
-    createUser(userData) {
-        return this.userService.createUser(userData);
+    createUser(userData, req) {
+        return this.userService.createUser(userData, req);
     }
     getUsers() {
         return this.userService.getUsers();
+    }
+    getMyUsers(req) {
+        return this.userService.getMyUsers(req);
     }
     getSingleUser(id) {
         return this.userService.getSingleUser(id);
@@ -46,8 +49,9 @@ __decorate([
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     (0, common_1.UsePipes)(new common_1.ValidationPipe()),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [user_dto_1.userDto]),
+    __metadata("design:paramtypes", [user_dto_1.userDto, Object]),
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "createUser", null);
 __decorate([
@@ -58,6 +62,14 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "getUsers", null);
+__decorate([
+    (0, common_1.Get)('my-users'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "getMyUsers", null);
 __decorate([
     (0, common_1.Get)(':id'),
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard),

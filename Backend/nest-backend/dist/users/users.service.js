@@ -59,7 +59,7 @@ let UserService = class UserService {
         this.userModel = userModel;
         this.workspaceModel = workspaceModel;
     }
-    async createUser({ password, ...userData }) {
+    async createUser({ password, ...userData }, req) {
         const findUser = await this.userModel.findOne({
             $and: [
                 { email: userData.email },
@@ -75,7 +75,11 @@ let UserService = class UserService {
             throw new common_1.NotFoundException("Workspace does'nt exists!");
         try {
             const hash = await bcrypt.hash(password, 10);
-            const newUser = new this.userModel({ password: hash, ...userData });
+            const newUser = new this.userModel({
+                password: hash,
+                ...userData,
+                createdBy: req.userData.id,
+            });
             return newUser.save();
         }
         catch (err) {
@@ -109,6 +113,10 @@ let UserService = class UserService {
         if (!deletedUser)
             throw new common_1.NotFoundException('User not found!');
         return deletedUser;
+    }
+    async getMyUsers(req) {
+        const myUsers = await this.userModel.find({ createdBy: req.userData.id });
+        return myUsers;
     }
 };
 exports.UserService = UserService;

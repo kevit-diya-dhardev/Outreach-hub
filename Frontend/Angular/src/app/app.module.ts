@@ -11,14 +11,17 @@ import { PageNotFoundModule } from './pagenotfound/pagenotfound.module';
 import { AdminComponent } from './admin/admin.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AdminInterceptor } from './admin/admin-interceptor';
-import { WorkspacesComponent } from './workspaces/my workspace/workspaces.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { UsersComponent } from './users/users.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { WorkspacesModule } from './workspaces/workspaces.module';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     LoginModule,
     RouterOutlet,

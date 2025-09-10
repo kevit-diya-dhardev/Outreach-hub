@@ -1,0 +1,60 @@
+<div class="main-form">
+  <form (ngSubmit)="createUser()" [formGroup]="userForm">
+    <div class="name">
+      <label for="name">Full Name:</label>
+      <input
+        type="text"
+        id="name"
+        formControlName="name"
+        placeholder="Enter user's full name"
+      />
+    </div>
+
+    <div class="email">
+      <label for="email">Email Address:</label>
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        placeholder="e.g., user@example.com"
+      />
+    </div>
+
+    <div class="password">
+      <label for="password">Password:</label>
+      <input
+        type="password"
+        id="password"
+        formControlName="password"
+        placeholder="Enter a secure password"
+      />
+    </div>
+
+    <div class="custom-dropdown" (click)="toggleDropdown()">
+  <div class="dropdown-selected">
+    {{ selectedRole || 'Select a role' }}
+    <span class="arrow" [class.open]="isOpen">▼</span>
+  </div>
+
+  <ul class="dropdown-options" *ngIf="isOpen">
+    <li (click)="selectRole('Editor')">Editor</li>
+    <li (click)="selectRole('Viewer')">Viewer</li>
+  </ul>
+</div>
+
+
+    <div class="workspace-id">
+      <label for="wid">Workspace ID:</label>
+      <select formControlName="workspace_id" id="wid">
+        <option value="" disabled>Select a workspace</option>
+        <option *ngFor="let id of workspaceList">
+          {{ id }}
+        </option>
+      </select>
+    </div>
+
+    <button class="submit-btn" type="submit" [disabled]="!userForm.valid">
+      Create User
+    </button>
+  </form>
+</div>

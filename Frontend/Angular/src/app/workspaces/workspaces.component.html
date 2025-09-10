@@ -1,13 +1,13 @@
 <div class="workspaces-page">
   <header class="page-header">
     <h1>Manage Workspaces</h1>
-    <button class="add-new-btn">
+    <button class="add-new-btn" (click)="openAddWorkspaceModal()">
       <span class="icon">+</span> Add New Workspace
     </button>
   </header>
 
   <div class="workspaces-grid">
-    <div class="workspace-card" *ngFor="let ws of workspaces">
+    <div class="workspace-card" *ngFor="let ws of myworkspaces">
       <div class="card-header">
         <h3 class="workspace-name">{{ ws.workspace_name }}</h3>
         <span
@@ -36,6 +36,17 @@
           Delete
         </button>
       </div>
+    </div>
+  </div>
+  <div class="modal-overlay" *ngIf="isFormModalVisible">
+    <div class="modal-content">
+      <button class="close-btn" (click)="closeAddWorkspaceModal()">
+        &times;
+      </button>
+
+      <app-create-workspace
+        (formSubmitted)="closeAddWorkspaceModal()"
+      ></app-create-workspace>
     </div>
   </div>
 </div>

@@ -1,7 +1,7 @@
 <div class="users-page">
   <header class="page-header">
     <h1>Manage Users</h1>
-    <button class="add-new-btn">
+    <button class="add-new-btn" (click)="openAddUserModal()">
       <span class="icon">+</span> Create new user
     </button>
   </header>
@@ -51,6 +51,13 @@
           Delete
         </button>
       </div>
+    </div>
+  </div>
+  <div class="modal-overlay" *ngIf="userFormVisible">
+    <div class="modal-content">
+      <button class="close-btn" (click)="closeAddUserModal()">&times;</button>
+
+      <app-create-user (formSubmitted)="closeAddUserModal()"></app-create-user>
     </div>
   </div>
 </div>

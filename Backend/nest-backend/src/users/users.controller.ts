@@ -9,6 +9,7 @@ import {
   Patch,
   Delete,
   UseGuards,
+  Req,
 } from '@nestjs/common';
 import { updateUserDto, userDto } from './dto/user.dto';
 import { UserService } from './users.service';
@@ -24,8 +25,8 @@ export class UserController {
   @Post()
   @UseGuards(AuthGuard)
   @UsePipes(new ValidationPipe())
-  createUser(@Body() userData: userDto) {
-    return this.userService.createUser(userData);
+  createUser(@Body() userData: userDto, @Req() req: any) {
+    return this.userService.createUser(userData, req);
   }
 
   @Get()
@@ -33,6 +34,11 @@ export class UserController {
   @UsePipes(new ValidationPipe())
   getUsers() {
     return this.userService.getUsers();
+  }
+  @Get('my-users')
+  @UseGuards(AuthGuard)
+  getMyUsers(@Req() req: any) {
+    return this.userService.getMyUsers(req);
   }
 
   @Get(':id')

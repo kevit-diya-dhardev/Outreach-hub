@@ -3,10 +3,18 @@ import { NgModule } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { AdminComponent } from './admin.component';
 import { AdminRoutingModule } from './admin-routing.module';
-import { DashboardModule } from "../dashboard/dashboard.module";
+import { DashboardModule } from '../dashboard/dashboard.module';
+import { WorkspacesModule } from '../workspaces/workspaces.module';
+import { UsersModule } from '../users/users.module';
 
 @NgModule({
-  imports: [CommonModule, AdminRoutingModule, DashboardModule],
+  imports: [
+    CommonModule,
+    AdminRoutingModule,
+    DashboardModule,
+    WorkspacesModule,
+    UsersModule,
+  ],
   declarations: [AdminComponent],
 })
 export class AdminModule {}

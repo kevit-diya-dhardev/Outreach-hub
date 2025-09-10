@@ -19,6 +19,7 @@ let User = class User {
     workspace_id;
     createdAt;
     isAdmin;
+    createdBy;
 };
 exports.User = User;
 __decorate([
@@ -52,6 +53,10 @@ __decorate([
     (0, mongoose_1.Prop)({ required: false, default: false }),
     __metadata("design:type", Boolean)
 ], User.prototype, "isAdmin", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true, type: String }),
+    __metadata("design:type", String)
+], User.prototype, "createdBy", void 0);
 exports.User = User = __decorate([
     (0, mongoose_1.Schema)()
 ], User);

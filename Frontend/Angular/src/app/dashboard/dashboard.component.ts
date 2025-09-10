@@ -9,9 +9,9 @@ import { Router } from '@angular/router';
 export class DashboardComponent {
   constructor(private router: Router) {}
   navigateToWorkspaces() {
-    this.router.navigate(['/admin/workspaces']);
+    this.router.navigate(['/admin/my-workspaces']);
   }
   navigateToUsers() {
-    this.router.navigate(['/admin/users']);
+    this.router.navigate(['/admin/my-users']);
   }
 }

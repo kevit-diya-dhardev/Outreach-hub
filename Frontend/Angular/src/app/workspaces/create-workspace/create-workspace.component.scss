@@ -1,0 +1,77 @@
+// --- Theme Color Variables ---
+$primary-color: #7f56d9;
+$text-color: #1d2939;
+$text-light: #667085;
+$border-color: #d0d5dd;
+$background-color: #ffffff;
+
+// --- Main Form Container ---
+.main-form {
+  // Use flexbox to create vertical spacing between form fields
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem; // Controls the space between each div
+  }
+}
+
+// --- Form Field Styling (Labels & Inputs) ---
+// Targets the containers for each label/input pair
+.id,
+.name,
+.description {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: $text-color;
+    margin-bottom: 0.5rem; // Space between label and input
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: $text-color;
+    background-color: $background-color;
+
+    // Smooth transition for the focus effect
+    transition: border-color 0.2s, box-shadow 0.2s;
+
+    // Styling for when a user clicks into the input field
+    &:focus {
+      outline: none; // Remove default browser outline
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+    }
+  }
+}
+
+// --- Button Styling ---
+// Note: You've named this 'close-btn' but it acts as a 'Create' button.
+// This styles it as a primary action.
+.close-btn {
+  width: 100%;
+  padding: 0.85rem 1.5rem;
+  margin-top: 1rem; // Extra space above the button
+
+  background-color: $primary-color;
+  color: white;
+
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  // Smooth transition for the hover effect
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+}

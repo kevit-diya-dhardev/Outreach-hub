@@ -1,0 +1,217 @@
+// // --- Theme Color Variables ---
+// $primary-color: #7f56d9;
+// $text-color: #1d2939;
+// $border-color: #d0d5dd;
+// $background-color: #ffffff;
+
+// // --- General Input & Select Styling ---
+// // This applies the base styles to all inputs and the custom select wrapper
+// input[type="text"],
+// input[type="email"],
+// input[type="password"],
+// .select-wrapper {
+//   width: 100%;
+//   padding: 0.75rem 1rem;
+//   border: 1px solid $border-color;
+//   border-radius: 8px;
+//   font-size: 1rem;
+//   color: $text-color;
+//   background-color: $background-color;
+//   transition: border-color 0.2s, box-shadow 0.2s;
+
+//   &:focus-within {
+//     outline: none;
+//     border-color: $primary-color;
+//     box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+//   }
+// }
+
+// // --- Specific Styling for the Role Dropdown ---
+// .role {
+//   &::after {
+//     content: "▼";
+//     font-size: 0.7rem;
+//     color: #9ca3af;
+//     position: absolute;
+//     right: 1rem;
+//     top: 50%;
+//     transform: translateY(-50%);
+//     pointer-events: none;
+//   }
+
+//   select {
+//     //   -webkit-appearance: none;
+//     //   -moz-appearance: none;
+//     //   appearance: none;
+
+//     // display: block; // important
+//     width: 100%;
+//     padding: 0.75rem 1rem;
+//     background-color: transparent;
+//     border: 1px solid #ccc;
+//     font-size: 1rem;
+//     color: $text-color;
+//     cursor: pointer;
+
+//     &:focus {
+//       outline: none;
+//       border-color: blue;
+//     }
+//   }
+// }
+
+// // --- General Form Field Containers (Labels) ---
+// .name,
+// .email,
+// .password,
+// .role,
+// .workspace-id {
+//   display: flex;
+//   flex-direction: column;
+
+//   label {
+//     font-size: 0.9rem;
+//     font-weight: 500;
+//     color: $text-color;
+//     margin-bottom: 0.5rem;
+//   }
+// }
+
+// --- Theme Variables ---
+$primary-color: #7f56d9;
+$text-color: #1d2939;
+$border-color: #d0d5dd;
+$background-color: #ffffff;
+
+// --- General Inputs ---
+input[type="text"],
+input[type="email"],
+input[type="password"],
+.select-wrapper {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: $text-color;
+  background-color: $background-color;
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  &:focus-within {
+    outline: none;
+    border-color: $primary-color;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+  }
+}
+
+// --- Dropdown Styling ---
+.role {
+  position: relative;
+
+  &::after {
+    content: "▼";
+    font-size: 0.7rem;
+    color: #9ca3af;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: $text-color;
+    background-color: $background-color;
+    cursor: pointer;
+    appearance: none; // remove default arrow (Chrome/Firefox/Safari)
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+    }
+  }
+
+  // Optional: if you really want to tweak dropdown options
+  // keep them scoped so they don’t affect the whole page
+  select option {
+    color: $text-color;
+    background-color: $background-color;
+  }
+}
+
+// --- General Field Labels ---
+.name,
+.email,
+.password,
+.role,
+.workspace-id {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: $text-color;
+    margin-bottom: 0.5rem;
+  }
+}
+.custom-dropdown {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  user-select: none;
+  font-size: 1rem;
+}
+
+.dropdown-selected {
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdown-selected .arrow {
+  transition: transform 0.2s ease;
+}
+
+.dropdown-selected .arrow.open {
+  transform: rotate(180deg);
+}
+
+.dropdown-options {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  z-index: 2000;
+}
+
+.dropdown-options li {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f2f2f2;
+  }
+}
