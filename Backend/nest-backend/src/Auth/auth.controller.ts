@@ -14,7 +14,6 @@ import { AuthService } from './auth.service';
 export class AuthController {
   constructor(private authService: AuthService) {}
   @Post()
-  @UsePipes(new ValidationPipe())
   login(@Body() userData: AuthDto) {
     return this.authService.generateToken(userData);
   }

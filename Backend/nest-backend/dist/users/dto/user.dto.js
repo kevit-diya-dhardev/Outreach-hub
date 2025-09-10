@@ -54,7 +54,7 @@ class updateUserDto {
     name;
     email;
     password;
-    role;
+    workspace;
 }
 exports.updateUserDto = updateUserDto;
 __decorate([
@@ -74,7 +74,7 @@ __decorate([
 ], updateUserDto.prototype, "password", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], updateUserDto.prototype, "role", void 0);
+    (0, class_validator_1.IsObject)(),
+    __metadata("design:type", Object)
+], updateUserDto.prototype, "workspace", void 0);
 //# sourceMappingURL=user.dto.js.map

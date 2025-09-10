@@ -1,60 +1,111 @@
-<div class="main-form">
-  <form (ngSubmit)="createUser()" [formGroup]="userForm">
-    <div class="name">
-      <label for="name">Full Name:</label>
+<div class="create-user-container">
+  <button class="close-btn" (click)="closeAddUserModal()">&times;</button>
+  <h2>Create User</h2>
+
+  <form
+    [formGroup]="userForm"
+    *ngIf="userFormVisible"
+    (ngSubmit)="createUser()"
+    class="user-form"
+  >
+    <!-- Name -->
+    <div class="form-group">
+      <label for="name">Full Name</label>
       <input
         type="text"
         id="name"
         formControlName="name"
-        placeholder="Enter user's full name"
+        placeholder="Enter full name"
       />
+      <div
+        class="error"
+        *ngIf="userForm.get('name')?.invalid && userForm.get('name')?.touched"
+      >
+        Name is required
+      </div>
     </div>
 
-    <div class="email">
-      <label for="email">Email Address:</label>
+    <!-- Email -->
+    <div class="form-group">
+      <label for="email">Email</label>
       <input
         type="email"
         id="email"
         formControlName="email"
-        placeholder="e.g., user@example.com"
+        placeholder="Enter email"
       />
+      <div
+        class="error"
+        *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched"
+      >
+        Please enter a valid email
+      </div>
     </div>
 
-    <div class="password">
-      <label for="password">Password:</label>
+    <!-- Password -->
+    <div class="form-group">
+      <label for="password">Password</label>
       <input
         type="password"
         id="password"
         formControlName="password"
-        placeholder="Enter a secure password"
+        placeholder="Enter password"
       />
+      <div
+        class="error"
+        *ngIf="
+          userForm.get('password')?.invalid && userForm.get('password')?.touched
+        "
+      >
+        Password must be at least 6 characters
+      </div>
     </div>
 
-    <div class="custom-dropdown" (click)="toggleDropdown()">
-  <div class="dropdown-selected">
-    {{ selectedRole || 'Select a role' }}
-    <span class="arrow" [class.open]="isOpen">▼</span>
-  </div>
-
-  <ul class="dropdown-options" *ngIf="isOpen">
-    <li (click)="selectRole('Editor')">Editor</li>
-    <li (click)="selectRole('Viewer')">Viewer</li>
-  </ul>
-</div>
-
-
-    <div class="workspace-id">
-      <label for="wid">Workspace ID:</label>
-      <select formControlName="workspace_id" id="wid">
-        <option value="" disabled>Select a workspace</option>
-        <option *ngFor="let id of workspaceList">
-          {{ id }}
-        </option>
-      </select>
+    <!-- Role Dropdown -->
+    <div class="form-group dropdown">
+      <label>Role</label>
+      <div class="dropdown-toggle" (click)="toggleDropdown('role')">
+        {{ selectedRole || "Select Role" }}
+      </div>
+      <ul class="dropdown-menu" *ngIf="openDropdown === 'role'">
+        <li (click)="selectRole('Editor')">Editor</li>
+        <li (click)="selectRole('Viewer')">Viewer</li>
+      </ul>
+      <div
+        class="error"
+        *ngIf="userForm.get('role')?.invalid && userForm.get('role')?.touched"
+      >
+        Role is required
+      </div>
     </div>
 
-    <button class="submit-btn" type="submit" [disabled]="!userForm.valid">
-      Create User
-    </button>
+    <!-- Workspace Dropdown -->
+    <div class="form-group dropdown">
+      <label>Workspace</label>
+      <div class="dropdown-toggle" (click)="toggleDropdown('workspace_id')">
+        {{ selectedWorkspace || "Select Workspace" }}
+      </div>
+      <ul class="dropdown-menu" *ngIf="openDropdown === 'workspace_id'">
+        <li
+          *ngFor="let workspace of workspaceList"
+          (click)="selectWorkspace(workspace)"
+        >
+          {{ workspace.workspace_name }}
+        </li>
+      </ul>
+      <div
+        class="error"
+        *ngIf="
+          userForm.get('workspace_id')?.invalid &&
+          userForm.get('workspace_id')?.touched
+        "
+      >
+        Workspace is required
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" [disabled]="userForm.invalid">Create User</button>
   </form>
 </div>
+<div *ngIf="  success" class="display-success">User created successfully!</div>

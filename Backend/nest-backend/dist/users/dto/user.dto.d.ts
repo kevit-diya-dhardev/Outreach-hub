@@ -10,5 +10,5 @@ export declare class updateUserDto {
     name: String;
     email: String;
     password: String;
-    role: String;
+    workspace: Object;
 }

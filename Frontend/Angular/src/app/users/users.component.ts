@@ -9,12 +9,13 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './users.component.scss',
 })
 export class UsersComponent {
-  userFormVisible = false;
-  closeAddUserModal() {
-    this.userFormVisible = false;
-  }
-  openAddUserModal() {
+  userFormVisible: boolean | null = false;
+  openUserFormVisible() {
     this.userFormVisible = true;
+  }
+
+  recieveData(data: boolean) {
+    this.userFormVisible = data;
   }
 
   deleteUser(arg0: any) {

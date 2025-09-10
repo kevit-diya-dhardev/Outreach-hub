@@ -1,4 +1,10 @@
-import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsNotEmpty,
+  IsObject,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class userDto {
   @IsNotEmpty()
@@ -40,6 +46,6 @@ export class updateUserDto {
   password: String;
 
   @IsOptional()
-  @IsString()
-  role: String;
+  @IsObject()
+  workspace: Object;
 }

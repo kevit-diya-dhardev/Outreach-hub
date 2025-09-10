@@ -15,7 +15,7 @@ import { UsersModule } from 'src/users/users.module';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+    MongooseModule.forFeature([{ name: User.name, schema: UserSchema },]),
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,

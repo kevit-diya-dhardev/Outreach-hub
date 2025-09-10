@@ -18,6 +18,8 @@ export class WorkspacesServices {
     return this.http.post(this.allworkspaces_url, workspaceData);
   }
 
-  deleteWorkspace(id: string) {}
+  deleteWorkspace(id: string) {
+    return this.http.delete(this.allworkspaces_url);
+  }
   editWorkspace(id: string) {}
 }

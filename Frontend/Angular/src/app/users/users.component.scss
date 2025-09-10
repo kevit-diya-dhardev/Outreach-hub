@@ -185,8 +185,10 @@ $text-light: #667085;
     color: #d92d20;
   }
 }
+/* --- Add these styles for the modal --- */
+
+// The overlay that covers the entire page
 .modal-overlay {
-  transform: none;
   position: fixed; // Stays in place even when scrolling
   top: 0;
   left: 0;
@@ -201,9 +203,8 @@ $text-light: #667085;
 
   // The blurred background effect
   background-color: rgba(17, 24, 39, 0.3); // A semi-transparent dark background
-  // backdrop-filter: blur(8px); // This is the property that creates the blur
-  // -webkit-backdrop-filter: blur(8px); // For Safari support
-  
+  backdrop-filter: blur(8px); // This is the property that creates the blur
+  -webkit-backdrop-filter: blur(8px); // For Safari support
 }
 
 // The actual modal window where the form lives
@@ -214,23 +215,5 @@ $text-light: #667085;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 500px; // Set a max-width for your form
-  // position: relative; // Needed for positioning the close button
-}
-
-// Simple styling for the close button
-.close-btn {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: none;
-  border: none;
-  font-size: 2rem;
-  color: #9ca3af; // A light gray
-  cursor: pointer;
-  line-height: 1;
-  padding: 0;
-
-  &:hover {
-    color: #1d2939; // Darker on hover
-  }
+  position: relative; // Needed for positioning the close button
 }

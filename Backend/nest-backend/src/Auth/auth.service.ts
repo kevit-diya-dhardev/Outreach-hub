@@ -26,9 +26,9 @@ export class AuthService {
     if (!isValid) throw new UnauthorizedException('User not found!!!!');
 
     let isAdmin = findUser.isAdmin,
-      id = findUser._id;
+      userId = findUser._id;
 
-    const payload = { id };
+    const payload = { userId };
     const token = await this.jwtService.signAsync(payload);
     return { token: token };
   }

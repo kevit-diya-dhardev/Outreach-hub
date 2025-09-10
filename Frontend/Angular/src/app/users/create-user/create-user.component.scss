@@ -1,217 +1,126 @@
-// // --- Theme Color Variables ---
-// $primary-color: #7f56d9;
-// $text-color: #1d2939;
-// $border-color: #d0d5dd;
-// $background-color: #ffffff;
-
-// // --- General Input & Select Styling ---
-// // This applies the base styles to all inputs and the custom select wrapper
-// input[type="text"],
-// input[type="email"],
-// input[type="password"],
-// .select-wrapper {
-//   width: 100%;
-//   padding: 0.75rem 1rem;
-//   border: 1px solid $border-color;
-//   border-radius: 8px;
-//   font-size: 1rem;
-//   color: $text-color;
-//   background-color: $background-color;
-//   transition: border-color 0.2s, box-shadow 0.2s;
-
-//   &:focus-within {
-//     outline: none;
-//     border-color: $primary-color;
-//     box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
-//   }
-// }
-
-// // --- Specific Styling for the Role Dropdown ---
-// .role {
-//   &::after {
-//     content: "▼";
-//     font-size: 0.7rem;
-//     color: #9ca3af;
-//     position: absolute;
-//     right: 1rem;
-//     top: 50%;
-//     transform: translateY(-50%);
-//     pointer-events: none;
-//   }
-
-//   select {
-//     //   -webkit-appearance: none;
-//     //   -moz-appearance: none;
-//     //   appearance: none;
-
-//     // display: block; // important
-//     width: 100%;
-//     padding: 0.75rem 1rem;
-//     background-color: transparent;
-//     border: 1px solid #ccc;
-//     font-size: 1rem;
-//     color: $text-color;
-//     cursor: pointer;
-
-//     &:focus {
-//       outline: none;
-//       border-color: blue;
-//     }
-//   }
-// }
-
-// // --- General Form Field Containers (Labels) ---
-// .name,
-// .email,
-// .password,
-// .role,
-// .workspace-id {
-//   display: flex;
-//   flex-direction: column;
-
-//   label {
-//     font-size: 0.9rem;
-//     font-weight: 500;
-//     color: $text-color;
-//     margin-bottom: 0.5rem;
-//   }
-// }
-
-// --- Theme Variables ---
-$primary-color: #7f56d9;
-$text-color: #1d2939;
-$border-color: #d0d5dd;
-$background-color: #ffffff;
-
-// --- General Inputs ---
-input[type="text"],
-input[type="email"],
-input[type="password"],
-.select-wrapper {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: 1px solid $border-color;
-  border-radius: 8px;
-  font-size: 1rem;
-  color: $text-color;
-  background-color: $background-color;
-  transition: border-color 0.2s, box-shadow 0.2s;
-
-  &:focus-within {
-    outline: none;
-    border-color: $primary-color;
-    box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+.create-user-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #f9f6ff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(128, 0, 128, 0.15);
+  .close-btn {
+    float: right;
   }
-}
-
-// --- Dropdown Styling ---
-.role {
-  position: relative;
-
-  &::after {
-    content: "▼";
-    font-size: 0.7rem;
-    color: #9ca3af;
-    position: absolute;
-    right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
+  h2 {
+    text-align: center;
+    color: #5e2b97;
+    margin-bottom: 1.5rem;
   }
 
-  select {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border: 1px solid $border-color;
-    border-radius: 8px;
-    font-size: 1rem;
-    color: $text-color;
-    background-color: $background-color;
-    cursor: pointer;
-    appearance: none; // remove default arrow (Chrome/Firefox/Safari)
-    -webkit-appearance: none;
-    -moz-appearance: none;
+  .user-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
 
-    &:focus {
+  .form-group {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      color: #4b0082;
+    }
+
+    input,
+    select {
+      padding: 0.6rem 0.8rem;
+      border: 1px solid #c7aef3;
+      border-radius: 8px;
       outline: none;
-      border-color: $primary-color;
-      box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+      font-size: 0.95rem;
+      transition: all 0.2s;
+
+      &:focus {
+        border-color: #7e3ff2;
+        box-shadow: 0 0 6px rgba(126, 63, 242, 0.4);
+      }
+    }
+
+    .error {
+      color: #a83279;
+      font-size: 0.8rem;
+      margin-top: 0.3rem;
     }
   }
 
-  // Optional: if you really want to tweak dropdown options
-  // keep them scoped so they don’t affect the whole page
-  select option {
-    color: $text-color;
-    background-color: $background-color;
+  /* Dropdown */
+  .dropdown {
+    position: relative;
+
+    .dropdown-toggle {
+      padding: 0.6rem 0.8rem;
+      border: 1px solid #c7aef3;
+      border-radius: 8px;
+      background: white;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: #4b0082;
+
+      &:hover {
+        background: #f3eaff;
+      }
+    }
+
+    .dropdown-menu {
+      list-style: none;
+      position: absolute;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      background: white;
+      border: 1px solid #c7aef3;
+      border-radius: 8px;
+      margin-top: 0.3rem;
+      z-index: 10;
+
+      li {
+        padding: 0.6rem 0.8rem;
+        cursor: pointer;
+        transition: all 0.2s;
+
+        &:hover {
+          background: #e9d7ff;
+          color: #4b0082;
+        }
+      }
+    }
+  }
+
+  button {
+    background: #7e3ff2;
+    color: white;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover:not(:disabled) {
+      background: #5e2b97;
+    }
+
+    &:disabled {
+      background: #c7aef3;
+      cursor: not-allowed;
+    }
   }
 }
-
-// --- General Field Labels ---
-.name,
-.email,
-.password,
-.role,
-.workspace-id {
-  display: flex;
-  flex-direction: column;
-
-  label {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: $text-color;
-    margin-bottom: 0.5rem;
-  }
-}
-.custom-dropdown {
+.display-success {
   position: relative;
-  width: 100%;
-  max-width: 300px;
-  user-select: none;
-  font-size: 1rem;
-}
+  left: 6rem;
 
-.dropdown-selected {
-  padding: 0.75rem 1rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #fff;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.dropdown-selected .arrow {
-  transition: transform 0.2s ease;
-}
-
-.dropdown-selected .arrow.open {
-  transform: rotate(180deg);
-}
-
-.dropdown-options {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background: #fff;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  max-height: 200px;
-  overflow-y: auto;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  z-index: 2000;
-}
-
-.dropdown-options li {
-  padding: 0.75rem 1rem;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #f2f2f2;
-  }
+  color: black;
+  border-radius: 1.3rem;
+  display: inline;
 }

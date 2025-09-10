@@ -68,8 +68,8 @@ let AuthService = class AuthService {
         const isValid = await bcrypt.compare(password, findUser.password);
         if (!isValid)
             throw new common_1.UnauthorizedException('User not found!!!!');
-        let isAdmin = findUser.isAdmin, id = findUser._id;
-        const payload = { id };
+        let isAdmin = findUser.isAdmin, userId = findUser._id;
+        const payload = { userId };
         const token = await this.jwtService.signAsync(payload);
         return { token: token };
     }
