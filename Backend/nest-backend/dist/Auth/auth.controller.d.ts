@@ -6,4 +6,5 @@ export declare class AuthController {
     login(userData: AuthDto): Promise<{
         token: string;
     }>;
+    logout(req: any): Promise<import("mongodb").DeleteResult>;
 }

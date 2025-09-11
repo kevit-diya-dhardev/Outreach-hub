@@ -24,8 +24,8 @@ let ContactsController = class ContactsController {
     constructor(contactService) {
         this.contactService = contactService;
     }
-    createContact(contactData) {
-        return this.contactService.createContact(contactData);
+    createContact(contactData, req) {
+        return this.contactService.createContact(contactData, req);
     }
     getSingleContact(id) {
         return this.contactService.getSingleContact(id);
@@ -44,16 +44,15 @@ exports.ContactsController = ContactsController;
 __decorate([
     (0, common_1.Post)(),
     (0, roles_decorator_1.Roles)('Editor'),
-    (0, common_1.UsePipes)(new common_1.ValidationPipe()),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [contacts_dto_1.ContactsDto]),
+    __metadata("design:paramtypes", [contacts_dto_1.ContactsDto, Object]),
     __metadata("design:returntype", void 0)
 ], ContactsController.prototype, "createContact", null);
 __decorate([
     (0, common_1.Get)(':id'),
     (0, roles_decorator_1.Roles)('Viewer'),
-    (0, common_1.UsePipes)(new common_1.ValidationPipe()),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

@@ -21,20 +21,37 @@ let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
     }
-    login(userData) {
-        return this.authService.generateToken(userData);
+    async login(userData) {
+        return await this.authService.generateToken(userData);
+    }
+    async logout(req) {
+        try {
+            const token = req.headers.authorization.split(' ')[1];
+            return await this.authService.deleteTokenFromDb(token);
+        }
+        catch (error) {
+            console.log(error);
+            throw new common_1.HttpException('Token deleting error in logout', 500);
+        }
     }
 };
 exports.AuthController = AuthController;
 __decorate([
-    (0, common_1.Post)(),
+    (0, common_1.Post)('login'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [auth_dto_1.AuthDto]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], AuthController.prototype, "login", null);
+__decorate([
+    (0, common_1.Post)('logout'),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "logout", null);
 exports.AuthController = AuthController = __decorate([
-    (0, common_1.Controller)('login'),
+    (0, common_1.Controller)(),
     __metadata("design:paramtypes", [auth_service_1.AuthService])
 ], AuthController);
 //# sourceMappingURL=auth.controller.js.map

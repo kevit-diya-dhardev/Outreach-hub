@@ -8,7 +8,7 @@ export declare class ContactsService {
     private usersModel;
     private workspaceModel;
     constructor(contactsModel: Model<Contacts>, usersModel: Model<User>, workspaceModel: Model<Workspace>);
-    createContact(contactData: ContactsDto): Promise<import("mongoose").Document<unknown, {}, Contacts, {}, {}> & Contacts & {
+    createContact({ ...contactData }: ContactsDto, req: any): Promise<import("mongoose").Document<unknown, {}, Contacts, {}, {}> & Contacts & {
         _id: import("mongoose").Types.ObjectId;
     } & {
         __v: number;

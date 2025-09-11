@@ -9,6 +9,7 @@ import {
   ValidationPipe,
   Delete,
   UseGuards,
+  Req,
 } from '@nestjs/common';
 import { ContactsService } from './contacts.service';
 import { ContactsDto } from './dto/contacts.dto';
@@ -22,14 +23,12 @@ export class ContactsController {
 
   @Post()
   @Roles('Editor')
-  @UsePipes(new ValidationPipe())
-  createContact(@Body() contactData: ContactsDto) {
-    return this.contactService.createContact(contactData);
+  createContact(@Body() contactData: ContactsDto, @Req() req: any) {
+    return this.contactService.createContact(contactData, req);
   }
 
   @Get(':id')
   @Roles('Viewer')
-  @UsePipes(new ValidationPipe())
   getSingleContact(@Param('id') id: String) {
     return this.contactService.getSingleContact(id);
   }

@@ -13,17 +13,22 @@ import { Workspace, WorkspaceSchema } from 'src/workspace/workspace.schema';
 import { UserService } from 'src/users/users.service';
 import { RolesGuard } from 'src/Auth/roles.guard';
 import { UsersModule } from 'src/users/users.module';
+import { AuthService } from 'src/Auth/auth.service';
+import { AuthModule } from 'src/Auth/auth.module';
+import { Auth, AuthSchema } from 'src/Auth/auth.schema';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
+      { name: Auth.name, schema: AuthSchema },
       { name: Contacts.name, schema: ContactSchema },
       { name: User.name, schema: UserSchema },
       { name: Workspace.name, schema: WorkspaceSchema },
     ]),
     UsersModule,
+    AuthModule,
   ],
-  providers: [ContactsService, RolesGuard],
+  providers: [ContactsService],
   controllers: [ContactsController],
 })
 export class ContactsModule {}

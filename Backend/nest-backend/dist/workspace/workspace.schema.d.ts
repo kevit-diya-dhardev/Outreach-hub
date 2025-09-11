@@ -1,5 +1,4 @@
 export declare class Workspace {
-    workspace_id: String;
     workspace_name: String;
     description: String;
     createdAt: String;

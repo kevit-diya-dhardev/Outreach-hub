@@ -28,9 +28,9 @@ let ContactsService = class ContactsService {
         this.usersModel = usersModel;
         this.workspaceModel = workspaceModel;
     }
-    async createContact(contactData) {
+    async createContact({ ...contactData }, req) {
         const findWorkspace = await this.workspaceModel.findOne({
-            workspace_id: contactData.workspace_id,
+            _id: contactData.workspace_id,
         });
         if (!findWorkspace)
             throw new common_1.NotFoundException("Workspace doesn't exists!");
@@ -39,7 +39,11 @@ let ContactsService = class ContactsService {
         });
         if (findContact)
             throw new common_1.ConflictException('Contact already exists!');
-        const newContact = await new this.contactsModel(contactData);
+        const newContact = await new this.contactsModel({
+            ...contactData,
+            createdBy: req.userData.userId,
+            _id: req.userData.userId,
+        });
         return await newContact.save();
     }
     async updateContact(id, contactData) {

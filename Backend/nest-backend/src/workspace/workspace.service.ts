@@ -12,20 +12,10 @@ export class WorkspaceService {
     @InjectModel(Workspace.name) private workspaceModel: Model<Workspace>,
   ) {}
 
-  async createWorkspace(
-    { workspace_id, ...workspaceData }: workspaceSchemaDto,
-    req: any,
-  ) {
-    const exists = await this.workspaceModel.findOne({
-      workspace_id: workspace_id,
-    });
-    if (exists) {
-      return null;
-    }
+  async createWorkspace({ ...workspaceData }: workspaceSchemaDto, req: any) {
     const newWorkspace = new this.workspaceModel({
-      workspace_id,
       ...workspaceData,
-      createdBy: req.userData.id,
+      createdBy: req.userData.userId,
     });
     const savedWorkspace = await newWorkspace.save();
     return savedWorkspace;
@@ -38,14 +28,14 @@ export class WorkspaceService {
   }
 
   async getSingleWorkspace(id: String) {
-    const workspace = await this.workspaceModel.findOne({ workspace_id: id });
+    const workspace = await this.workspaceModel.findOne({ _id: id });
     if (!workspace) return null;
     return workspace;
   }
 
   async updateWorkspace(id: String, workspaceData: updateWorkspaceDto) {
     const updatedWorkspace = await this.workspaceModel.findOneAndUpdate(
-      { workspace_id: id },
+      { _id: id },
       workspaceData,
       { new: true },
     );
@@ -55,17 +45,19 @@ export class WorkspaceService {
 
   async deleteWorkspace(id: String) {
     const findWorkspace = await this.workspaceModel.findOne({
-      workspace_id: id,
+      _id: id,
     });
     if (!findWorkspace) return null;
     const deletedWorkspace = await this.workspaceModel.deleteOne({
-      workspace_id: id,
+      _id: id,
     });
     return deletedWorkspace;
   }
 
   async getMyWorkspaces(req: any) {
-    const workspaces = this.workspaceModel.find({ createdBy: req.userData.id });
+    const workspaces = this.workspaceModel.find({
+      createdBy: req.userData.userId,
+    });
     return workspaces;
   }
 }

@@ -12,17 +12,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.WorkspaceSchema = exports.Workspace = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 let Workspace = class Workspace {
-    workspace_id;
     workspace_name;
     description;
     createdAt;
     createdBy;
 };
 exports.Workspace = Workspace;
-__decorate([
-    (0, mongoose_1.Prop)({ unique: true, required: true }),
-    __metadata("design:type", String)
-], Workspace.prototype, "workspace_id", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)

@@ -14,8 +14,9 @@ const contacts_controller_1 = require("./contacts.controller");
 const contacts_service_1 = require("./contacts.service");
 const users_schema_1 = require("../users/users.schema");
 const workspace_schema_1 = require("../workspace/workspace.schema");
-const roles_guard_1 = require("../Auth/roles.guard");
 const users_module_1 = require("../users/users.module");
+const auth_module_1 = require("../Auth/auth.module");
+const auth_schema_1 = require("../Auth/auth.schema");
 let ContactsModule = class ContactsModule {
 };
 exports.ContactsModule = ContactsModule;
@@ -23,13 +24,15 @@ exports.ContactsModule = ContactsModule = __decorate([
     (0, common_1.Module)({
         imports: [
             mongoose_1.MongooseModule.forFeature([
+                { name: auth_schema_1.Auth.name, schema: auth_schema_1.AuthSchema },
                 { name: contacts_schema_1.Contacts.name, schema: contacts_schema_1.ContactSchema },
                 { name: users_schema_1.User.name, schema: users_schema_1.UserSchema },
                 { name: workspace_schema_1.Workspace.name, schema: workspace_schema_1.WorkspaceSchema },
             ]),
             users_module_1.UsersModule,
+            auth_module_1.AuthModule,
         ],
-        providers: [contacts_service_1.ContactsService, roles_guard_1.RolesGuard],
+        providers: [contacts_service_1.ContactsService],
         controllers: [contacts_controller_1.ContactsController],
     })
 ], ContactsModule);

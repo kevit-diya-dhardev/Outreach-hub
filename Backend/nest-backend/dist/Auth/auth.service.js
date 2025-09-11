@@ -52,12 +52,15 @@ const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const users_schema_1 = require("../users/users.schema");
 const bcrypt = __importStar(require("bcrypt"));
+const auth_schema_1 = require("./auth.schema");
 let AuthService = class AuthService {
     userModel;
     jwtService;
-    constructor(userModel, jwtService) {
+    authModel;
+    constructor(userModel, jwtService, authModel) {
         this.userModel = userModel;
         this.jwtService = jwtService;
+        this.authModel = authModel;
     }
     async generateToken(authData) {
         console.log('Inside auth service');
@@ -68,16 +71,32 @@ let AuthService = class AuthService {
         const isValid = await bcrypt.compare(password, findUser.password);
         if (!isValid)
             throw new common_1.UnauthorizedException('User not found!!!!');
-        let isAdmin = findUser.isAdmin, userId = findUser._id;
+        let userId = findUser._id;
         const payload = { userId };
         const token = await this.jwtService.signAsync(payload);
+        try {
+            await this.storeToken(token);
+        }
+        catch (error) {
+            console.log('Storing token error' + error);
+            throw new common_1.HttpException('Store token error', 500);
+        }
         return { token: token };
+    }
+    async storeToken(token) {
+        const newToken = new this.authModel({ token });
+        return await newToken.save();
+    }
+    async deleteTokenFromDb(token) {
+        return await this.authModel.deleteOne({ token });
     }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([
     __param(0, (0, mongoose_1.InjectModel)(users_schema_1.User.name)),
+    __param(2, (0, mongoose_1.InjectModel)(auth_schema_1.Auth.name)),
     __metadata("design:paramtypes", [mongoose_2.Model,
-        jwt_1.JwtService])
+        jwt_1.JwtService,
+        mongoose_2.Model])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map

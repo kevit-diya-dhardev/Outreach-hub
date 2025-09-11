@@ -24,36 +24,36 @@ export class UserController {
   constructor(private userService: UserService) {}
   @Post()
   @UseGuards(AuthGuard)
-  createUser(@Body() userData: userDto, @Req() req: any) {
-    return this.userService.createUser(userData, req);
+  async createUser(@Body() userData: userDto, @Req() req: any) {
+    return await this.userService.createUser(userData, req);
   }
 
   @Get()
   @UseGuards(AuthGuard)
-  getUsers() {
-    return this.userService.getUsers();
+  async getUsers() {
+    return await this.userService.getUsers();
   }
   @Get('my-users')
   @UseGuards(AuthGuard)
-  getMyUsers(@Req() req: any) {
-    return this.userService.getMyUsers(req);
+  async getMyUsers(@Req() req: any) {
+    return await this.userService.getMyUsers(req);
   }
 
   @Get(':id')
   @UseGuards(AuthGuard)
-  getSingleUser(@Param('id') id: String) {
-    return this.userService.getSingleUser(id);
+  async getSingleUser(@Param('id') id: String) {
+    return await this.userService.getSingleUser(id);
   }
 
   @Patch(':id')
   @UseGuards(AuthGuard)
-  updateUser(@Param('id') id: String, @Body() userData: updateUserDto) {
-    return this.userService.updateUser(id, userData);
+  async updateUser(@Param('id') id: String, @Body() userData: updateUserDto) {
+    return await this.userService.updateUser(id, userData);
   }
 
   @Delete(':id')
   @UseGuards(AuthGuard)
-  deleteUser(@Param('id') id: String) {
-    return this.userService.deleteUser(id);
+  async deleteUser(@Param('id') id: String) {
+    return await this.userService.deleteUser(id);
   }
 }

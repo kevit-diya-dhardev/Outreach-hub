@@ -60,29 +60,19 @@ let UserService = class UserService {
         this.workspaceModel = workspaceModel;
     }
     async createUser({ password, ...userData }, req) {
-        const findUser = await this.userModel.findOne({
-            $and: [
-                { email: userData.email },
-                { workspace_id: userData.workspace_id },
-            ],
-        });
-        if (findUser)
-            throw new common_1.ConflictException('User already exists in this workspace!');
-        const findWorkspace = await this.workspaceModel.findOne({
-            workspace_id: userData.workspace_id,
-        });
-        if (!findWorkspace)
-            throw new common_1.NotFoundException("Workspace does'nt exists!");
         try {
             const hash = await bcrypt.hash(password, 10);
             const newUser = new this.userModel({
                 password: hash,
                 ...userData,
-                createdBy: req.userData.id,
+                createdBy: req.userData.userId,
             });
-            return newUser.save();
+            return await newUser.save();
         }
         catch (err) {
+            if (err.code === 11000) {
+                throw new common_1.ConflictException('User with this email already exists in this workspace');
+            }
             console.log(err);
             throw new common_1.HttpException('Internal server errro!', 501);
         }
@@ -92,6 +82,7 @@ let UserService = class UserService {
         return findUsers;
     }
     async getSingleUser(id) {
+        console.log('Inside user service method');
         const findUser = await this.userModel.findById(id);
         if (!findUser)
             throw new common_1.NotFoundException('User not found!');
@@ -115,7 +106,9 @@ let UserService = class UserService {
         return deletedUser;
     }
     async getMyUsers(req) {
-        const myUsers = await this.userModel.find({ createdBy: req.userData.id });
+        const myUsers = await this.userModel.find({
+            createdBy: req.userData.userId,
+        });
         return myUsers;
     }
 };

@@ -13,7 +13,8 @@ const users_schema_1 = require("./users.schema");
 const users_controller_1 = require("./users.controller");
 const users_service_1 = require("./users.service");
 const workspace_schema_1 = require("../workspace/workspace.schema");
-const roles_guard_1 = require("../Auth/roles.guard");
+const auth_module_1 = require("../Auth/auth.module");
+const auth_schema_1 = require("../Auth/auth.schema");
 let UsersModule = class UsersModule {
 };
 exports.UsersModule = UsersModule;
@@ -21,15 +22,17 @@ exports.UsersModule = UsersModule = __decorate([
     (0, common_1.Module)({
         imports: [
             mongoose_1.MongooseModule.forFeature([
+                { name: auth_schema_1.Auth.name, schema: auth_schema_1.AuthSchema },
                 {
                     name: users_schema_1.User.name,
                     schema: users_schema_1.UserSchema,
                 },
                 { name: workspace_schema_1.Workspace.name, schema: workspace_schema_1.WorkspaceSchema },
             ]),
+            (0, common_1.forwardRef)(() => auth_module_1.AuthModule),
         ],
         controllers: [users_controller_1.UserController],
-        providers: [users_service_1.UserService, roles_guard_1.RolesGuard],
+        providers: [users_service_1.UserService],
         exports: [users_service_1.UserService],
     })
 ], UsersModule);

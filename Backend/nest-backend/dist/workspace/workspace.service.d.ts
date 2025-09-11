@@ -5,11 +5,11 @@ import { updateWorkspaceDto } from './dto/updateWorkspace.schema.dto';
 export declare class WorkspaceService {
     private workspaceModel;
     constructor(workspaceModel: Model<Workspace>);
-    createWorkspace({ workspace_id, ...workspaceData }: workspaceSchemaDto, req: any): Promise<(import("mongoose").Document<unknown, {}, Workspace, {}, {}> & Workspace & {
+    createWorkspace({ ...workspaceData }: workspaceSchemaDto, req: any): Promise<import("mongoose").Document<unknown, {}, Workspace, {}, {}> & Workspace & {
         _id: import("mongoose").Types.ObjectId;
     } & {
         __v: number;
-    }) | null>;
+    }>;
     getWorkspaces(): Promise<(import("mongoose").Document<unknown, {}, Workspace, {}, {}> & Workspace & {
         _id: import("mongoose").Types.ObjectId;
     } & {

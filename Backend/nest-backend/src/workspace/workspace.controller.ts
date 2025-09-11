@@ -24,12 +24,13 @@ import { Roles } from 'src/Auth/roles.decorator';
 
 @UseGuards(AuthGuard, RolesGuard)
 @Roles('admin')
-@Controller('workspace')
+@Controller('workspaces')
 export class WorkspaceController {
   constructor(private workspaceService: WorkspaceService) {}
   @Get()
   async getWorkspaces() {
     const workspaces = await this.workspaceService.getWorkspaces();
+
     if (!workspaces) {
       throw new HttpException('Workspaces not found!', HttpStatus.NOT_FOUND);
     }
@@ -38,7 +39,6 @@ export class WorkspaceController {
 
   @Post()
   @UseGuards(AuthGuard)
-  @UsePipes(new ValidationPipe())
   async createWorkspace(
     @Body() workspaceData: workspaceSchemaDto,
     @Req() request: any,
@@ -77,7 +77,6 @@ export class WorkspaceController {
 
   @Patch(':id')
   @UseGuards(AuthGuard)
-  @UsePipes(new ValidationPipe())
   async updateWorkspace(
     @Param('id') id: String,
     @Body() workspaceData: updateWorkspaceDto,

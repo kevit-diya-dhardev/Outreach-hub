@@ -4,7 +4,7 @@ export declare class User {
     email: String;
     password: String;
     role: String;
-    workspace_id: String;
+    workspace_id: String[];
     createdAt: String;
     isAdmin?: boolean;
     createdBy: string;

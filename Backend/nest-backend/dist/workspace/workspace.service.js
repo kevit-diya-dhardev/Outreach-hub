@@ -23,17 +23,10 @@ let WorkspaceService = class WorkspaceService {
     constructor(workspaceModel) {
         this.workspaceModel = workspaceModel;
     }
-    async createWorkspace({ workspace_id, ...workspaceData }, req) {
-        const exists = await this.workspaceModel.findOne({
-            workspace_id: workspace_id,
-        });
-        if (exists) {
-            return null;
-        }
+    async createWorkspace({ ...workspaceData }, req) {
         const newWorkspace = new this.workspaceModel({
-            workspace_id,
             ...workspaceData,
-            createdBy: req.userData.id,
+            createdBy: req.userData.userId,
         });
         const savedWorkspace = await newWorkspace.save();
         return savedWorkspace;
@@ -45,30 +38,32 @@ let WorkspaceService = class WorkspaceService {
         return workspaces;
     }
     async getSingleWorkspace(id) {
-        const workspace = await this.workspaceModel.findOne({ workspace_id: id });
+        const workspace = await this.workspaceModel.findOne({ _id: id });
         if (!workspace)
             return null;
         return workspace;
     }
     async updateWorkspace(id, workspaceData) {
-        const updatedWorkspace = await this.workspaceModel.findOneAndUpdate({ workspace_id: id }, workspaceData, { new: true });
+        const updatedWorkspace = await this.workspaceModel.findOneAndUpdate({ _id: id }, workspaceData, { new: true });
         if (!updateWorkspace_schema_dto_1.updateWorkspaceDto)
             return null;
         return updatedWorkspace;
     }
     async deleteWorkspace(id) {
         const findWorkspace = await this.workspaceModel.findOne({
-            workspace_id: id,
+            _id: id,
         });
         if (!findWorkspace)
             return null;
         const deletedWorkspace = await this.workspaceModel.deleteOne({
-            workspace_id: id,
+            _id: id,
         });
         return deletedWorkspace;
     }
     async getMyWorkspaces(req) {
-        const workspaces = this.workspaceModel.find({ createdBy: req.userData.id });
+        const workspaces = this.workspaceModel.find({
+            createdBy: req.userData.userId,
+        });
         return workspaces;
     }
 };

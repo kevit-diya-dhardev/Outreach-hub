@@ -17,23 +17,27 @@ const auth_controller_1 = require("./auth.controller");
 const auth_guard_1 = require("./auth.guard");
 const roles_guard_1 = require("./roles.guard");
 const users_module_1 = require("../users/users.module");
+const auth_schema_1 = require("./auth.schema");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
 exports.AuthModule = AuthModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            mongoose_1.MongooseModule.forFeature([{ name: users_schema_1.User.name, schema: users_schema_1.UserSchema },]),
+            mongoose_1.MongooseModule.forFeature([
+                { name: auth_schema_1.Auth.name, schema: auth_schema_1.AuthSchema },
+                { name: users_schema_1.User.name, schema: users_schema_1.UserSchema },
+            ]),
             jwt_1.JwtModule.register({
                 global: true,
                 secret: constants_1.jwtConstants.secret,
                 signOptions: { expiresIn: '10h' },
             }),
-            users_module_1.UsersModule,
+            (0, common_1.forwardRef)(() => users_module_1.UsersModule),
         ],
         providers: [auth_service_1.AuthService, auth_guard_1.AuthGuard, roles_guard_1.RolesGuard],
         controllers: [auth_controller_1.AuthController],
-        exports: [auth_service_1.AuthService],
+        exports: [auth_service_1.AuthService, auth_guard_1.AuthGuard, roles_guard_1.RolesGuard],
     })
 ], AuthModule);
 //# sourceMappingURL=auth.module.js.map

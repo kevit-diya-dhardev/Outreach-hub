@@ -12,23 +12,25 @@ const workspace_controller_1 = require("./workspace.controller");
 const workspace_service_1 = require("./workspace.service");
 const mongoose_1 = require("@nestjs/mongoose");
 const workspace_schema_1 = require("./workspace.schema");
-const roles_guard_1 = require("../Auth/roles.guard");
 const users_module_1 = require("../users/users.module");
+const auth_module_1 = require("../Auth/auth.module");
+const auth_schema_1 = require("../Auth/auth.schema");
 let WorkspaceModule = class WorkspaceModule {
 };
 exports.WorkspaceModule = WorkspaceModule;
 exports.WorkspaceModule = WorkspaceModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            mongoose_1.MongooseModule.forFeature([
+            mongoose_1.MongooseModule.forFeature([{ name: auth_schema_1.Auth.name, schema: auth_schema_1.AuthSchema },
                 {
                     name: workspace_schema_1.Workspace.name,
                     schema: workspace_schema_1.WorkspaceSchema,
                 },
             ]),
             users_module_1.UsersModule,
+            (0, common_1.forwardRef)(() => auth_module_1.AuthModule),
         ],
-        providers: [workspace_service_1.WorkspaceService, roles_guard_1.RolesGuard],
+        providers: [workspace_service_1.WorkspaceService],
         controllers: [workspace_controller_1.WorkspaceController],
     })
 ], WorkspaceModule);

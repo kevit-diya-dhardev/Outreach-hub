@@ -24,23 +24,23 @@ let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
     }
-    createUser(userData, req) {
-        return this.userService.createUser(userData, req);
+    async createUser(userData, req) {
+        return await this.userService.createUser(userData, req);
     }
-    getUsers() {
-        return this.userService.getUsers();
+    async getUsers() {
+        return await this.userService.getUsers();
     }
-    getMyUsers(req) {
-        return this.userService.getMyUsers(req);
+    async getMyUsers(req) {
+        return await this.userService.getMyUsers(req);
     }
-    getSingleUser(id) {
-        return this.userService.getSingleUser(id);
+    async getSingleUser(id) {
+        return await this.userService.getSingleUser(id);
     }
-    updateUser(id, userData) {
-        return this.userService.updateUser(id, userData);
+    async updateUser(id, userData) {
+        return await this.userService.updateUser(id, userData);
     }
-    deleteUser(id) {
-        return this.userService.deleteUser(id);
+    async deleteUser(id) {
+        return await this.userService.deleteUser(id);
     }
 };
 exports.UserController = UserController;
@@ -51,14 +51,14 @@ __decorate([
     __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [user_dto_1.userDto, Object]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], UserController.prototype, "createUser", null);
 __decorate([
     (0, common_1.Get)(),
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], UserController.prototype, "getUsers", null);
 __decorate([
     (0, common_1.Get)('my-users'),
@@ -66,7 +66,7 @@ __decorate([
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], UserController.prototype, "getMyUsers", null);
 __decorate([
     (0, common_1.Get)(':id'),
@@ -74,7 +74,7 @@ __decorate([
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], UserController.prototype, "getSingleUser", null);
 __decorate([
     (0, common_1.Patch)(':id'),
@@ -83,7 +83,7 @@ __decorate([
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, user_dto_1.updateUserDto]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], UserController.prototype, "updateUser", null);
 __decorate([
     (0, common_1.Delete)(':id'),
@@ -91,7 +91,7 @@ __decorate([
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], UserController.prototype, "deleteUser", null);
 exports.UserController = UserController = __decorate([
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard, roles_guard_1.RolesGuard),

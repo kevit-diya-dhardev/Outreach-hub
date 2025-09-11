@@ -12,16 +12,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.workspaceSchemaDto = void 0;
 const class_validator_1 = require("class-validator");
 class workspaceSchemaDto {
-    workspace_id;
     workspace_name;
     description;
 }
 exports.workspaceSchemaDto = workspaceSchemaDto;
-__decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], workspaceSchemaDto.prototype, "workspace_id", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),

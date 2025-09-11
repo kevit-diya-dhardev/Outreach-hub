@@ -19,9 +19,9 @@ export class ContactsService {
     @InjectModel(Workspace.name) private workspaceModel: Model<Workspace>,
   ) {}
 
-  async createContact(contactData: ContactsDto) {
+  async createContact({ ...contactData }: ContactsDto, req: any) {
     const findWorkspace = await this.workspaceModel.findOne({
-      workspace_id: contactData.workspace_id,
+      _id: contactData.workspace_id,
     });
     if (!findWorkspace)
       throw new NotFoundException("Workspace doesn't exists!");
@@ -29,7 +29,11 @@ export class ContactsService {
       phoneNumber: contactData.phoneNumber,
     });
     if (findContact) throw new ConflictException('Contact already exists!');
-    const newContact = await new this.contactsModel(contactData);
+    const newContact = await new this.contactsModel({
+      ...contactData,
+      createdBy: req.userData.userId,
+      _id: req.userData.userId,
+    });
     return await newContact.save();
   }
 
