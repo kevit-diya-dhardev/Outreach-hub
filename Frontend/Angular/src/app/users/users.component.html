@@ -38,24 +38,44 @@
       </div>
 
       <div class="card-footer">
-        <button
-          class="btn btn-secondary edit-button"
-          (click)="editUser(user.id)"
-        >
+        <button class="btn btn-secondary edit-button" (click)="editUser(user)">
           Edit
         </button>
         <button
           class="btn btn-secondary delete-button"
-          (click)="deleteUser(user.id)"
+          (click)="deleteUser(user._id)"
         >
           Delete
         </button>
       </div>
     </div>
   </div>
+
+  <div class="pagination-controls">
+    <button
+      class="pagination-btn"
+      (click)="decreasePage()"
+      [disabled]="page === 1"
+    >
+      &larr; Previous
+    </button>
+    <span class="page-info"> Page {{ page }} of {{ totalPages }} </span>
+    <button
+      class="pagination-btn"
+      (click)="increasePage()"
+      [disabled]="page === totalPages"
+    >
+      Next &rarr;
+    </button>
+  </div>
+
   <div class="modal-overlay" *ngIf="userFormVisible">
     <div class="modal-content">
-      <app-create-user (dataEvent)="recieveData($event)"></app-create-user>
+      <app-create-user
+        (dataEvent)="recieveData($event)"
+        [isEditForm]="isEditForm"
+        [user]="user"
+      ></app-create-user>
     </div>
   </div>
 </div>

@@ -1,7 +1,7 @@
 import { Injectable, Req } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Workspace } from './workspace.schema';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { workspaceSchemaDto } from './dto/workspace.dto';
 import { updateWorkspaceDto } from './dto/updateWorkspace.schema.dto';
 import { Request } from 'express';
@@ -21,10 +21,15 @@ export class WorkspaceService {
     return savedWorkspace;
   }
 
-  async getWorkspaces() {
-    const workspaces = await this.workspaceModel.find();
+  async getWorkspaces(page: number) {
+    const workspaces = await this.workspaceModel
+      .find({})
+      .limit(10)
+      .skip((page - 1) * 10)
+      .exec();
+    const totalDocs = await this.workspaceModel.countDocuments();
     if (workspaces.length < 1) return null;
-    return workspaces;
+    return { workspaces: workspaces, totalPages: Math.ceil(totalDocs / 10) };
   }
 
   async getSingleWorkspace(id: String) {
@@ -43,7 +48,8 @@ export class WorkspaceService {
     return updatedWorkspace;
   }
 
-  async deleteWorkspace(id: String) {
+  async deleteWorkspace(id: string) {
+    console.log(id);
     const findWorkspace = await this.workspaceModel.findOne({
       _id: id,
     });
@@ -54,10 +60,15 @@ export class WorkspaceService {
     return deletedWorkspace;
   }
 
-  async getMyWorkspaces(req: any) {
-    const workspaces = this.workspaceModel.find({
-      createdBy: req.userData.userId,
-    });
-    return workspaces;
+  async getMyWorkspaces(req: any, page: number) {
+    const workspaces = await this.workspaceModel
+      .find({
+        createdBy: req.userData.userId,
+      })
+      .limit(10)
+      .skip((page - 1) * 10)
+      .exec();
+    const totalDocs = await this.workspaceModel.countDocuments();
+    return { workspaces: workspaces, totalPages: Math.ceil(totalDocs / 10) };
   }
 }

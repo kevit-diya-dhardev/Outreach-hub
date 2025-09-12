@@ -77,9 +77,13 @@ let UserService = class UserService {
             throw new common_1.HttpException('Internal server errro!', 501);
         }
     }
-    async getUsers() {
-        const findUsers = await this.userModel.find({});
-        return findUsers;
+    async getUsers(page) {
+        const findUsers = await this.userModel
+            .find({})
+            .limit(10)
+            .skip((page - 1) * 10);
+        const totalDocs = await this.workspaceModel.countDocuments();
+        return { findUsers: findUsers, totalPages: Math.ceil(totalDocs / 10) };
     }
     async getSingleUser(id) {
         console.log('Inside user service method');
@@ -105,11 +109,15 @@ let UserService = class UserService {
             throw new common_1.NotFoundException('User not found!');
         return deletedUser;
     }
-    async getMyUsers(req) {
-        const myUsers = await this.userModel.find({
+    async getMyUsers(req, page) {
+        const myUsers = await this.userModel
+            .find({
             createdBy: req.userData.userId,
-        });
-        return myUsers;
+        })
+            .limit(10)
+            .skip((page - 1) * 10);
+        const totalDocs = await this.workspaceModel.countDocuments();
+        return { findUsers: myUsers, totalPages: Math.ceil(totalDocs / 10) };
     }
 };
 exports.UserService = UserService;

@@ -31,11 +31,16 @@ let WorkspaceService = class WorkspaceService {
         const savedWorkspace = await newWorkspace.save();
         return savedWorkspace;
     }
-    async getWorkspaces() {
-        const workspaces = await this.workspaceModel.find();
+    async getWorkspaces(page) {
+        const workspaces = await this.workspaceModel
+            .find({})
+            .limit(10)
+            .skip((page - 1) * 10)
+            .exec();
+        const totalDocs = await this.workspaceModel.countDocuments();
         if (workspaces.length < 1)
             return null;
-        return workspaces;
+        return { workspaces: workspaces, totalPages: Math.ceil(totalDocs / 10) };
     }
     async getSingleWorkspace(id) {
         const workspace = await this.workspaceModel.findOne({ _id: id });
@@ -50,6 +55,7 @@ let WorkspaceService = class WorkspaceService {
         return updatedWorkspace;
     }
     async deleteWorkspace(id) {
+        console.log(id);
         const findWorkspace = await this.workspaceModel.findOne({
             _id: id,
         });
@@ -60,11 +66,16 @@ let WorkspaceService = class WorkspaceService {
         });
         return deletedWorkspace;
     }
-    async getMyWorkspaces(req) {
-        const workspaces = this.workspaceModel.find({
+    async getMyWorkspaces(req, page) {
+        const workspaces = await this.workspaceModel
+            .find({
             createdBy: req.userData.userId,
-        });
-        return workspaces;
+        })
+            .limit(10)
+            .skip((page - 1) * 10)
+            .exec();
+        const totalDocs = await this.workspaceModel.countDocuments();
+        return { workspaces: workspaces, totalPages: Math.ceil(totalDocs / 10) };
     }
 };
 exports.WorkspaceService = WorkspaceService;

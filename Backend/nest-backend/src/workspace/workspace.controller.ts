@@ -10,6 +10,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   Req,
   UseGuards,
   UsePipes,
@@ -28,8 +29,8 @@ import { Roles } from 'src/Auth/roles.decorator';
 export class WorkspaceController {
   constructor(private workspaceService: WorkspaceService) {}
   @Get()
-  async getWorkspaces() {
-    const workspaces = await this.workspaceService.getWorkspaces();
+  async getWorkspaces(@Query('page') page: number) {
+    const workspaces = await this.workspaceService.getWorkspaces(page);
 
     if (!workspaces) {
       throw new HttpException('Workspaces not found!', HttpStatus.NOT_FOUND);
@@ -55,8 +56,8 @@ export class WorkspaceController {
 
   @Get('my-workspaces')
   @UseGuards(AuthGuard)
-  async getMyWorkspaces(@Req() req: any) {
-    return this.workspaceService.getMyWorkspaces(req).catch((error) => {
+  async getMyWorkspaces(@Req() req: any, @Query('page') page: number) {
+    return this.workspaceService.getMyWorkspaces(req, page).catch((error) => {
       console.log(error);
       throw new HttpException('Server error in workspace fetching', 500);
     });
@@ -93,7 +94,8 @@ export class WorkspaceController {
 
   @Delete(':id')
   @UseGuards(AuthGuard)
-  async deleteWorkspace(@Param('id') id: String) {
+  async deleteWorkspace(@Param('id') id: string) {
+    console.log('Controller ', id);
     const deletedWorkspace = await this.workspaceService.deleteWorkspace(id);
     if (!deletedWorkspace)
       throw new NotFoundException('Workspace with this id not found!');

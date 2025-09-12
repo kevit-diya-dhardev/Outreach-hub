@@ -75,3 +75,11 @@ $background-color: #ffffff;
     background-color: darken($primary-color, 10%);
   }
 }
+.display-success {
+  position: relative;
+  left: 6rem;
+
+  color: black;
+  border-radius: 1.3rem;
+  display: inline;
+}

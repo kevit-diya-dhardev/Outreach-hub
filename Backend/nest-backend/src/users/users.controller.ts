@@ -10,6 +10,7 @@ import {
   Delete,
   UseGuards,
   Req,
+  Query,
 } from '@nestjs/common';
 import { updateUserDto, userDto } from './dto/user.dto';
 import { UserService } from './users.service';
@@ -30,13 +31,13 @@ export class UserController {
 
   @Get()
   @UseGuards(AuthGuard)
-  async getUsers() {
-    return await this.userService.getUsers();
+  async getUsers(@Query('page') page: number) {
+    return await this.userService.getUsers(page);
   }
   @Get('my-users')
   @UseGuards(AuthGuard)
-  async getMyUsers(@Req() req: any) {
-    return await this.userService.getMyUsers(req);
+  async getMyUsers(@Req() req: any, @Query('page') page: number) {
+    return await this.userService.getMyUsers(req, page);
   }
 
   @Get(':id')

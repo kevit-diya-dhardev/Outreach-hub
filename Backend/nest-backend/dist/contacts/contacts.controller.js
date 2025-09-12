@@ -30,8 +30,8 @@ let ContactsController = class ContactsController {
     getSingleContact(id) {
         return this.contactService.getSingleContact(id);
     }
-    getContacts() {
-        return this.contactService.getContacts();
+    getContacts(page) {
+        return this.contactService.getContacts(page);
     }
     updateContact(id, contactData) {
         return this.contactService.updateContact(id, contactData);
@@ -62,8 +62,9 @@ __decorate([
     (0, common_1.Get)(),
     (0, roles_decorator_1.Roles)('Viewer'),
     (0, common_1.UsePipes)(new common_1.ValidationPipe()),
+    __param(0, (0, common_1.Query)('page')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", void 0)
 ], ContactsController.prototype, "getContacts", null);
 __decorate([

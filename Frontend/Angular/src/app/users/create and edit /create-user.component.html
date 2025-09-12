@@ -1,7 +1,7 @@
 <div class="create-user-container">
   <button class="close-btn" (click)="closeAddUserModal()">&times;</button>
-  <h2>Create User</h2>
-
+  <h2 *ngIf="!isEditForm">Create User</h2>
+  <h2 *ngIf="isEditForm">Edit User</h2>
   <form
     [formGroup]="userForm"
     *ngIf="userFormVisible"
@@ -15,11 +15,15 @@
         type="text"
         id="name"
         formControlName="name"
-        placeholder="Enter full name"
+        [placeholder]="isEditForm ? user.name : 'Enter full name'"
       />
       <div
         class="error"
-        *ngIf="userForm.get('name')?.invalid && userForm.get('name')?.touched"
+        *ngIf="
+          userForm.get('name')?.invalid &&
+          userForm.get('name')?.touched &&
+          !isEditForm
+        "
       >
         Name is required
       </div>
@@ -32,18 +36,22 @@
         type="email"
         id="email"
         formControlName="email"
-        placeholder="Enter email"
+        [placeholder]="isEditForm ? user.email : 'Enter email'"
       />
       <div
         class="error"
-        *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched"
+        *ngIf="
+          userForm.get('email')?.invalid &&
+          userForm.get('email')?.touched &&
+          !isEditForm
+        "
       >
         Please enter a valid email
       </div>
     </div>
 
     <!-- Password -->
-    <div class="form-group">
+    <div class="form-group" *ngIf="!isEditForm">
       <label for="password">Password</label>
       <input
         type="password"
@@ -54,7 +62,9 @@
       <div
         class="error"
         *ngIf="
-          userForm.get('password')?.invalid && userForm.get('password')?.touched
+          userForm.get('password')?.invalid &&
+          userForm.get('password')?.touched &&
+          !isEditForm
         "
       >
         Password must be at least 6 characters
@@ -105,7 +115,8 @@
     </div>
 
     <!-- Submit Button -->
-    <button type="submit" [disabled]="userForm.invalid">Create User</button>
+    <button type="submit" *ngIf="!isEditForm">Create User</button>
+    <button type="submit" *ngIf="isEditForm">Edit form</button>
   </form>
 </div>
-<div *ngIf="  success" class="display-success">User created successfully!</div>
+<div *ngIf="success" class="display-success">User created successfully!</div>

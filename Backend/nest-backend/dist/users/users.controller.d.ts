@@ -8,16 +8,22 @@ export declare class UserController {
     } & {
         __v: number;
     }>;
-    getUsers(): Promise<(import("mongoose").Document<unknown, {}, import("./users.schema").User, {}, {}> & import("./users.schema").User & {
-        _id: import("mongoose").Types.ObjectId;
-    } & {
-        __v: number;
-    })[]>;
-    getMyUsers(req: any): Promise<(import("mongoose").Document<unknown, {}, import("./users.schema").User, {}, {}> & import("./users.schema").User & {
-        _id: import("mongoose").Types.ObjectId;
-    } & {
-        __v: number;
-    })[]>;
+    getUsers(page: number): Promise<{
+        findUsers: (import("mongoose").Document<unknown, {}, import("./users.schema").User, {}, {}> & import("./users.schema").User & {
+            _id: import("mongoose").Types.ObjectId;
+        } & {
+            __v: number;
+        })[];
+        totalPages: number;
+    }>;
+    getMyUsers(req: any, page: number): Promise<{
+        findUsers: (import("mongoose").Document<unknown, {}, import("./users.schema").User, {}, {}> & import("./users.schema").User & {
+            _id: import("mongoose").Types.ObjectId;
+        } & {
+            __v: number;
+        })[];
+        totalPages: number;
+    }>;
     getSingleUser(id: String): Promise<import("mongoose").Document<unknown, {}, import("./users.schema").User, {}, {}> & import("./users.schema").User & {
         _id: import("mongoose").Types.ObjectId;
     } & {

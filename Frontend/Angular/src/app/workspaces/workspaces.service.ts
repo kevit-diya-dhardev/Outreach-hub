@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Workspace } from '../workspaces/models/workspace';
 
@@ -6,20 +6,26 @@ import { Workspace } from '../workspaces/models/workspace';
 export class WorkspacesServices {
   constructor(private http: HttpClient) {}
 
-  myworkspace_url = 'http://localhost:3000/workspace/my-workspaces';
-  allworkspaces_url = 'http://localhost:3000/workspace/';
-  getMyWorkspaces() {
-    return this.http.get(this.myworkspace_url);
+  myworkspace_url = 'http://localhost:3000/workspaces/my-workspaces';
+  allworkspaces_url = 'http://localhost:3000/workspaces';
+  getMyWorkspaces(page: number) {
+    const options: any = page
+      ? { params: new HttpParams().set('page', page) }
+      : {};
+    return this.http.get(this.myworkspace_url, options);
   }
-  getAllWorkspaces() {
-    return this.http.get(this.allworkspaces_url);
+  getAllWorkspaces(page: number) {
+    const options: any = page
+      ? { params: new HttpParams().set('page', page) }
+      : {};
+    return this.http.get(this.allworkspaces_url, options);
   }
   createWorkspaces(workspaceData: Workspace) {
     return this.http.post(this.allworkspaces_url, workspaceData);
   }
 
   deleteWorkspace(id: string) {
-    return this.http.delete(this.allworkspaces_url);
+    return this.http.delete(`${this.allworkspaces_url}/${id}`);
   }
   editWorkspace(id: string) {}
 }

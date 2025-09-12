@@ -11,14 +11,19 @@ import { UsersServices } from '../users.services';
 })
 export class CreateUserComponent {
   @Input() userFormVisible: any = true;
+  @Input() isEditForm: boolean = false;
+  @Input() user: any;
   success = false;
   closeAddUserModal() {
     this.userFormVisible = false;
-    this.dataEvent.emit(this.userFormVisible);
+    this.isEditForm = false;
+    this.dataEvent.emit({ editformAllowed: false, isuserFormVisible: false });
   }
-  openUserFormVisible() {}
 
-  @Output() dataEvent = new EventEmitter<boolean>();
+  @Output() dataEvent = new EventEmitter<{
+    isuserFormVisible: boolean;
+    editformAllowed: boolean;
+  }>();
   isOpen = false;
   openDropdown: 'role' | 'workspace_id' | null = null;
 
@@ -37,7 +42,7 @@ export class CreateUserComponent {
 
   selectWorkspace(workspace: any) {
     this.selectedWorkspace = workspace.workspace_name;
-    this.userForm.get('workspace_id')?.setValue(workspace.workspace_id);
+    this.userForm.get('workspace_id')?.setValue(workspace._id);
     this.openDropdown = null;
   }
 
@@ -49,41 +54,65 @@ export class CreateUserComponent {
     private userService: UsersServices
   ) {}
   createUser() {
+    if (this.isEditForm) {
+      return this.editUser();
+    }
     this.userService.createUser(this.userForm.getRawValue()).subscribe({
       next: (response) => {
         console.log('User created successfully');
         this.success = true;
+        this.dataEvent.emit({
+          isuserFormVisible: false,
+          editformAllowed: false,
+        });
       },
       error: (error) => {
         console.error('Error creating user' + error);
       },
     });
   }
+  editUser() {
+    this.userService
+      .editUser(this.user._id, this.userForm.getRawValue())
+      .subscribe({
+        next: (response) => {
+          console.log('Edited user');
+          this.dataEvent.emit({
+            isuserFormVisible: false,
+            editformAllowed: false,
+          });
+        },
+        error: (error) => {
+          console.log('editedUser');
+        },
+      });
+  }
   ngOnInit(): void {
     this.userForm = this.fb.group({
-      name: ['', { validators: [Validators.required], nonNullable: true }],
+      name: ['', { validators: [Validators.required] }],
       email: [
         '',
         {
           validators: [Validators.required, Validators.email],
-          nonNullable: true,
         },
       ],
       password: [
         '',
         {
           validators: [Validators.required, Validators.minLength(6)],
-          nonNullable: true,
         },
       ],
-      role: ['', { validators: [Validators.required], nonNullable: true }],
+      role: ['', { validators: [Validators.required] }],
       workspace_id: ['', Validators.required],
     });
+    this.fetchWorkspaces();
+  }
+  fetchWorkspaces() {
     this.workspaceService
-      .getAllWorkspaces()
+      .getAllWorkspaces(1)
       .pipe(
         map((res: any) => {
-          this.workspaceList = res;
+          this.workspaceList = res.workspaces;
         })
       )
       .subscribe({

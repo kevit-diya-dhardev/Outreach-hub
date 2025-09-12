@@ -10,6 +10,7 @@ import {
   UsePipes,
   ValidationPipe,
   Param,
+  Query,
 } from '@nestjs/common';
 import { messageDataDto } from './dtos/message.dto';
 import { MessageService } from './messages.services';
@@ -19,7 +20,7 @@ import { RolesGuard } from 'src/Auth/roles.guard';
 import { Roles } from 'src/Auth/roles.decorator';
 
 @UseGuards(AuthGuard, RolesGuard)
-@Controller()
+@Controller('messages')
 export class MessageController {
   constructor(private messageService: MessageService) {}
   @Post()
@@ -35,8 +36,8 @@ export class MessageController {
   @Get()
   @UseGuards(AuthGuard)
   @Roles('Viewer')
-  getMessages(@Req() request: express.Request) {
-    return this.messageService.getMessages(request);
+  getMessages(@Req() request: express.Request, @Query('page') page: number) {
+    return this.messageService.getMessages(request, page);
   }
 
   @Get(':id')

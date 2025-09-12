@@ -9,6 +9,39 @@ import { ActivatedRoute, UrlSegment } from '@angular/router';
   styleUrl: './workspaces.component.scss',
 })
 export class WorkspacesComponent {
+  constructor(
+    private workspacesService: WorkspacesServices,
+    private route: ActivatedRoute
+  ) {}
+  totalPages!: number;
+  currentPath!: string;
+  page: number = 1;
+  handleSuccess(value: boolean) {
+    this.closeAddWorkspaceModal();
+    if (this.currentPath == 'my-workspaces') {
+      this.fetchMyWorkspace();
+    } else {
+      this.fetchAllWorkspaces();
+    }
+  }
+
+  increasePage() {
+    this.page++;
+    if (this.currentPath == 'my-workspaces') {
+      this.fetchMyWorkspace();
+    } else {
+      this.fetchAllWorkspaces();
+    }
+  }
+
+  decreasePage() {
+    this.page--;
+    if (this.currentPath == 'my-workspaces') {
+      this.fetchMyWorkspace();
+    } else {
+      this.fetchAllWorkspaces();
+    }
+  }
   isFormModalVisible!: boolean;
   closeAddWorkspaceModal() {
     this.isFormModalVisible = false;
@@ -16,8 +49,18 @@ export class WorkspacesComponent {
   openAddWorkspaceModal(): void {
     this.isFormModalVisible = true;
   }
-  deleteWorkspace(arg0: any) {
-    throw new Error('Method not implemented.');
+  deleteWorkspace(id: string) {
+    this.workspacesService.deleteWorkspace(id).subscribe({
+      next: (response) => {
+        console.log(response);
+        if (this.currentPath == 'my-workspaces') {
+          this.fetchMyWorkspace();
+        } else {
+          this.fetchAllWorkspaces();
+        }
+      },
+      error: () => {},
+    });
   }
   editWorkspace(arg0: any) {
     throw new Error('Method not implemented.');
@@ -25,35 +68,42 @@ export class WorkspacesComponent {
   viewUsers(arg0: any) {
     throw new Error('Method not implemented.');
   }
-  constructor(
-    private workspacesService: WorkspacesServices,
-    private route: ActivatedRoute
-  ) {}
+
   selected = '';
   myworkspaces: any[] = [];
   ngOnInit() {
     this.selected = 'workspaces';
     this.route.url.subscribe((urlSegment) => {
-      const currentPath = urlSegment[0].path;
-      if (currentPath == 'my-workspaces') {
-        this.workspacesService.getMyWorkspaces().subscribe({
-          next: (response: any) => {
-            this.myworkspaces = response;
-          },
-          error: (error) => {
-            console.log(error);
-          },
-        });
+      this.currentPath = urlSegment[0].path;
+      if (this.currentPath == 'my-workspaces') {
+        this.fetchMyWorkspace();
       } else {
-        this.workspacesService.getAllWorkspaces().subscribe({
-          next: (response: any) => {
-            this.myworkspaces = response;
-          },
-          error: (error) => {
-            console.log(error);
-          },
-        });
+        this.fetchAllWorkspaces();
       }
+    });
+  }
+  fetchAllWorkspaces() {
+    this.workspacesService.getAllWorkspaces(this.page).subscribe({
+      next: (response: any) => {
+        console.log(response.workspaces);
+        this.myworkspaces = response.workspaces;
+        this.totalPages = response.totalPages;
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }
+  fetchMyWorkspace() {
+    this.workspacesService.getMyWorkspaces(this.page).subscribe({
+      next: (response: any) => {
+        console.log(response.workspaces);
+        this.myworkspaces = response.workspaces;
+        this.totalPages = response.totalPages;
+      },
+      error: (error) => {
+        console.log(error);
+      },
     });
   }
 

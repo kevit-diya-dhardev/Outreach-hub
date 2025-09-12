@@ -13,6 +13,8 @@ import { find, NotFoundError } from 'rxjs';
 
 @Injectable()
 export class ContactsService {
+  allcnt: any = 0;
+  mycnt: any = 0;
   constructor(
     @InjectModel(Contacts.name) private contactsModel: Model<Contacts>,
     @InjectModel(User.name) private usersModel: Model<User>,
@@ -53,8 +55,15 @@ export class ContactsService {
     return await this.contactsModel.deleteOne({ _id: id });
   }
 
-  async getContacts() {
-    return await this.contactsModel.find();
+  async getContacts(page: number) {
+    const contacts = await this.contactsModel
+      .find()
+      .limit(10)
+      .skip(page * 10);
+
+    const totalDocs = await this.contactsModel.countDocuments();
+
+    return { contacts: contacts, totalPages: totalDocs };
   }
 
   async getSingleContact(id: String) {

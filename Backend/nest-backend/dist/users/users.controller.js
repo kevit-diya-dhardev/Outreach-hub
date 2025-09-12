@@ -27,11 +27,11 @@ let UserController = class UserController {
     async createUser(userData, req) {
         return await this.userService.createUser(userData, req);
     }
-    async getUsers() {
-        return await this.userService.getUsers();
+    async getUsers(page) {
+        return await this.userService.getUsers(page);
     }
-    async getMyUsers(req) {
-        return await this.userService.getMyUsers(req);
+    async getMyUsers(req, page) {
+        return await this.userService.getMyUsers(req, page);
     }
     async getSingleUser(id) {
         return await this.userService.getSingleUser(id);
@@ -56,16 +56,18 @@ __decorate([
 __decorate([
     (0, common_1.Get)(),
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    __param(0, (0, common_1.Query)('page')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getUsers", null);
 __decorate([
     (0, common_1.Get)('my-users'),
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Query)('page')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, Number]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getMyUsers", null);
 __decorate([

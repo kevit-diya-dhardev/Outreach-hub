@@ -10,6 +10,7 @@ import {
   Delete,
   UseGuards,
   Req,
+  Query,
 } from '@nestjs/common';
 import { ContactsService } from './contacts.service';
 import { ContactsDto } from './dto/contacts.dto';
@@ -36,8 +37,8 @@ export class ContactsController {
   @Get()
   @Roles('Viewer')
   @UsePipes(new ValidationPipe())
-  getContacts() {
-    return this.contactService.getContacts();
+  getContacts(@Query('page') page: number) {
+    return this.contactService.getContacts(page);
   }
 
   @Patch(':id')

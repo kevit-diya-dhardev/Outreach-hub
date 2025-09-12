@@ -11,11 +11,14 @@ export declare class UserService {
     } & {
         __v: number;
     }>;
-    getUsers(): Promise<(import("mongoose").Document<unknown, {}, User, {}, {}> & User & {
-        _id: import("mongoose").Types.ObjectId;
-    } & {
-        __v: number;
-    })[]>;
+    getUsers(page: number): Promise<{
+        findUsers: (import("mongoose").Document<unknown, {}, User, {}, {}> & User & {
+            _id: import("mongoose").Types.ObjectId;
+        } & {
+            __v: number;
+        })[];
+        totalPages: number;
+    }>;
     getSingleUser(id: String): Promise<import("mongoose").Document<unknown, {}, User, {}, {}> & User & {
         _id: import("mongoose").Types.ObjectId;
     } & {
@@ -31,9 +34,12 @@ export declare class UserService {
     } & {
         __v: number;
     }>;
-    getMyUsers(req: any): Promise<(import("mongoose").Document<unknown, {}, User, {}, {}> & User & {
-        _id: import("mongoose").Types.ObjectId;
-    } & {
-        __v: number;
-    })[]>;
+    getMyUsers(req: any, page: number): Promise<{
+        findUsers: (import("mongoose").Document<unknown, {}, User, {}, {}> & User & {
+            _id: import("mongoose").Types.ObjectId;
+        } & {
+            __v: number;
+        })[];
+        totalPages: number;
+    }>;
 }

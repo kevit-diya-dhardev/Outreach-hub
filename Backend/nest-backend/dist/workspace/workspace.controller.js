@@ -25,8 +25,8 @@ let WorkspaceController = class WorkspaceController {
     constructor(workspaceService) {
         this.workspaceService = workspaceService;
     }
-    async getWorkspaces() {
-        const workspaces = await this.workspaceService.getWorkspaces();
+    async getWorkspaces(page) {
+        const workspaces = await this.workspaceService.getWorkspaces(page);
         if (!workspaces) {
             throw new common_1.HttpException('Workspaces not found!', common_1.HttpStatus.NOT_FOUND);
         }
@@ -39,8 +39,8 @@ let WorkspaceController = class WorkspaceController {
         }
         return workspace;
     }
-    async getMyWorkspaces(req) {
-        return this.workspaceService.getMyWorkspaces(req).catch((error) => {
+    async getMyWorkspaces(req, page) {
+        return this.workspaceService.getMyWorkspaces(req, page).catch((error) => {
             console.log(error);
             throw new common_1.HttpException('Server error in workspace fetching', 500);
         });
@@ -58,6 +58,7 @@ let WorkspaceController = class WorkspaceController {
         return updatedWorkspace;
     }
     async deleteWorkspace(id) {
+        console.log('Controller ', id);
         const deletedWorkspace = await this.workspaceService.deleteWorkspace(id);
         if (!deletedWorkspace)
             throw new common_1.NotFoundException('Workspace with this id not found!');
@@ -67,8 +68,9 @@ let WorkspaceController = class WorkspaceController {
 exports.WorkspaceController = WorkspaceController;
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Query)('page')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], WorkspaceController.prototype, "getWorkspaces", null);
 __decorate([
@@ -84,8 +86,9 @@ __decorate([
     (0, common_1.Get)('my-workspaces'),
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Query)('page')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, Number]),
     __metadata("design:returntype", Promise)
 ], WorkspaceController.prototype, "getMyWorkspaces", null);
 __decorate([

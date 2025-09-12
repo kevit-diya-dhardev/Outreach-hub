@@ -30,12 +30,18 @@ export class MessageService {
       throw new HttpException('Server error in creating message!', 500);
     return savedMessage;
   }
-  async getMessages(reqData) {
-    const messages = await this.messageModel.find({
-      createdBy: reqData.userData.userId,
-    });
+  async getMessages(reqData, page: number) {
+    const messages = await this.messageModel
+      .find({
+        createdBy: reqData.userData.userId,
+      })
+      .limit(10)
+      .skip(page * 10);
+
     if (messages.length < 1) throw new NotFoundException('No messages exists!');
-    return messages;
+    const totalDocs = await this.messageModel.countDocuments();
+
+    return { messages: messages, totalPages: totalDocs };
   }
 
   async getSingleMessage(id: String) {
@@ -48,6 +54,7 @@ export class MessageService {
   }
 
   async deleteMessage(id: String) {
+    console.log('Entered');
     if (!isValidObjectId(id))
       throw new NotFoundException("Contact does't exists!!");
     return await this.messageModel.deleteOne({ _id: id });

@@ -26,18 +26,36 @@
       </div>
 
       <div class="card-footer">
-        <button class="btn btn-secondary" (click)="viewUsers(ws.id)">
+        <button class="btn btn-secondary" (click)="viewUsers(ws._id)">
           View Workspaces
         </button>
-        <button class="btn btn-primary" (click)="editWorkspace(ws.id)">
+        <button class="btn btn-primary" (click)="editWorkspace(ws._id)">
           Edit
         </button>
-        <button class="btn btn-danger" (click)="deleteWorkspace(ws.id)">
+        <button class="btn btn-danger" (click)="deleteWorkspace(ws._id)">
           Delete
         </button>
       </div>
     </div>
   </div>
+  <div class="pagination-controls">
+    <button
+      class="pagination-btn"
+      (click)="decreasePage()"
+      [disabled]="page === 1"
+    >
+      &larr; Previous
+    </button>
+    <span class="page-info"> Page {{ page }} of {{ totalPages }} </span>
+    <button
+      class="pagination-btn"
+      (click)="increasePage()"
+      [disabled]="page === totalPages"
+    >
+      Next &rarr;
+    </button>
+  </div>
+
   <div class="modal-overlay" *ngIf="isFormModalVisible">
     <div class="modal-content">
       <button class="close-btn" (click)="closeAddWorkspaceModal()">
@@ -45,6 +63,7 @@
       </button>
 
       <app-create-workspace
+        (isUserCreated)="handleSuccess($event)"
         (formSubmitted)="closeAddWorkspaceModal()"
       ></app-create-workspace>
     </div>

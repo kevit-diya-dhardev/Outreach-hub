@@ -10,19 +10,61 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UsersComponent {
   userFormVisible: boolean | null = false;
+  isEditForm!: boolean;
+  user!: any;
+  page: number = 1;
+  totalPages!: number;
+  currentPath!: string;
+  increasePage() {
+    this.page++;
+    if (this.currentPath == 'my-users') {
+      this.fetchMyUsers();
+    } else {
+      this.fetchAllUsers();
+    }
+  }
+
+  decreasePage() {
+    this.page--;
+    if (this.currentPath == 'my-users') {
+      this.fetchMyUsers();
+    } else {
+      this.fetchAllUsers();
+    }
+  }
   openUserFormVisible() {
     this.userFormVisible = true;
   }
 
-  recieveData(data: boolean) {
-    this.userFormVisible = data;
+  recieveData(data: { isuserFormVisible: boolean; editformAllowed: boolean }) {
+    this.userFormVisible = data.isuserFormVisible;
+    this.isEditForm = data.editformAllowed;
+    if (this.currentPath === 'my-users') {
+      this.fetchMyUsers();
+    } else {
+      this.fetchAllUsers();
+    }
   }
 
-  deleteUser(arg0: any) {
-    throw new Error('Method not implemented.');
+  deleteUser(id: string) {
+    this.usersService.deleteUser(id).subscribe({
+      next: (response) => {
+        if (this.currentPath === 'my-users') {
+          this.fetchMyUsers();
+        } else {
+          this.fetchAllUsers();
+        }
+      },
+      error: (error) => {
+        console.log('Error ', error);
+      },
+    });
   }
-  editUser(arg0: any) {
-    throw new Error('Method not implemented.');
+  editUser(user: any) {
+    this.isEditForm = true;
+    this.user = { name: user.name, email: user.email, _id: user._id };
+    console.log('Edit form success');
+    this.userFormVisible = true;
   }
   viewUser(arg0: any) {
     throw new Error('Method not implemented.');
@@ -37,26 +79,35 @@ export class UsersComponent {
   ngOnInit() {
     this.selected = 'users';
     this.route.url.subscribe((urlSegment) => {
-      const currentPath: string = urlSegment[0].path;
-      if (currentPath === 'my-users') {
-        this.usersService.getMyUsers().subscribe({
-          next: (response: any) => {
-            this.users = response;
-          },
-          error: (error: any) => {
-            console.log(error);
-          },
-        });
+      this.currentPath = urlSegment[0].path;
+      if (this.currentPath === 'my-users') {
+        this.fetchMyUsers();
       } else {
-        this.usersService.getAllUsers().subscribe({
-          next: (response: any) => {
-            this.users = response;
-          },
-          error: (error: any) => {
-            console.log(error);
-          },
-        });
+        this.fetchAllUsers();
       }
+    });
+  }
+  fetchAllUsers() {
+    this.usersService.getAllUsers(this.page).subscribe({
+      next: (response: any) => {
+        this.users = response.findUsers;
+        this.totalPages = response.totalPages;
+        console.log(this.totalPages);
+      },
+      error: (error: any) => {
+        console.log(error);
+      },
+    });
+  }
+  fetchMyUsers() {
+    this.usersService.getMyUsers(this.page).subscribe({
+      next: (response: any) => {
+        this.users = response.findUsers;
+        this.totalPages = response.totalPages;
+      },
+      error: (error: any) => {
+        console.log(error);
+      },
     });
   }
 }

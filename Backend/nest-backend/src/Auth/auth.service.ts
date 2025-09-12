@@ -35,8 +35,12 @@ export class AuthService {
 
     const payload = { userId };
     const token = await this.jwtService.signAsync(payload);
+
     try {
       await this.storeToken(token);
+      setTimeout(() => {
+        this.deleteTokenFromDb(token);
+      }, 36000);
     } catch (error) {
       console.log('Storing token error' + error);
       throw new HttpException('Store token error', 500);

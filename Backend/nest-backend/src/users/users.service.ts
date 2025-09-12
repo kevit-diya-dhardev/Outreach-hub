@@ -38,9 +38,14 @@ export class UserService {
     }
   }
 
-  async getUsers() {
-    const findUsers = await this.userModel.find({});
-    return findUsers;
+  async getUsers(page: number) {
+    const findUsers = await this.userModel
+      .find({})
+      .limit(10)
+      .skip((page - 1) * 10);
+
+    const totalDocs = await this.workspaceModel.countDocuments();
+    return { findUsers: findUsers, totalPages: Math.ceil(totalDocs / 10) };
   }
 
   async getSingleUser(id: String) {
@@ -70,10 +75,14 @@ export class UserService {
     if (!deletedUser) throw new NotFoundException('User not found!');
     return deletedUser;
   }
-  async getMyUsers(req) {
-    const myUsers = await this.userModel.find({
-      createdBy: req.userData.userId,
-    });
-    return myUsers;
+  async getMyUsers(req, page: number) {
+    const myUsers = await this.userModel
+      .find({
+        createdBy: req.userData.userId,
+      })
+      .limit(10)
+      .skip((page - 1) * 10);
+    const totalDocs = await this.workspaceModel.countDocuments();
+    return { findUsers: myUsers, totalPages: Math.ceil(totalDocs / 10) };
   }
 }

@@ -23,6 +23,8 @@ let ContactsService = class ContactsService {
     contactsModel;
     usersModel;
     workspaceModel;
+    allcnt = 0;
+    mycnt = 0;
     constructor(contactsModel, usersModel, workspaceModel) {
         this.contactsModel = contactsModel;
         this.usersModel = usersModel;
@@ -60,8 +62,13 @@ let ContactsService = class ContactsService {
         const findContact = await this.contactsModel.findById(id);
         return await this.contactsModel.deleteOne({ _id: id });
     }
-    async getContacts() {
-        return await this.contactsModel.find();
+    async getContacts(page) {
+        const contacts = await this.contactsModel
+            .find()
+            .limit(10)
+            .skip(page * 10);
+        const totalDocs = await this.contactsModel.countDocuments();
+        return { contacts: contacts, totalPages: totalDocs };
     }
     async getSingleContact(id) {
         if (!(0, mongoose_2.isValidObjectId)(id))
