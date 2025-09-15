@@ -1,0 +1,67 @@
+<div class="page-card">
+  <header class="contacts-header">
+    <h1>Contacts</h1>
+    <button
+      *ngIf="role === 'Editor'"
+      class="btn btn-primary"
+      (click)="changeMode('create')"
+    >
+      Create Contact
+    </button>
+  </header>
+
+  <nav class="view-switcher">
+    <ng-container *ngIf="role === 'Editor'; else viewerView">
+      <a (click)="activeView = 'my'" [class.active]="activeView === 'my'">
+        My Contacts
+      </a>
+      <a (click)="activeView = 'all'" [class.active]="activeView === 'all'">
+        All Contacts
+      </a>
+    </ng-container>
+
+    <ng-template #viewerView>
+      <div class="view-title">All Contacts</div>
+    </ng-template>
+  </nav>
+
+  <div class="contacts-grid">
+    <div class="contact-card" *ngFor="let contact of contacts">
+      <div class="card-content">
+        <div class="contact-details">
+          <div class="contact-name">{{ contact.contact_name }}</div>
+          <div class="contact-phone">{{ contact.phoneNumber }}</div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn-action btn-view" (click)="viewContact(contact)">
+          View
+        </button>
+        <button
+          class="btn-action btn-edit"
+          [disabled]="role !== 'Editor'"
+          (click)="changeMode('edit')"
+        >
+          Edit
+        </button>
+        <button
+          class="btn-action btn-delete"
+          [disabled]="role !== 'Editor'"
+          (click)="deleteContact(contact)"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+
+    <div class="empty-grid" *ngIf="contacts == null">
+      <p>No contacts found in this view.</p>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="contactFormVisible">
+  <div class="modal-content">
+    <app-contact-form [mode]="modeType"></app-contact-form>
+  </div>
+</div>

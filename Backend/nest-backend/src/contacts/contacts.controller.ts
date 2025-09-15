@@ -28,29 +28,29 @@ export class ContactsController {
     return this.contactService.createContact(contactData, req);
   }
 
-  @Get(':id')
+  @Get(':workspace_id')
   @Roles('Viewer')
-  getSingleContact(@Param('id') id: String) {
-    return this.contactService.getSingleContact(id);
+  getContacts(
+    @Param('workspace_id') workspace_id: string,
+    @Query('page') page: number,
+  ) {
+    return this.contactService.getContacts(page, workspace_id);
   }
 
-  @Get()
+  @Get(':contact_id')
   @Roles('Viewer')
-  @UsePipes(new ValidationPipe())
-  getContacts(@Query('page') page: number) {
-    return this.contactService.getContacts(page);
+  getSingleContact(@Param('userid') contact_id: String) {
+    return this.contactService.getSingleContact(contact_id);
   }
 
   @Patch(':id')
   @Roles('Editor')
-  @UsePipes(new ValidationPipe())
   updateContact(@Param('id') id: String, @Body() contactData: ContactsDto) {
     return this.contactService.updateContact(id, contactData);
   }
 
   @Delete(':id')
   @Roles('Editor')
-  @UsePipes(new ValidationPipe())
   deleteContact(@Param('id') id: String) {
     return this.contactService.deleteContact(id);
   }

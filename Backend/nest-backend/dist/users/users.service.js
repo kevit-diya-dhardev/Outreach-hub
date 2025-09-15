@@ -60,7 +60,26 @@ let UserService = class UserService {
         this.workspaceModel = workspaceModel;
     }
     async createUser({ password, ...userData }, req) {
-        try {
+        const workspaceExists = this.workspaceModel.findOne({
+            _id: userData.workspace_id,
+        });
+        if (!workspaceExists) {
+            throw new common_1.NotFoundException("Workspace doesn't exists!");
+        }
+        const userExists = await this.userModel.findOne({ email: userData.email });
+        if (userExists) {
+            if (userExists.workspace_id.find((id) => id == userData.workspace_id)) {
+                throw new common_1.ConflictException('User with this id already exists in this workspace!');
+            }
+            else {
+                console.log('entered in else part ', userData.email);
+                const updateUser = await this.userModel
+                    .findOneAndUpdate({ email: userData.email }, { $push: { workspace_id: userData.workspace_id } }, { new: true })
+                    .exec();
+                return updateUser;
+            }
+        }
+        else {
             const hash = await bcrypt.hash(password, 10);
             const newUser = new this.userModel({
                 password: hash,
@@ -68,13 +87,6 @@ let UserService = class UserService {
                 createdBy: req.userData.userId,
             });
             return await newUser.save();
-        }
-        catch (err) {
-            if (err.code === 11000) {
-                throw new common_1.ConflictException('User with this email already exists in this workspace');
-            }
-            console.log(err);
-            throw new common_1.HttpException('Internal server errro!', 501);
         }
     }
     async getUsers(page) {

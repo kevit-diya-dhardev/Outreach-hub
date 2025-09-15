@@ -25,7 +25,7 @@ export declare class WorkspaceController {
         })[];
         totalPages: number;
     }>;
-    getSingleWokspace(id: String): Promise<import("mongoose").Document<unknown, {}, import("./workspace.schema").Workspace, {}, {}> & import("./workspace.schema").Workspace & {
+    getSingleWorkspace(id: String): Promise<import("mongoose").Document<unknown, {}, import("./workspace.schema").Workspace, {}, {}> & import("./workspace.schema").Workspace & {
         _id: import("mongoose").Types.ObjectId;
     } & {
         __v: number;

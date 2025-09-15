@@ -45,7 +45,7 @@ let WorkspaceController = class WorkspaceController {
             throw new common_1.HttpException('Server error in workspace fetching', 500);
         });
     }
-    async getSingleWokspace(id) {
+    async getSingleWorkspace(id) {
         const workspace = await this.workspaceService.getSingleWorkspace(id);
         if (!workspace)
             throw new common_1.HttpException("Workspace with this id doesn't exists!", common_1.HttpStatus.NOT_FOUND);
@@ -68,6 +68,8 @@ let WorkspaceController = class WorkspaceController {
 exports.WorkspaceController = WorkspaceController;
 __decorate([
     (0, common_1.Get)(),
+    (0, roles_decorator_1.Roles)('admin'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard, roles_guard_1.RolesGuard),
     __param(0, (0, common_1.Query)('page')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
@@ -75,7 +77,8 @@ __decorate([
 ], WorkspaceController.prototype, "getWorkspaces", null);
 __decorate([
     (0, common_1.Post)(),
-    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, roles_decorator_1.Roles)('admin'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard, roles_guard_1.RolesGuard),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
@@ -84,6 +87,7 @@ __decorate([
 ], WorkspaceController.prototype, "createWorkspace", null);
 __decorate([
     (0, common_1.Get)('my-workspaces'),
+    (0, roles_decorator_1.Roles)('admin'),
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Query)('page')),
@@ -93,15 +97,16 @@ __decorate([
 ], WorkspaceController.prototype, "getMyWorkspaces", null);
 __decorate([
     (0, common_1.Get)(':id'),
-    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard, roles_guard_1.RolesGuard),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
-], WorkspaceController.prototype, "getSingleWokspace", null);
+], WorkspaceController.prototype, "getSingleWorkspace", null);
 __decorate([
     (0, common_1.Patch)(':id'),
-    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, roles_decorator_1.Roles)('admin'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard, roles_guard_1.RolesGuard),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -111,7 +116,8 @@ __decorate([
 ], WorkspaceController.prototype, "updateWorkspace", null);
 __decorate([
     (0, common_1.Delete)(':id'),
-    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, roles_decorator_1.Roles)('admin'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard, roles_guard_1.RolesGuard),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -119,7 +125,6 @@ __decorate([
 ], WorkspaceController.prototype, "deleteWorkspace", null);
 exports.WorkspaceController = WorkspaceController = __decorate([
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard, roles_guard_1.RolesGuard),
-    (0, roles_decorator_1.Roles)('admin'),
     (0, common_1.Controller)('workspaces'),
     __metadata("design:paramtypes", [workspace_service_1.WorkspaceService])
 ], WorkspaceController);

@@ -34,7 +34,6 @@ export class ContactsService {
     const newContact = await new this.contactsModel({
       ...contactData,
       createdBy: req.userData.userId,
-      _id: req.userData.userId,
     });
     return await newContact.save();
   }
@@ -55,21 +54,21 @@ export class ContactsService {
     return await this.contactsModel.deleteOne({ _id: id });
   }
 
-  async getContacts(page: number) {
+  async getContacts(page: number, workspace_id: string) {
     const contacts = await this.contactsModel
-      .find()
+      .find({ workspace_id: workspace_id })
       .limit(10)
       .skip(page * 10);
 
     const totalDocs = await this.contactsModel.countDocuments();
 
-    return { contacts: contacts, totalPages: totalDocs };
+    return { contacts: contacts, totalPages: Math.ceil(totalDocs / 10) };
   }
 
-  async getSingleContact(id: String) {
-    if (!isValidObjectId(id))
+  async getSingleContact(contact_id: String) {
+    if (!isValidObjectId(contact_id))
       throw new NotFoundException("Contact does't exists!!");
-    const findContact = await this.contactsModel.findOne({ _id: id });
+    const findContact = await this.contactsModel.findOne({ _id: contact_id });
     if (!findContact) throw new NotFoundException("Contact does'nt exists!!");
     return findContact;
   }

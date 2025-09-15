@@ -1,0 +1,79 @@
+<div class="form-overlay" (click)="close()"></div>
+
+<div class="form-card">
+  <div class="form-header">
+    <h2 *ngIf="mode === 'create'">Create New Contact</h2>
+    <h2 *ngIf="mode === 'edit'">Edit Contact</h2>
+    <button class="btn-close" (click)="close()">×</button>
+  </div>
+
+  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="form-body">
+    <div class="form-group">
+      <label for="contact_name">Contact Name</label>
+      <input id="contact_name" type="text" formControlName="contact_name" />
+      <div
+        *ngIf="
+          formControls.contact_name.touched && formControls.contact_name.invalid
+        "
+        class="validation-error"
+      >
+        Name is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="phoneNumber">Phone Number</label>
+      <input
+        id="phoneNumber"
+        type="tel"
+        formControlName="phoneNumber"
+        placeholder="10-digit number"
+      />
+      <div
+        *ngIf="
+          formControls.phoneNumber.touched && formControls.phoneNumber.invalid
+        "
+        class="validation-error"
+      >
+        A valid 10-digit phone number is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="tags">Tags</label>
+      <div class="tag-input-wrapper">
+        <input
+          id="tags"
+          type="text"
+          [(ngModel)]="tagInput"
+          (keydown.enter)="$event.preventDefault(); addTag()"
+          placeholder="Type a tag and press Enter"
+        />
+        <button type="button" class="btn-add-tag" (click)="addTag()">
+          Add
+        </button>
+      </div>
+      <div class="tag-container">
+        <span class="tag-pill" *ngFor="let tag of tags">
+          {{ tag }}
+          <button type="button" class="btn-remove-tag" (click)="removeTag(tag)">
+            ×
+          </button>
+        </span>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn btn-secondary" (click)="close()">
+        Cancel
+      </button>
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="contactForm.invalid"
+      >
+        {{ mode === "create" ? "Create Contact" : "Save Changes" }}
+      </button>
+    </div>
+  </form>
+</div>

@@ -24,11 +24,12 @@ import { RolesGuard } from 'src/Auth/roles.guard';
 import { Roles } from 'src/Auth/roles.decorator';
 
 @UseGuards(AuthGuard, RolesGuard)
-@Roles('admin')
 @Controller('workspaces')
 export class WorkspaceController {
   constructor(private workspaceService: WorkspaceService) {}
   @Get()
+  @Roles('admin')
+  @UseGuards(AuthGuard, RolesGuard)
   async getWorkspaces(@Query('page') page: number) {
     const workspaces = await this.workspaceService.getWorkspaces(page);
 
@@ -39,7 +40,8 @@ export class WorkspaceController {
   }
 
   @Post()
-  @UseGuards(AuthGuard)
+  @Roles('admin')
+  @UseGuards(AuthGuard, RolesGuard)
   async createWorkspace(
     @Body() workspaceData: workspaceSchemaDto,
     @Req() request: any,
@@ -55,6 +57,7 @@ export class WorkspaceController {
   }
 
   @Get('my-workspaces')
+  @Roles('admin')
   @UseGuards(AuthGuard)
   async getMyWorkspaces(@Req() req: any, @Query('page') page: number) {
     return this.workspaceService.getMyWorkspaces(req, page).catch((error) => {
@@ -64,8 +67,8 @@ export class WorkspaceController {
   }
 
   @Get(':id')
-  @UseGuards(AuthGuard)
-  async getSingleWokspace(@Param('id') id: String) {
+  @UseGuards(AuthGuard, RolesGuard)
+  async getSingleWorkspace(@Param('id') id: String) {
     const workspace = await this.workspaceService.getSingleWorkspace(id);
     if (!workspace)
       throw new HttpException(
@@ -77,7 +80,8 @@ export class WorkspaceController {
   }
 
   @Patch(':id')
-  @UseGuards(AuthGuard)
+  @Roles('admin')
+  @UseGuards(AuthGuard, RolesGuard)
   async updateWorkspace(
     @Param('id') id: String,
     @Body() workspaceData: updateWorkspaceDto,
@@ -93,7 +97,8 @@ export class WorkspaceController {
   }
 
   @Delete(':id')
-  @UseGuards(AuthGuard)
+  @Roles('admin')
+  @UseGuards(AuthGuard, RolesGuard)
   async deleteWorkspace(@Param('id') id: string) {
     console.log('Controller ', id);
     const deletedWorkspace = await this.workspaceService.deleteWorkspace(id);

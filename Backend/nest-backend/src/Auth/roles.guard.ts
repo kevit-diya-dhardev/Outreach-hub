@@ -22,10 +22,20 @@ export class RolesGuard implements CanActivate {
     const findUser = await this.userService.getSingleUser(userId);
     const isAdmin = findUser.isAdmin;
     console.log('isAdmin: ', isAdmin, 'requiredRoles: ', requiredRoles);
+    if (!requiredRoles) return true;
     if (requiredRoles[0] == 'admin' && isAdmin) {
       return true;
     }
-    const role = findUser.role;
-    return requiredRoles.every((routeRole) => role.includes(routeRole));
+    const userRole = findUser.role;
+    if (userRole === 'Editor') {
+      return (
+        requiredRoles.includes('Editor') || requiredRoles.includes('Viewer')
+      );
+    }
+    if (userRole === 'Viewer') {
+      return requiredRoles.includes('Viewer');
+    }
+
+    return false;
   }
 }

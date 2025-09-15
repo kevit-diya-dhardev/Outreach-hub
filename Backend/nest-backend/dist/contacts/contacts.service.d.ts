@@ -21,7 +21,7 @@ export declare class ContactsService {
         __v: number;
     }) | null>;
     deleteContact(id: String): Promise<import("mongodb").DeleteResult>;
-    getContacts(page: number): Promise<{
+    getContacts(page: number, workspace_id: string): Promise<{
         contacts: (import("mongoose").Document<unknown, {}, Contacts, {}, {}> & Contacts & {
             _id: import("mongoose").Types.ObjectId;
         } & {
@@ -29,7 +29,7 @@ export declare class ContactsService {
         })[];
         totalPages: number;
     }>;
-    getSingleContact(id: String): Promise<import("mongoose").Document<unknown, {}, Contacts, {}, {}> & Contacts & {
+    getSingleContact(contact_id: String): Promise<import("mongoose").Document<unknown, {}, Contacts, {}, {}> & Contacts & {
         _id: import("mongoose").Types.ObjectId;
     } & {
         __v: number;

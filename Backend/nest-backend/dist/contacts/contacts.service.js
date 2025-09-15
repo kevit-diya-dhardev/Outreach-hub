@@ -44,7 +44,6 @@ let ContactsService = class ContactsService {
         const newContact = await new this.contactsModel({
             ...contactData,
             createdBy: req.userData.userId,
-            _id: req.userData.userId,
         });
         return await newContact.save();
     }
@@ -62,18 +61,18 @@ let ContactsService = class ContactsService {
         const findContact = await this.contactsModel.findById(id);
         return await this.contactsModel.deleteOne({ _id: id });
     }
-    async getContacts(page) {
+    async getContacts(page, workspace_id) {
         const contacts = await this.contactsModel
-            .find()
+            .find({ workspace_id: workspace_id })
             .limit(10)
             .skip(page * 10);
         const totalDocs = await this.contactsModel.countDocuments();
-        return { contacts: contacts, totalPages: totalDocs };
+        return { contacts: contacts, totalPages: Math.ceil(totalDocs / 10) };
     }
-    async getSingleContact(id) {
-        if (!(0, mongoose_2.isValidObjectId)(id))
+    async getSingleContact(contact_id) {
+        if (!(0, mongoose_2.isValidObjectId)(contact_id))
             throw new common_1.NotFoundException("Contact does't exists!!");
-        const findContact = await this.contactsModel.findOne({ _id: id });
+        const findContact = await this.contactsModel.findOne({ _id: contact_id });
         if (!findContact)
             throw new common_1.NotFoundException("Contact does'nt exists!!");
         return findContact;

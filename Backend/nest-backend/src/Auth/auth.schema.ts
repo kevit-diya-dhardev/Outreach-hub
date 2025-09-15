@@ -9,3 +9,4 @@ export class Auth {
   createdAt: Date;
 }
 export const AuthSchema = SchemaFactory.createForClass(Auth);
+AuthSchema.index({ createdAt: 1 }, { expireAfterSeconds: 36000 });

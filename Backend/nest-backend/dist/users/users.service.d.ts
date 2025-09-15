@@ -6,11 +6,11 @@ export declare class UserService {
     private userModel;
     private workspaceModel;
     constructor(userModel: Model<User>, workspaceModel: Model<Workspace>);
-    createUser({ password, ...userData }: userDto, req: any): Promise<import("mongoose").Document<unknown, {}, User, {}, {}> & User & {
+    createUser({ password, ...userData }: userDto, req: any): Promise<(import("mongoose").Document<unknown, {}, User, {}, {}> & User & {
         _id: import("mongoose").Types.ObjectId;
     } & {
         __v: number;
-    }>;
+    }) | null>;
     getUsers(page: number): Promise<{
         findUsers: (import("mongoose").Document<unknown, {}, User, {}, {}> & User & {
             _id: import("mongoose").Types.ObjectId;

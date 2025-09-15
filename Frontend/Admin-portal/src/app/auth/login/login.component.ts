@@ -50,6 +50,7 @@ export class LoginComponent {
       },
       error: (error) => {
         this.valid = false;
+        console.log(error);
       },
     });
   }

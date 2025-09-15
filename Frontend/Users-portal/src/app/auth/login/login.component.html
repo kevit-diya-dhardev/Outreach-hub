@@ -1,0 +1,46 @@
+<div class="loginform">
+  <form [formGroup]="loginForm" (ngSubmit)="sendFormData()">
+    <h1>Login</h1>
+    <div class="email">
+      <label for="inputemail">Enter email</label>
+      <input type="text" name="email" id="inputemail" formControlName="email" />
+      <div
+        *ngIf="email?.invalid && (email?.touched || email?.dirty || submitted)"
+        class="validateInputs"
+      >
+        <div *ngIf="email?.errors?.['required']">email is required</div>
+        <div *ngIf="email?.errors?.['email']">Enter valid email</div>
+      </div>
+    </div>
+
+    <!-- Validation of password -->
+
+    <div class="password">
+      <label for="inputPassword">Enter password</label>
+      <input
+        type="password"
+        name="password"
+        id="inputPassword"
+        formControlName="password"
+      />
+      <div
+        *ngIf="
+          password?.invalid &&
+          (password?.touched || password?.dirty || submitted)
+        "
+        class="validateInputs"
+      >
+        <div *ngIf="password?.errors?.['required']">password is required</div>
+        <div *ngIf="password?.errors?.['minlength']">
+          password must be atleast 6 characters long
+        </div>
+      </div>
+    </div>
+    <div class="login">
+      <input type="submit" value="login" name="login" id="inputLogin" />
+    </div>
+    <div *ngIf="!valid && submitted" class="invalidMessage">
+      Invalid credentials!
+    </div>
+  </form>
+</div>

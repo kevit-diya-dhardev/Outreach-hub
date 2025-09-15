@@ -19,22 +19,24 @@ import { AuthGuard } from 'src/Auth/auth.guard';
 import { RolesGuard } from 'src/Auth/roles.guard';
 
 @UseGuards(AuthGuard, RolesGuard)
-@Roles('admin')
 @Controller('users')
 export class UserController {
   constructor(private userService: UserService) {}
   @Post()
+  @Roles('admin')
   @UseGuards(AuthGuard)
   async createUser(@Body() userData: userDto, @Req() req: any) {
     return await this.userService.createUser(userData, req);
   }
 
   @Get()
+  @Roles('admin')
   @UseGuards(AuthGuard)
   async getUsers(@Query('page') page: number) {
     return await this.userService.getUsers(page);
   }
   @Get('my-users')
+  @Roles('admin')
   @UseGuards(AuthGuard)
   async getMyUsers(@Req() req: any, @Query('page') page: number) {
     return await this.userService.getMyUsers(req, page);
@@ -47,12 +49,14 @@ export class UserController {
   }
 
   @Patch(':id')
+  @Roles('admin')
   @UseGuards(AuthGuard)
   async updateUser(@Param('id') id: String, @Body() userData: updateUserDto) {
     return await this.userService.updateUser(id, userData);
   }
 
   @Delete(':id')
+  @Roles('admin')
   @UseGuards(AuthGuard)
   async deleteUser(@Param('id') id: String) {
     return await this.userService.deleteUser(id);

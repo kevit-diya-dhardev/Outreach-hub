@@ -1,0 +1,221 @@
+// --- Theme Variables ---
+$primary-color: #7f56d9;
+$primary-light: #f4f2ff;
+$text-color: #1d2939;
+$text-light: #667085;
+$border-color: #eaecf0;
+$danger-color: #d92d20;
+$card-bg-color: #ffffff;
+
+// --- Modal Overlay ---
+// .form-overlay {
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   background-color: rgba(16, 24, 40, 0.6);
+//   z-index: 1000;
+//   animation: fadeIn 0.3s ease;
+// }
+
+// --- Main Form Card ---
+.form-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  max-width: 480px;
+  background-color: $card-bg-color;
+  border-radius: 12px;
+  box-shadow: 0 12px 24px -4px rgba(16, 24, 40, 0.1);
+  z-index: 1001;
+  // Animation for the card entrance
+  animation: slideInUp 0.4s ease-out;
+  overflow: hidden;
+}
+
+// --- Form Header ---
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid $border-color;
+
+  h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: $text-color;
+  }
+}
+
+.btn-close {
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  color: $text-light;
+  cursor: pointer;
+  line-height: 1;
+  &:hover {
+    color: $text-color;
+  }
+}
+
+// --- Form Body & Groups ---
+.form-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: $text-color;
+  }
+
+  input[type="text"],
+  input[type="tel"] {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px $primary-light;
+    }
+  }
+}
+
+// --- Tag Input Specifics ---
+.tag-input-wrapper {
+  display: flex;
+  gap: 8px;
+
+  input {
+    flex-grow: 1;
+  }
+}
+
+.btn-add-tag {
+  background-color: $primary-light;
+  color: $primary-color;
+  border: 1px solid $primary-light;
+  border-radius: 8px;
+  padding: 0 16px;
+  font-weight: 500;
+  cursor: pointer;
+  &:hover {
+    background-color: darken($primary-light, 5%);
+  }
+}
+
+.tag-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.tag-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: $primary-light;
+  color: $primary-color;
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.btn-remove-tag {
+  background: none;
+  border: none;
+  color: $primary-color;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  opacity: 0.7;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+// --- Form Actions ---
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.btn {
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid;
+  transition: all 0.2s ease;
+
+  &.btn-secondary {
+    background-color: #fff;
+    border-color: $border-color;
+    color: $text-color;
+    &:hover {
+      background-color: #f9fafb;
+    }
+  }
+
+  &.btn-primary {
+    background-color: $primary-color;
+    border-color: $primary-color;
+    color: #fff;
+    &:hover:not(:disabled) {
+      background-color: darken($primary-color, 8%);
+    }
+    &:disabled {
+      background-color: #d0d5dd;
+      border-color: #d0d5dd;
+      cursor: not-allowed;
+    }
+  }
+}
+
+// --- Validation ---
+.validation-error {
+  color: $danger-color;
+  font-size: 0.875rem;
+  margin-top: 6px;
+}
+
+// --- Keyframe Animations ---
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 20px));
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}

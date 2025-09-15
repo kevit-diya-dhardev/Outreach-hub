@@ -27,11 +27,11 @@ let ContactsController = class ContactsController {
     createContact(contactData, req) {
         return this.contactService.createContact(contactData, req);
     }
-    getSingleContact(id) {
-        return this.contactService.getSingleContact(id);
+    getContacts(workspace_id, page) {
+        return this.contactService.getContacts(page, workspace_id);
     }
-    getContacts(page) {
-        return this.contactService.getContacts(page);
+    getSingleContact(contact_id) {
+        return this.contactService.getSingleContact(contact_id);
     }
     updateContact(id, contactData) {
         return this.contactService.updateContact(id, contactData);
@@ -51,26 +51,25 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ContactsController.prototype, "createContact", null);
 __decorate([
-    (0, common_1.Get)(':id'),
+    (0, common_1.Get)(':workspace_id'),
     (0, roles_decorator_1.Roles)('Viewer'),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Param)('workspace_id')),
+    __param(1, (0, common_1.Query)('page')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Number]),
+    __metadata("design:returntype", void 0)
+], ContactsController.prototype, "getContacts", null);
+__decorate([
+    (0, common_1.Get)(':contact_id'),
+    (0, roles_decorator_1.Roles)('Viewer'),
+    __param(0, (0, common_1.Param)('userid')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], ContactsController.prototype, "getSingleContact", null);
 __decorate([
-    (0, common_1.Get)(),
-    (0, roles_decorator_1.Roles)('Viewer'),
-    (0, common_1.UsePipes)(new common_1.ValidationPipe()),
-    __param(0, (0, common_1.Query)('page')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", void 0)
-], ContactsController.prototype, "getContacts", null);
-__decorate([
     (0, common_1.Patch)(':id'),
     (0, roles_decorator_1.Roles)('Editor'),
-    (0, common_1.UsePipes)(new common_1.ValidationPipe()),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -80,7 +79,6 @@ __decorate([
 __decorate([
     (0, common_1.Delete)(':id'),
     (0, roles_decorator_1.Roles)('Editor'),
-    (0, common_1.UsePipes)(new common_1.ValidationPipe()),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
