@@ -41,6 +41,7 @@ export class MessageController {
     @Query('page') page: number,
     @Param('workspace_id') workspace_id: string,
   ) {
+    console.log('My messages ');
     return this.messageService.getMyMessages(request, workspace_id, page);
   }
 
@@ -49,9 +50,10 @@ export class MessageController {
   @Roles('Viewer')
   getAllMessages(
     @Req() request: express.Request,
-    @Query('page') page: number,
     @Param('workspace_id') workspace_id: string,
+    @Query('page') page: number,
   ) {
+    console.log('All messages ');
     return this.messageService.getAllMessages(workspace_id, page);
   }
 

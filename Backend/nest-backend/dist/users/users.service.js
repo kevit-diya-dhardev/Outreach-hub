@@ -93,8 +93,9 @@ let UserService = class UserService {
         const findUsers = await this.userModel
             .find({})
             .limit(10)
-            .skip((page - 1) * 10);
-        const totalDocs = await this.workspaceModel.countDocuments();
+            .skip((page - 1) * 10)
+            .exec();
+        const totalDocs = await this.workspaceModel.countDocuments().exec();
         return { findUsers: findUsers, totalPages: Math.ceil(totalDocs / 10) };
     }
     async getSingleUser(id) {

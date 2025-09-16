@@ -6,15 +6,17 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Message } from './messages.schema';
-import { isValidObjectId, Model } from 'mongoose';
+import mongoose, { isValidObjectId, Model } from 'mongoose';
 import { messageDataDto } from './dtos/message.dto';
 import express from 'express';
 import { NotFoundError } from 'rxjs';
+import { Workspace } from 'src/workspace/workspace.schema';
 
 @Injectable()
 export class MessageService {
   constructor(
     @InjectModel(Message.name) private messageModel: Model<Message>,
+    @InjectModel(Workspace.name) private workspaceModel: Model<Workspace>,
   ) {}
 
   async createMessage(reqData, messageData: messageDataDto) {
@@ -37,27 +39,30 @@ export class MessageService {
         workspace_id: id,
       })
       .limit(10)
-      .skip((page - 1) * 10);
+      .skip((page - 1) * 10)
+      .exec();
 
     if (messages.length < 1) throw new NotFoundException('No messages exists!');
-    const totalDocs = await this.messageModel.countDocuments();
+    const totalDocs = await this.messageModel.countDocuments().exec();
 
     return { messages: messages, totalPages: Math.ceil(totalDocs / 10) };
   }
 
   async getMyMessages(reqData, id: string, page: number) {
+    console.log(page);
     const messages = await this.messageModel
       .find({
         createdBy: reqData.userData.userId,
         workspace_id: id,
       })
       .limit(10)
-      .skip(page * 10);
+      .skip((page - 1) * 10)
+      .exec();
 
     if (messages.length < 1) throw new NotFoundException('No messages exists!');
-    const totalDocs = await this.messageModel.countDocuments();
+    const totalDocs = await this.messageModel.countDocuments().exec();
 
-    return { messages: messages, totalPages: totalDocs };
+    return { messages: messages, totalPages: Math.ceil(totalDocs / 10) };
   }
 
   async getSingleMessage(id: String) {

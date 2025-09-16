@@ -58,15 +58,16 @@ export class UserService {
     const findUsers = await this.userModel
       .find({})
       .limit(10)
-      .skip((page - 1) * 10);
+      .skip((page - 1) * 10)
+      .exec();
 
-    const totalDocs = await this.workspaceModel.countDocuments();
+    const totalDocs = await this.workspaceModel.countDocuments().exec();
     return { findUsers: findUsers, totalPages: Math.ceil(totalDocs / 10) };
   }
 
   async getSingleUser(id: String) {
     console.log('Inside user service method');
-    const findUser = await this.userModel.findById(id); 
+    const findUser = await this.userModel.findById(id);
     if (!findUser) throw new NotFoundException('User not found!');
     return findUser;
   }

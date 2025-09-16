@@ -1,6 +1,13 @@
 <div class="messages-dashboard">
   <header class="dashboard-header">
     <h1>Messages</h1>
+    <button
+      *ngIf="userRole === 'Editor' && currentPath == 'myMessages'"
+      class="btn btn-primary"
+      (click)="createMode('create')"
+    >
+      Create Message-template
+    </button>
     <div class="dropdown" [class.open]="isOpen">
       <div class="dropdown-toggle" (click)="toggleDropdown()">
         {{ selectedOption }}
@@ -9,7 +16,7 @@
 
       <ul class="dropdown-menu" *ngIf="isOpen">
         <li (click)="selectOption('Text')">Text</li>
-        <li (click)="selectOption('Text and Image')">Text and Image</li>
+        <li (click)="selectOption('Text-Image')">Text-Image</li>
       </ul>
     </div>
   </header>
@@ -29,45 +36,53 @@
   </nav>
   <div class="message-grid">
     <div class="message-card" *ngFor="let message of messages">
-      <div class="messages-grid">
-        <div class="message-card" *ngFor="let message of messages">
-          <div class="card-header">
-            <span class="message-name">{{ message.name }}</span>
-            <span class="message-type type-image">{{ selectedOption }}</span>
+      <div *ngIf="message.type == selectedOption">
+        <div class="card-header">
+          <span class="message-name">{{ message.name }}</span>
+          <span class="message-type type-image">{{ message.type }}</span>
+        </div>
+        <div class="card-body">
+          <div class="card-image" *ngIf="message.type == 'Text-Image'">
+            <img [src]="message.message.imageUrl" alt="Promotional Image" />
           </div>
-          <div class="card-body">
-            <div class="card-image" *ngIf="selectedOption == 'Text and Image'">
-              <img [src]="message.imageUrl" alt="Promotional Image" />
-            </div>
-            <p class="message-text">
-              {{ message.message.text }}
-            </p>
-          </div>
+          <p class="message-text">
+            {{ message.message.text }}
+          </p>
+        </div>
+
+        <div class="card-actions">
+          <button class="btn-action btn-view" (click)="viewMessage(message)">
+            View
+          </button>
+          <button
+            class="btn-action btn-edit"
+            [disabled]="userRole !== 'Editor'"
+            (click)="editMessageForm(message)"
+          >
+            Edit
+          </button>
+          <button
+            class="btn-action btn-delete"
+            [disabled]="userRole !== 'Editor'"
+            (click)="deletemessage(message)"
+          >
+            Delete
+          </button>
         </div>
       </div>
-      <div class="card-actions">
-        <button class="btn-action btn-view" (click)="viewMessage(message)">
-          View
-        </button>
-        <button
-          class="btn-action btn-edit"
-          [disabled]="userRole !== 'Editor'"
-          (click)="editMessage(message)"
-        >
-          Edit
-        </button>
-        <button
-          class="btn-action btn-delete"
-          [disabled]="userRole !== 'Editor'"
-          (click)="deletemessage(message)"
-        >
-          Delete
-        </button>
-      </div>
     </div>
+  </div>
 
-    <div class="empty-grid" *ngIf="messages == null">
-      <p>No message found in this view.</p>
-    </div>
+  <div class="empty-grid" *ngIf="messages == null">
+    <p>No message found in this view.</p>
+  </div>
+</div>
+<div class="modal-overlay" *ngIf="messageFormVisible">
+  <div class="modal-content">
+    <app-create-message
+      [mode]="mode"
+      (formVisible)="recieveMesageFormData($event)"
+      [messageData]="messageData"
+    ></app-create-message>
   </div>
 </div>

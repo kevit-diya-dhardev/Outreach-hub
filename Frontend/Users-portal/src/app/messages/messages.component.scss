@@ -8,6 +8,7 @@ $card-bg-color: #ffffff;
 $success-color: #039855; // For 'text' type
 $warning-color: #f79009; // For 'text & image' type
 $danger-color: #d92d20;
+$primary-dark: #6941c6;
 // --- Main Dashboard Layout ---
 .messages-dashboard {
   padding: 2rem;
@@ -29,7 +30,23 @@ $danger-color: #d92d20;
     margin: 0;
   }
 }
-
+.btn.btn-primary {
+  background-color: $primary-color;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  // Add shadow to the primary button for emphasis
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
+  transition: all 0.2s ease;
+  &:hover {
+    background-color: $primary-dark;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(16, 24, 40, 0.1);
+  }
+}
 // --- Filter Dropdown ---
 .dropdown {
   position: relative;
@@ -122,17 +139,18 @@ $danger-color: #d92d20;
 }
 
 // --- Responsive Grid for Messages ---
-.messages-grid {
+.message-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 1.5rem;
-  margin-top: 1.5rem;
+  padding-top: 2rem;
 }
 
 // --- Individual Message Card Styling ---
 .message-card {
   background-color: $card-bg-color;
   border: 1px solid $border-color;
+
   border-radius: 12px;
   box-shadow: 0 4px 8px -2px rgba(16, 24, 40, 0.05);
   display: flex;

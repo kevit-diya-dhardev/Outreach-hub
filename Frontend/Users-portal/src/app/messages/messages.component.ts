@@ -8,15 +8,26 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './messages.component.scss',
 })
 export class MessagesComponent {
+  createMode(mode: string) {
+    this.mode = mode;
+    this.messageFormVisible = true;
+  }
+
+  recieveMesageFormData(formVisible: boolean) {
+    this.messageFormVisible = formVisible;
+    this.getMyMessages();
+  }
   constructor(private messageService: MessageService) {}
   messages: any;
-  currentPath!: string;
+  currentPath: string = 'myMessages';
   workspace: string = localStorage.getItem('workspace_id')!;
   userRole = localStorage.getItem('role');
   activeView: any;
   isOpen = false;
   selectedOption = 'Text';
-
+  mode = '';
+  messageFormVisible = false;
+  messageData: any;
   deletemessage(message: any) {
     this.messageService.deleteMessage(message._id).subscribe({
       next: (response) => {
@@ -28,17 +39,7 @@ export class MessagesComponent {
       },
     });
   }
-  editMessage({ _id, messageData }: any) {
-    this.messageService.editMessage(_id, { ...messageData }).subscribe({
-      next: (response) => {
-        console.log(response);
-        this.getMyMessages();
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
-  }
+
   viewMessage(message: any) {}
 
   ngOnInit() {
@@ -53,11 +54,17 @@ export class MessagesComponent {
     this.selectedOption = option;
     this.isOpen = false;
   }
+  editMessageForm(message: any) {
+    this.messageFormVisible = true;
+    this.mode = 'edit';
+    this.messageData = message;
+  }
+
   getMyMessages() {
     this.messageService.getMyMessages(this.workspace).subscribe({
-      next: (response) => {
+      next: (response: any) => {
         console.log(response);
-        this.messages = response;
+        this.messages = response.messages;
       },
       error: (error) => {
         console.log(error);

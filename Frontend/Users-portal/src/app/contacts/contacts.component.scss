@@ -128,22 +128,6 @@ $success-color: #039855;
   gap: 0.5rem;
 }
 
-.contact-avatar {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background-image: linear-gradient(45deg, $primary-light, #fff);
-  color: $primary-dark;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 500;
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
-  border: 2px solid #fff;
-  box-shadow: 0 0 0 4px $primary-light;
-}
-
 .contact-details {
   .contact-name {
     font-weight: 600;
