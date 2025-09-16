@@ -1,25 +1,27 @@
-import { IsEnum, IsNotEmpty, IsString } from "class-validator";
+import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
 
-enum messageType{
-    "Text"="text",
-    "Text-Image"="text-image"
+enum messageType {
+  'text' = 'Text',
+  'text-image' = 'Text-Image',
 }
 
-type message={
-    text:String,
-    imageUrl:String
-}
+type message = {
+  text: String;
+  imageUrl: String;
+};
 
-export class messageDataDto{
-    @IsNotEmpty()
-    @IsString()
-    name:String
+export class messageDataDto {
+  @IsNotEmpty()
+  @IsString()
+  name: String;
 
-    @IsNotEmpty()
-    @IsEnum(messageType)
-    type:messageType
-    
-    @IsNotEmpty()
-    message:message
+  @IsNotEmpty()
+  @IsEnum(messageType)
+  type: messageType;
 
+  @IsNotEmpty()
+  message: message;
+
+  @IsNotEmpty()
+  workspace_id: string;
 }

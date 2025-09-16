@@ -1,9 +1,26 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MessageService {
+  constructor(private http: HttpClient) {}
+  url = 'http://localhost:3000/messages';
 
-  constructor() { }
+  getAllMessages(id: string) {
+    return this.http.get(`${this.url}/allMessages/${id}`);
+  }
+  getMyMessages(id: string) {
+    return this.http.get(`${this.url}/myMessages/${id}`);
+  }
+  deleteMessage(id: string) {
+    return this.http.delete(`${this.url}/${id}`);
+  }
+  editMessage(id: string, message: any) {
+    return this.http.patch(`${this.url}/${id}`, message);
+  }
+  createMessge(message: any) {
+    return this.http.post(`${this.url}`, message);
+  }
 }

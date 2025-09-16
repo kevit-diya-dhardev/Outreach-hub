@@ -7,7 +7,7 @@ $border-color: #eaecf0;
 $card-bg-color: #ffffff;
 $success-color: #039855; // For 'text' type
 $warning-color: #f79009; // For 'text & image' type
-
+$danger-color: #d92d20;
 // --- Main Dashboard Layout ---
 .messages-dashboard {
   padding: 2rem;
@@ -31,29 +31,58 @@ $warning-color: #f79009; // For 'text & image' type
 }
 
 // --- Filter Dropdown ---
-.filter-dropdown {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+.dropdown {
+  position: relative;
+  width: 220px;
+  font-family: Arial, sans-serif;
 
-  label {
-    font-weight: 500;
-    color: $text-light;
+  .dropdown-toggle {
+    padding: 0.6rem 1rem;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    background-color: $card-bg-color;
+    color: $text-color;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .arrow {
+      border: solid $text-light;
+      border-width: 0 2px 2px 0;
+      display: inline-block;
+      padding: 4px;
+      transform: rotate(45deg);
+      transition: transform 0.2s;
+
+      &.up {
+        transform: rotate(-135deg);
+      }
+    }
   }
 
-  select {
-    padding: 8px 12px;
-    border-radius: 8px;
+  .dropdown-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     border: 1px solid $border-color;
-    background-color: $card-bg-color;
-    font-size: 0.9rem;
-    font-weight: 500;
-    cursor: pointer;
+    background: $card-bg-color;
+    border-radius: 8px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 
-    &:focus {
-      outline: none;
-      border-color: $primary-color;
-      box-shadow: 0 0 0 3px $primary-light;
+    li {
+      padding: 0.6rem 1rem;
+      cursor: pointer;
+      color: $text-color;
+
+      &:hover {
+        background-color: $primary-light;
+        color: $primary-color;
+      }
     }
   }
 }
@@ -169,8 +198,72 @@ $warning-color: #f79009; // For 'text & image' type
   margin: 0;
   // Prevents long text from overflowing the card
   display: -webkit-box;
-  -webkit-line-clamp: 3; // Show up to 3 lines of text
+
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.card-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  margin-top: auto;
+  background-color: #f9fafb; // A slightly different background for the footer
+  border-top: 1px solid $border-color;
+
+  .btn-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: #fff;
+    border: 1px solid $border-color;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0; // Hide text, assuming you'll add an icon
+    color: $text-light;
+    transition: all 0.2s ease;
+
+    // Add a pseudo-element for icon placeholder text
+    &::before {
+      font-size: 0.9rem; // Make text visible again
+      font-weight: 500;
+    }
+    // Set content for each button
+    &.btn-view::before {
+      content: "👁️";
+    }
+    &.btn-edit::before {
+      content: "✏️";
+    }
+    &.btn-delete::before {
+      content: "🗑️";
+    }
+
+    &:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(16, 24, 40, 0.1);
+    }
+
+    &.btn-view:hover:not(:disabled) {
+      border-color: $success-color;
+      color: $success-color;
+    }
+    &.btn-edit:hover:not(:disabled) {
+      border-color: $primary-color;
+      color: $primary-color;
+    }
+    &.btn-delete:hover:not(:disabled) {
+      border-color: $danger-color;
+      color: $danger-color;
+    }
+
+    &:disabled {
+      background-color: #f2f4f7;
+      color: #d0d5dd;
+      cursor: not-allowed;
+    }
+  }
 }

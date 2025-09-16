@@ -22,7 +22,7 @@ export class MessageService {
       name: messageData.name,
       type: messageData.type,
       message: messageData.message,
-      workspace_id: reqData.userData.workspace_id,
+      workspace_id: messageData.workspace_id,
       createdBy: reqData.userData.userId,
     });
     const savedMessage = await newMessage.save();
@@ -30,10 +30,26 @@ export class MessageService {
       throw new HttpException('Server error in creating message!', 500);
     return savedMessage;
   }
-  async getMessages(reqData, page: number) {
+
+  async getAllMessages(id: string, page: number) {
+    const messages = await this.messageModel
+      .find({
+        workspace_id: id,
+      })
+      .limit(10)
+      .skip((page - 1) * 10);
+
+    if (messages.length < 1) throw new NotFoundException('No messages exists!');
+    const totalDocs = await this.messageModel.countDocuments();
+
+    return { messages: messages, totalPages: Math.ceil(totalDocs / 10) };
+  }
+
+  async getMyMessages(reqData, id: string, page: number) {
     const messages = await this.messageModel
       .find({
         createdBy: reqData.userData.userId,
+        workspace_id: id,
       })
       .limit(10)
       .skip(page * 10);

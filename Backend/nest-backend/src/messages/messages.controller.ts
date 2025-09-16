@@ -33,11 +33,26 @@ export class MessageController {
     return this.messageService.createMessage(request, messageData);
   }
 
-  @Get()
+  @Get('myMessages/:workspace_id')
   @UseGuards(AuthGuard)
   @Roles('Viewer')
-  getMessages(@Req() request: express.Request, @Query('page') page: number) {
-    return this.messageService.getMessages(request, page);
+  getMyMessages(
+    @Req() request: express.Request,
+    @Query('page') page: number,
+    @Param('workspace_id') workspace_id: string,
+  ) {
+    return this.messageService.getMyMessages(request, workspace_id, page);
+  }
+
+  @Get('allMessages/:workspace_id')
+  @UseGuards(AuthGuard)
+  @Roles('Viewer')
+  getAllMessages(
+    @Req() request: express.Request,
+    @Query('page') page: number,
+    @Param('workspace_id') workspace_id: string,
+  ) {
+    return this.messageService.getAllMessages(workspace_id, page);
   }
 
   @Get(':id')
