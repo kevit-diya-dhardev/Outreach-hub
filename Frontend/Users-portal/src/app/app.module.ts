@@ -9,6 +9,8 @@ import { JwtService } from './jwt.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserInterceptor } from './dashboard/user.interceptor';
 import { ContactsModule } from './contacts/contacts.module';
+import { PageNotFoundModule } from './pagenotfound/pagenotfound.module';
+import { MessagesModule } from './messages/messages.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +20,8 @@ import { ContactsModule } from './contacts/contacts.module';
     RouterOutlet,
     AuthModule,
     ContactsModule,
+    MessagesModule,
+    PageNotFoundModule,
   ],
   providers: [
     JwtService,

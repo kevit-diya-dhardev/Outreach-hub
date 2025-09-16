@@ -1,0 +1,61 @@
+<div class="messages-dashboard">
+  <header class="dashboard-header">
+    <h1>Messages</h1>
+    <div class="filter-dropdown">
+      <label for="messageTypeFilter">Filter by type:</label>
+      <select id="messageTypeFilter">
+        <option value="all">All Types</option>
+        <option value="text">Text Only</option>
+        <option value="text_and_image">Text & Image</option>
+      </select>
+    </div>
+  </header>
+
+  <nav class="view-switcher">
+    <ng-container *ngIf="userRole === 'Editor'">
+      <a (click)="activeView = 'my'" [class.active]="activeView === 'my'">
+        My Messages
+      </a>
+      <a (click)="activeView = 'all'" [class.active]="activeView === 'all'">
+        All Messages
+      </a>
+    </ng-container>
+    <ng-container *ngIf="userRole !== 'Editor'">
+      <div class="view-title">All Messages</div>
+    </ng-container>
+  </nav>
+
+  <div class="messages-grid">
+    <div class="message-card">
+      <div class="card-header">
+        <span class="message-name">Welcome Offer</span>
+        <span class="message-type type-image">Text & Image</span>
+      </div>
+      <div class="card-body">
+        <div class="card-image">
+          <img
+            src="https://images.unsplash.com/photo-1599229089549-386b62217c47?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
+            alt="Promotional Image"
+          />
+        </div>
+        <p class="message-text">
+          Hi [Contact Name], welcome to the club! We're thrilled to have you.
+          Enjoy 20% off your first purchase with us.
+        </p>
+      </div>
+    </div>
+
+    <div class="message-card">
+      <div class="card-header">
+        <span class="message-name">Follow-up Reminder</span>
+        <span class="message-type type-text">Text</span>
+      </div>
+      <div class="card-body">
+        <p class="message-text">
+          Just a friendly reminder about our meeting tomorrow at 10 AM. Please
+          let us know if you need to reschedule.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

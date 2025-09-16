@@ -1,0 +1,39 @@
+<div class="view-overlay" (click)="close()"></div>
+
+<div class="view-card" *ngIf="contactData">
+  <div class="view-header">
+    <h2 class="contact-name">{{ contactData.contact_name }}</h2>
+    <button class="btn-close" (click)="close()">×</button>
+  </div>
+
+  <div class="view-body">
+    <div class="detail-group">
+      <span class="detail-label">Phone Number</span>
+      <span class="detail-value">{{ contactData.phoneNumber }}</span>
+    </div>
+
+    <div class="detail-group">
+      <span class="detail-label">Workspace ID</span>
+      <span class="detail-value code-font">{{ contactData.workspace_id }}</span>
+    </div>
+
+    <div class="detail-group">
+      <span class="detail-label">Tags</span>
+      <div class="tag-container">
+        <span class="tag-pill" *ngFor="let tag of contactData.tags">
+          {{ tag }}
+        </span>
+        <span
+          class="no-tags"
+          *ngIf="!contactData.tags || contactData.tags.length === 0"
+        >
+          No tags assigned
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="view-footer">
+    <button class="btn btn-primary" (click)="close()">Close</button>
+  </div>
+</div>

@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
+import { PageNotFoundModule } from './pagenotfound/pagenotfound.module';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -13,6 +15,15 @@ const routes: Routes = [
     path: 'contacts',
     loadChildren: () =>
       import('./contacts/contacts.module').then((m) => m.ContactsModule),
+  },
+  {
+    path: 'messages',
+    loadChildren: () =>
+      import('./messages/messages.module').then((m) => m.MessagesModule),
+  },
+  {
+    path: '**',
+    component: PagenotfoundComponent,
   },
 ];
 

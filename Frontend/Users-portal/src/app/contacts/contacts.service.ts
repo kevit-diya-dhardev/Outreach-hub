@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Contact } from './contact-form/models/contacts';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +17,14 @@ export class ContactsService {
   }
 
   editContact(contact_id: string, contactData: any) {
-    return this.http.patch(`${this.url}/${contact_id}`, contactData);
+    let finalEditData = contactData;
+    finalEditData.workspace_id = localStorage.getItem('workspace_id');
+    console.log(finalEditData);
+    return this.http.patch(`${this.url}/${contact_id}`, finalEditData);
+  }
+  createContact(contactData: any) {
+    let finalData = contactData;
+    finalData.workspace_id = localStorage.getItem('workspace_id');
+    return this.http.post(this.url, finalData);
   }
 }

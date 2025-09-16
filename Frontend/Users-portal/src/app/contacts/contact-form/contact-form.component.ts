@@ -9,13 +9,25 @@ import { Contact } from './models/contacts';
 })
 export class ContactFormComponent {
   @Input() mode!: string;
-
+  @Input() initialData!: Contact;
   @Output() formClose = new EventEmitter();
+  @Output() formSubmit = new EventEmitter();
   tagInput: string = '';
-  initialData!: Contact;
 
   constructor(private fb: FormBuilder) {}
-  onSubmit() {}
+  onSubmit() {
+    if (this.contactForm.valid) {
+      if (this.mode == 'edit') {
+        _id: this.initialData._id;
+      }
+      this.formSubmit.emit({
+        ...this.contactForm.getRawValue(),
+        phoneNumbe: Number(this.contactForm.value.phoneNumber),
+      });
+    } else {
+      this.contactForm.markAllAsTouched();
+    }
+  }
 
   contactForm = this.fb.group({
     contact_name: ['', [Validators.required]],
@@ -29,19 +41,22 @@ export class ContactFormComponent {
     return this.contactForm.get('tags')?.value || [];
   }
   ngOnInit() {
-    if (this.mode == 'edit' && !this.initialData) {
-      this.contactForm.patchValue(this.initialData);
+    if (this.mode == 'edit' && this.initialData) {
+      const formData = {
+        ...this.initialData,
+        phoneNumber: this.initialData.phoneNumber.toString(),
+      };
+      this.contactForm.patchValue(formData);
     }
   }
   removeTag(tagToRemove: string): void {
     const currentTags = this.tags.filter((tag) => tag !== tagToRemove);
     this.contactForm.get('tags')?.setValue(currentTags);
   }
-  addTag() {
+  addTag(tagValue: string) {
+    this.tagInput = tagValue;
     if (this.tagInput && !this.tags.includes(this.tagInput)) {
-      const currentTags = this.tags;
-      currentTags.push(this.tagInput.trim());
-      this.contactForm.get('tags')?.setValue(currentTags);
+      this.tags.push(this.tagInput.trim());
       this.tagInput = '';
     }
   }

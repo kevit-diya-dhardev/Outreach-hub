@@ -11,18 +11,6 @@ $border-color: #eaecf0;
 $danger-color: #d92d20;
 $success-color: #039855;
 
-// --- Base Styling & Page Background ---
-body {
-  // Add a subtle gradient to the page background for depth
-  background-image: linear-gradient(
-    170deg,
-    $background-start 0%,
-    $background-end 100%
-  );
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Helvetica, Arial, sans-serif;
-}
-
 // --- Main Container Card ---
 .page-card {
   background-color: $card-bg-color;
@@ -30,7 +18,7 @@ body {
   border-radius: 16px; // Softer corners
   padding: 24px 32px;
   margin: 2rem;
-  // A softer, more layered shadow for a modern "lifted" look
+  height: 87vh;
   box-shadow: 0 4px 8px -2px rgba(16, 24, 40, 0.03),
     0 12px 24px -4px rgba(16, 24, 40, 0.08);
 }
@@ -242,32 +230,52 @@ body {
   color: $text-light;
   background-color: transparent;
 }
-// .modal-overlay {
-//   position: fixed; // Stays in place even when scrolling
-//   top: 0;
-//   left: 0;
-//   width: 100vw;
-//   height: 100vh;
-//   z-index: 1050; // Sits on top of everything else
+.modal-overlay {
+  position: fixed; // Stays in place even when scrolling
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1050; // Sits on top of everything else
 
-//   // Center the modal content inside
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
+  // Center the modal content inside
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-//   // The blurred background effect
-//   background-color: rgba(17, 24, 39, 0.3); // A semi-transparent dark background
-//   backdrop-filter: blur(8px); // This is the property that creates the blur
-//   -webkit-backdrop-filter: blur(8px); // For Safari support
-// }
+  // The blurred background effect
+  background-color: rgba(17, 24, 39, 0.3); // A semi-transparent dark background
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.3s ease; // This is the property that creates the blur
+  -webkit-backdrop-filter: blur(
+    8px
+  ); // For Safari support  animation: fadeIn 0.3s ease;
+}
 
-// // The actual modal window where the form lives
-// .modal-content {
-//   background-color: #ffffff;
-//   padding: 2rem;
-//   border-radius: 16px;
-//   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-//   width: 100%;
-//   max-width: 500px; // Set a max-width for your form
-//   position: relative; // Needed for positioning the close button
-// }
+// The actual modal window where the form lives
+.modal-content {
+  padding: 2rem;
+  animation: fadeIn 0.3s ease;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  position: relative; // Needed for positioning the close button
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 20px));
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
