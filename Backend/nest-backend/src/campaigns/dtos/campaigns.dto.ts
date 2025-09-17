@@ -25,18 +25,14 @@ export class CampaignDto {
   description: string;
 
   @IsNotEmpty()
-  @IsEnum(status)
-  status: string;
-
-  @IsNotEmpty()
   @IsArray()
   selectedTags: string[];
 
   @IsNotEmpty()
   message: message;
 
+  @IsNotEmpty()
+  @IsString()
   workspace_id: mongoose.Types.ObjectId;
-
-  createdBy: mongoose.Types.ObjectId;
 }
 export class updateCampaignDto extends PartialType(CampaignDto) {}

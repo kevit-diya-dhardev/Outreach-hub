@@ -33,10 +33,12 @@ export class CampaignsService {
     return { campaigns: campaigns, totalPages: Math.ceil(totalDocs / 10) };
   }
   async createCampaign({ ...campaignData }: CampaignDto, reqData) {
+    console.log(campaignData);
     const campaign = new this.campaignModel({
       ...campaignData,
       createdBy: reqData.userData.userId,
     });
+
     try {
       const savedCampaign = await campaign.save();
       return savedCampaign;
@@ -87,7 +89,10 @@ export class CampaignsService {
     const campaign = await this.campaignModel.findOne({
       _id: campaignId,
     })!;
-    if (!campaign || campaign?.status != 'Draft') {
+    if (!campaign) {
+      throw new NotFoundException("Campaign doesn't exists!");
+    }
+    if (campaign?.status != 'Draft') {
       throw new HttpException(
         'Only campaigns in draft state can be launched!!',
         400,
@@ -95,6 +100,7 @@ export class CampaignsService {
     }
 
     const contacts: any = await this.ContactsModel.find({
+      workspace_id: campaign.workspace_id,
       tags: { $all: campaign.selectedTags },
     });
     console.log(contacts);
@@ -105,12 +111,8 @@ export class CampaignsService {
         400,
       );
     }
-    const updateCampaign = await this.campaignModel.findByIdAndUpdate(
-      campaignId,
-      { launchedAt: Date.now() },
-      { new: true },
-    );
-    let messagePerContact!: any,
+
+    let messagePerContact: any = [],
       id: number = 0;
     for (let contact of contacts) {
       messagePerContact.push({
@@ -125,6 +127,7 @@ export class CampaignsService {
         phoneNumber: contact.phoneNumber,
       });
     }
+
     try {
       const campaignLaunched = await this.campaignPerContactModel.create({
         messagePerContact: messagePerContact,
@@ -132,7 +135,11 @@ export class CampaignsService {
         campaignId: campaign._id,
         tags: campaign.selectedTags,
       });
-
+      const updateCampaign = await this.campaignModel.findByIdAndUpdate(
+        campaignId,
+        { launchedAt: Date.now(), status: 'Completed' },
+        { new: true },
+      );
       return campaignLaunched;
     } catch (error) {
       console.log(error);

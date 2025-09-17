@@ -50,7 +50,7 @@ export class CampaignsController {
     return await this.campaignService.updateCampaign(campaignId, campaignData);
   }
 
-  @Get(':campaignId')
+  @Get('single-campaigns/:campaignId')
   @Roles('Viewer')
   async getSingleCampaign(@Param('campaignId') campaignId: string) {
     return await this.campaignService.getSingleCampaign(campaignId);

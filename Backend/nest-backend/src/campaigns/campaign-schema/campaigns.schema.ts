@@ -53,7 +53,7 @@ export class Campaign {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Workspace',
   })
-  workspace_id: mongoose.Types.ObjectId; // It's better to use ObjectId for references
+  workspace_id: mongoose.Types.ObjectId;
 
   @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   createdBy: mongoose.Types.ObjectId;
