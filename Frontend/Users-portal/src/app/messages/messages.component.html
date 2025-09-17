@@ -37,37 +37,39 @@
   <div class="message-grid">
     <div class="message-card" *ngFor="let message of messages">
       <div *ngIf="message.type == selectedOption">
-        <div class="card-header">
-          <span class="message-name">{{ message.name }}</span>
-          <span class="message-type type-image">{{ message.type }}</span>
-        </div>
-        <div class="card-body">
-          <div class="card-image" *ngIf="message.type == 'Text-Image'">
-            <img [src]="message.message.imageUrl" alt="Promotional Image" />
+        <div class="displayed-cards">
+          <div class="card-header">
+            <span class="message-name">{{ message.name }}</span>
+            <span class="message-type type-image">{{ message.type }}</span>
           </div>
-          <p class="message-text">
-            {{ message.message.text }}
-          </p>
-        </div>
+          <div class="card-body">
+            <div class="card-image" *ngIf="message.type == 'Text-Image'">
+              <img [src]="message.message.imageUrl" alt="Promotional Image" />
+            </div>
+            <p class="message-text">
+              {{ message.message.text }}
+            </p>
+          </div>
 
-        <div class="card-actions">
-          <button class="btn-action btn-view" (click)="viewMessage(message)">
-            View
-          </button>
-          <button
-            class="btn-action btn-edit"
-            [disabled]="userRole !== 'Editor'"
-            (click)="editMessageForm(message)"
-          >
-            Edit
-          </button>
-          <button
-            class="btn-action btn-delete"
-            [disabled]="userRole !== 'Editor'"
-            (click)="deletemessage(message)"
-          >
-            Delete
-          </button>
+          <div class="card-actions">
+            <button class="btn-action btn-view" (click)="viewMessage(message)">
+              View
+            </button>
+            <button
+              class="btn-action btn-edit"
+              [disabled]="userRole !== 'Editor'"
+              (click)="editMessageForm(message)"
+            >
+              Edit
+            </button>
+            <button
+              class="btn-action btn-delete"
+              [disabled]="userRole !== 'Editor'"
+              (click)="deletemessage(message)"
+            >
+              Delete
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -84,5 +86,13 @@
       (formVisible)="recieveMesageFormData($event)"
       [messageData]="messageData"
     ></app-create-message>
+  </div>
+</div>
+<div class="modal-overlay" *ngIf="viewMessageVisible">
+  <div class="modal-content">
+    <app-view-message
+      [messageData]="messageData"
+      (viewMessageVisible)="recieveViewFormData($event)"
+    ></app-view-message>
   </div>
 </div>

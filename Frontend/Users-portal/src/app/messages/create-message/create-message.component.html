@@ -54,7 +54,9 @@
         id="imageUrl"
         type="text"
         formControlName="imageUrl"
-        placeholder="https://example.com/image.png"
+        [placeholder]="
+          messageForm.get('imageUrl')?.value || 'https://example.com/image.png'
+        "
       />
     </div>
 

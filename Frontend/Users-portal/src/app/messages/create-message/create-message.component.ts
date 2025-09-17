@@ -14,6 +14,14 @@ export class CreateMessageComponent {
     private fb: FormBuilder,
     private messageService: MessageService
   ) {}
+  workspace_id: string = localStorage.getItem('workspace_id')!;
+  ngOnInit() {
+    if (this.mode == 'edit') {
+      this.messageForm.patchValue(this.messageData);
+      this.messageForm.get('text')?.setValue(this.messageData.message.text);
+      this.messageForm.get('imageUrl')?.setValue(this.messageData.imageUrl);
+    }
+  }
   selectType(selectedType: string) {
     this.messageForm.get('type')?.setValue(selectedType);
     this.isDropdownOpen = false;
@@ -32,15 +40,16 @@ export class CreateMessageComponent {
   }
   editMessage() {
     let messageContent: any = {
-      text: this.messageData.text.value,
+      text: this.messageForm.get('text')?.value,
     };
     if (this.messageForm.get('type')?.value == 'Text-Image') {
       messageContent.imageUrl = this.messageForm.get('imageUrl')?.value;
     }
     let finalFormData: any = {
-      name: this.messageData.name.value,
-      type: this.messageData.type.value,
+      name: this.messageForm.get('name')?.value,
+      type: this.messageForm.get('type')?.value,
       message: messageContent,
+      workspace_id: this.workspace_id,
     };
 
     this.messageService
@@ -57,29 +66,27 @@ export class CreateMessageComponent {
   }
   createMessage() {
     let messageContent: any = {
-      text: this.messageData.text.value,
+      text: this.messageForm.get('text')?.value,
     };
     if (this.messageForm.get('type')?.value == 'Text-Image') {
       messageContent.imageUrl = this.messageForm.get('imageUrl')?.value;
     }
     let finalFormData: any = {
-      name: this.messageData.name.value,
-      type: this.messageData.type.value,
+      name: this.messageForm.get('name')?.value,
+      type: this.messageForm.get('type')?.value,
       message: messageContent,
-      workspace_id: localStorage.getItem('workspace_id'),
+      workspace_id: this.workspace_id,
     };
 
-    this.messageService
-      .editMessage(this.messageData._id, finalFormData)
-      .subscribe({
-        next: (response) => {
-          console.log(response);
-          this.formVisible.emit(false);
-        },
-        error: (error) => {
-          console.log(error);
-        },
-      });
+    this.messageService.createMessge(finalFormData).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.formVisible.emit(false);
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
   submitData() {
     console.log('Inside submitData');

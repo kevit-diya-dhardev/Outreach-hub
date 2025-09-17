@@ -27,6 +27,7 @@ export class MessagesComponent {
   selectedOption = 'Text';
   mode = '';
   messageFormVisible = false;
+  viewMessageVisible = false;
   messageData: any;
   deletemessage(message: any) {
     this.messageService.deleteMessage(message._id).subscribe({
@@ -40,7 +41,10 @@ export class MessagesComponent {
     });
   }
 
-  viewMessage(message: any) {}
+  viewMessage(message: any) {
+    this.viewMessageVisible = true;
+    this.messageData = message;
+  }
 
   ngOnInit() {
     this.getMyMessages();
@@ -58,6 +62,10 @@ export class MessagesComponent {
     this.messageFormVisible = true;
     this.mode = 'edit';
     this.messageData = message;
+  }
+  recieveViewFormData(formVisible: boolean) {
+    console.log(formVisible);
+    this.viewMessageVisible = formVisible;
   }
 
   getMyMessages() {

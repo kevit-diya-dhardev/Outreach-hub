@@ -6,9 +6,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MessagesRoutingModule } from './messages-routing.module';
 
 import { CreateMessageComponent } from './create-message/create-message.component';
+import { ViewMessageComponent } from './view-message/view-message.component';
 
 @NgModule({
-  declarations: [MessagesComponent, CreateMessageComponent],
+  declarations: [MessagesComponent, CreateMessageComponent, ViewMessageComponent],
   imports: [
     CommonModule,
     MessagesRoutingModule,

@@ -140,8 +140,8 @@ $primary-dark: #6941c6;
 
 // --- Responsive Grid for Messages ---
 .message-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  display: flex;
+
   gap: 1.5rem;
   padding-top: 2rem;
 }
@@ -149,9 +149,7 @@ $primary-dark: #6941c6;
 // --- Individual Message Card Styling ---
 .message-card {
   background-color: $card-bg-color;
-  border: 1px solid $border-color;
 
-  border-radius: 12px;
   box-shadow: 0 4px 8px -2px rgba(16, 24, 40, 0.05);
   display: flex;
   flex-direction: column;
@@ -162,7 +160,10 @@ $primary-dark: #6941c6;
     box-shadow: 0 12px 24px -4px rgba(16, 24, 40, 0.08);
   }
 }
-
+.displayed-cards {
+  border: 1px solid $border-color;
+  border-radius: 12px;
+}
 .card-header {
   display: flex;
   justify-content: space-between;
@@ -283,5 +284,55 @@ $primary-dark: #6941c6;
       color: #d0d5dd;
       cursor: not-allowed;
     }
+  }
+}
+.modal-overlay {
+  position: fixed; // Stays in place even when scrolling
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1050; // Sits on top of everything else
+
+  // Center the modal content inside
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  // The blurred background effect
+  background-color: rgba(17, 24, 39, 0.3); // A semi-transparent dark background
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.3s ease; // This is the property that creates the blur
+  -webkit-backdrop-filter: blur(
+    8px
+  ); // For Safari support  animation: fadeIn 0.3s ease;
+}
+
+// The actual modal window where the form lives
+.modal-content {
+  padding: 2rem;
+  animation: fadeIn 0.3s ease;
+  border-radius: 16px;
+  background-color: #eaecf0;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  position: relative; // Needed for positioning the close button
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 20px));
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
   }
 }

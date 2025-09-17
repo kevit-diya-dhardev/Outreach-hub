@@ -1,0 +1,31 @@
+<div class="view-overlay"></div>
+
+<div class="view-card" *ngIf="messageData">
+  <div class="view-header">
+    <h2 class="message-name">{{ messageData.name }}</h2>
+    <span
+      class="message-type"
+      [ngClass]="{
+        'type-text': messageData.type === 'Text',
+        'type-image': messageData.type === 'Text-Image'
+      }"
+    >
+      {{ messageData.type }}
+    </span>
+    <button class="btn-close" (click)="closeForm()">×</button>
+  </div>
+
+  <div class="view-body">
+    <div class="message-image" *ngIf="messageData.type === 'Text-Image'">
+      <img [src]="messageData.message.imageUrl" alt="Message Image Content" />
+    </div>
+
+    <div class="message-content">
+      <p>{{ messageData.message.text }}</p>
+    </div>
+  </div>
+
+  <div class="view-footer">
+    <button class="btn btn-primary" (click)="closeForm()">Close</button>
+  </div>
+</div>

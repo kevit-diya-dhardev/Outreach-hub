@@ -1,0 +1,130 @@
+// --- Theme Variables ---
+$primary-color: #7f56d9;
+$text-color: #1d2939;
+$text-light: #667085;
+$border-color: #eaecf0;
+$page-bg-color: #f8f9fc; // A light grey for backgrounds
+
+// --- Main Display Card ---
+// The card now acts as a content wrapper inside the modal,
+// without its own background, shadow, or positioning.
+.view-card {
+  width: 100%; // Take the full width of the modal-content parent
+  max-width: 500px; // Set a max-width for readability
+  display: flex;
+  flex-direction: column;
+}
+
+// --- Header ---
+.view-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid $border-color;
+  gap: 16px;
+  position: relative; // Needed to position the close button correctly
+}
+
+.message-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: $text-color;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.message-type {
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  flex-shrink: 0;
+  &.type-text {
+    background-color: #ecfdf3;
+    color: #027a48;
+  }
+  &.type-image {
+    background-color: #fffaeb;
+    color: #b54708;
+  }
+}
+
+.btn-close {
+  position: absolute;
+  top: -24px; // Position relative to the header, adjusting for parent padding
+  right: -24px; // Adjusting for parent padding
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: $text-light;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s ease;
+  &:hover {
+    color: $text-color;
+  }
+}
+
+// --- Body ---
+.view-body {
+  padding: 1.5rem 0; // Vertical padding only
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: $text-light;
+  margin-bottom: 8px;
+}
+
+.message-image {
+  img {
+    width: 100%;
+    max-height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid $border-color;
+  }
+}
+
+.message-content {
+  p {
+    background-color: $page-bg-color;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 0;
+    color: $text-color;
+    line-height: 1.6;
+    white-space: pre-wrap; // Preserve line breaks
+    word-break: break-word; // Prevent long words from overflowing
+  }
+}
+
+// --- Footer ---
+.view-footer {
+  padding-top: 1rem;
+  border-top: 1px solid $border-color;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-primary {
+  background-color: $primary-color;
+  border-color: $primary-color;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid;
+  transition: background-color 0.2s ease;
+  &:hover {
+    background-color: darken($primary-color, 8%);
+  }
+}
