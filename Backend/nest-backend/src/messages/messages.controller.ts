@@ -24,7 +24,6 @@ import { Roles } from 'src/Auth/roles.decorator';
 export class MessageController {
   constructor(private messageService: MessageService) {}
   @Post()
-  @UsePipes(new ValidationPipe())
   @Roles('Editor')
   createMessage(
     @Req() request: express.Request,
@@ -34,7 +33,6 @@ export class MessageController {
   }
 
   @Get('myMessages/:workspace_id')
-  @UseGuards(AuthGuard)
   @Roles('Viewer')
   getMyMessages(
     @Req() request: express.Request,
@@ -46,7 +44,6 @@ export class MessageController {
   }
 
   @Get('allMessages/:workspace_id')
-  @UseGuards(AuthGuard)
   @Roles('Viewer')
   getAllMessages(
     @Req() request: express.Request,

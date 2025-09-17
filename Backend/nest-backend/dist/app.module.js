@@ -14,6 +14,7 @@ const users_module_1 = require("./users/users.module");
 const contacts_module_1 = require("./contacts/contacts.module");
 const auth_module_1 = require("./Auth/auth.module");
 const messages_module_1 = require("./messages/messages.module");
+const campaigns_module_1 = require("./campaigns/campaigns.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -26,6 +27,7 @@ exports.AppModule = AppModule = __decorate([
             contacts_module_1.ContactsModule,
             messages_module_1.MessaegeModule,
             auth_module_1.AuthModule,
+            campaigns_module_1.CampaignsModule,
         ],
         controllers: [],
         providers: [],
