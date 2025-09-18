@@ -9,9 +9,10 @@ import { status } from '../campaign-schema/campaigns.schema';
 import mongoose from 'mongoose';
 import { PartialType } from '@nestjs/mapped-types';
 type message = {
+  message_name: string;
   type: string;
   text: string;
-  imageUrl: string;
+  imageUrl?: string;
   message_id: mongoose.Types.ObjectId;
 };
 

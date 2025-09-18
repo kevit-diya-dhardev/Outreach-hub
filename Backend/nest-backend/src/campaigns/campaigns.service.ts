@@ -61,7 +61,10 @@ export class CampaignsService {
     return await this.campaignModel.deleteOne({ _id: campaignId });
   }
 
-  async updateCampaign(campaignId: string, campaignData: updateCampaignDto) {
+  async updateCampaign(
+    campaignId: string,
+    { ...campaignData }: updateCampaignDto,
+  ) {
     if (!isValidObjectId(campaignId))
       throw new NotFoundException("Campaign doesn't exists!");
     const campaign = await this.campaignModel.findOne({ _id: campaignId });
@@ -71,9 +74,12 @@ export class CampaignsService {
         400,
       );
     }
+    if (!campaignData.message?.imageUrl) {
+      campaignData.message!.type = 'Text';
+    }
     const updateCampaign = await this.campaignModel.findByIdAndUpdate(
       campaignId,
-      campaignData,
+      { ...campaignData },
       { new: true },
     );
     return updateCampaign;
@@ -86,6 +92,7 @@ export class CampaignsService {
   }
 
   async launchCampaign(campaignId: string) {
+    console.log(campaignId);
     const campaign = await this.campaignModel.findOne({
       _id: campaignId,
     })!;
@@ -101,7 +108,7 @@ export class CampaignsService {
 
     const contacts: any = await this.ContactsModel.find({
       workspace_id: campaign.workspace_id,
-      tags: { $all: campaign.selectedTags },
+      tags: { $in: campaign.selectedTags },
     });
     console.log(contacts);
 

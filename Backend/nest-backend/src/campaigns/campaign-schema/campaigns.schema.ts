@@ -3,6 +3,9 @@ import mongoose from 'mongoose';
 
 @Schema()
 export class Submessage {
+  @Prop({ required: true, type: String })
+  message_name: string;
+
   @Prop({ required: true, enum: ['Text', 'Text-Image'] })
   type: string;
 

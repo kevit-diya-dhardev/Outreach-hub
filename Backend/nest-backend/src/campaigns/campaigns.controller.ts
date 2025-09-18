@@ -56,9 +56,10 @@ export class CampaignsController {
     return await this.campaignService.getSingleCampaign(campaignId);
   }
 
-  @Post(':campaignId')
+  @Post('/launch-campaign')
   @Roles('Editor')
-  async launchCampaign(@Param('campaignId') campaignId: string) {
+  async launchCampaign(@Body('campaignId') campaignId: string) {
+    console.log('controller', campaignId);
     return await this.campaignService.launchCampaign(campaignId);
   }
 }

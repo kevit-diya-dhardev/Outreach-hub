@@ -1,0 +1,91 @@
+<div class="campaigns-dashboard">
+  <header class="dashboard-header">
+    <h1>Campaigns</h1>
+    <button
+      *ngIf="role === 'Editor'"
+      class="btn btn-primary"
+      (click)="allowFormVisibility()"
+    >
+      + New Campaign
+    </button>
+  </header>
+
+  <div class="campaign-grid">
+    <div class="campaign-card" *ngFor="let campaign of campaigns">
+      <div class="card-header">
+        <span class="campaign-name">{{ campaign.name }}</span>
+        <span
+          class="status-pill"
+          [ngClass]="{
+            'status-draft': campaign.status === 'Draft',
+            'status-completed': campaign.status === 'Completed',
+            'status-running': campaign.status === 'Running'
+          }"
+        >
+          {{ campaign.status }}
+        </span>
+      </div>
+
+      <div class="card-body">
+        <p class="campaign-description">{{ campaign.description }}</p>
+        <div class="tag-container">
+          <label>Target Tags:</label>
+          <span class="tag-pill" *ngFor="let tag of campaign.selectedTags">{{
+            tag
+          }}</span>
+        </div>
+      </div>
+
+      <div class="card-actions">
+        <button
+          class="btn-action btn-view"
+          (click)="openViewCampaign(campaign)"
+        >
+          View
+        </button>
+
+        <ng-container *ngIf="role === 'Editor' && campaign.status === 'Draft'">
+          <button class="btn-action btn-edit" (click)="editForm(campaign)">
+            Edit
+          </button>
+          <button
+            class="btn-action btn-delete"
+            (click)="deleteCampaign(campaign)"
+          >
+            Delete
+          </button>
+        </ng-container>
+        <button class="btn-action btn-copy" (click)="copyCampaign(campaign)">
+          Copy
+        </button>
+        <button
+          class="btn-launch"
+          *ngIf="campaign.status == 'Draft'"
+          (click)="showLoadingScreen(campaign)"
+        >
+          Launch
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" *ngIf="createFormVisible">
+  <div class="modal-content">
+    <app-create-campaign
+      (createFormVisible)="recieveCreateFormData($event)"
+      [mode]="mode"
+      [campaign]="campaignData"
+    ></app-create-campaign>
+  </div>
+</div>
+<div class="modal-overlay" *ngIf="viewFormVisible">
+  <div class="modal-content">
+    <app-view-campaign
+      [campaignData]="viewCampaignData"
+      (viewFormVisible)="recieveViewCampaignData($event)"
+    ></app-view-campaign>
+  </div>
+</div>
+<div class="loading-overlay" *ngIf="isLoading">
+  <div class="spinner"></div>
+</div>

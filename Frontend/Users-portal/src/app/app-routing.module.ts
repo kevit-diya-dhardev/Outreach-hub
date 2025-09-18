@@ -22,6 +22,11 @@ const routes: Routes = [
       import('./messages/messages.module').then((m) => m.MessagesModule),
   },
   {
+    path: 'campaigns',
+    loadChildren: () =>
+      import('./campaigns/campaigns.module').then((m) => m.CampaignsModule),
+  },
+  {
     path: '**',
     component: PagenotfoundComponent,
   },

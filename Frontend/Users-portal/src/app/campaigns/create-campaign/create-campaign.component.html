@@ -1,0 +1,152 @@
+<div class="form-overlay"></div>
+
+<div class="form-card">
+  <div class="form-header">
+    <h2 *ngIf="mode == 'create'">Create New Campaign</h2>
+    <h2 *ngIf="mode == 'edit'">Edit campaign</h2>
+    <button class="btn-close" (click)="closeForm()">×</button>
+  </div>
+
+  <form [formGroup]="campaignForm" (ngSubmit)="onSubmit()" class="form-body">
+    <fieldset class="form-section">
+      <legend>Campaign Details</legend>
+
+      <div class="form-group">
+        <label for="name">Campaign Name</label>
+        <input
+          id="name"
+          type="text"
+          formControlName="name"
+          placeholder="e.g., Q4 Holiday Promotion"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          formControlName="description"
+          rows="3"
+          placeholder="A brief summary of the campaign's goal..."
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="tags">Target Tags</label>
+        <div class="tag-input-wrapper">
+          <input
+            id="tags"
+            type="text"
+            placeholder="Type a tag and click add button"
+            [value]="tagInput.value"
+            #tagInput
+          />
+          <button
+            type="button"
+            class="btn-add-tag"
+            (click)="addTag(tagInput.value)"
+          >
+            Add
+          </button>
+        </div>
+        <div class="tag-container-wrapper">
+          <div class="tag-container" *ngFor="let tag of selectedTags">
+            <span class="tag-pill"
+              >{{ tag
+              }}<button class="btn-remove-tag" (click)="removeTag(tag)">
+                ×
+              </button></span
+            >
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="form-section">
+      <legend>Message Template</legend>
+
+      <div class="message-selector-wrapper">
+        <button
+          type="button"
+          class="select-message-trigger"
+          (click)="isDropdownOpen = !isDropdownOpen"
+        >
+          <span class="selection-text" *ngIf="mode == 'edit'">
+            {{
+              selectedMessage
+                ? selectedMessage.name
+                : campaign.message.message_name
+            }}
+          </span>
+          <span class="selection-text" *ngIf="mode == 'create'">
+            {{
+              selectedMessage
+                ? selectedMessage.name
+                : "Select a Message Template"
+            }}
+          </span>
+          <span class="chevron" [class.rotated]="isDropdownOpen"></span>
+        </button>
+        <div *ngIf="isDropdownOpen">
+          <div>
+            <ul class="message-dropdown-menu">
+              <li
+                (click)="selectMessage(message)"
+                *ngFor="let message of messages"
+              >
+                <span class="item-name">{{ message.name }}</span>
+                <span class="item-type type-image">{{ message.type }}</span>
+                <span class="item-type">{{ message.message.text }}</span>
+                <span class="item-type" *ngIf="message.type == 'Text-Image'"
+                  ><img
+                    [src]="message.message.imageUrl"
+                    alt="Promotional Image"
+                /></span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="selectedMessage" class="message-preview">
+        <div class="preview-header">
+          <h4>Message Preview</h4>
+        </div>
+
+        <div class="preview-info">
+          <div>
+            {{ selectedMessage.name }}
+          </div>
+          <div class="message-type type-text">
+            {{ selectedMessage.type }}
+          </div>
+        </div>
+        <div class="preview-body">
+          <div
+            class="preview-image"
+            *ngIf="selectedMessage.type === 'Text-Image'"
+          >
+            <img
+              [src]="selectedMessage.message.imageUrl"
+              alt="Message Preview"
+            />
+          </div>
+          <p class="preview-text">
+            {{ selectedMessage.message.text }}
+          </p>
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="form-actions">
+      <button type="button" class="btn btn-secondary" (click)="closeForm()">
+        Cancel
+      </button>
+      <button type="submit" class="btn btn-primary" *ngIf="mode == 'create'">
+        Create Campaign</button
+      ><button type="submit" class="btn btn-primary" *ngIf="mode == 'edit'">
+        Edit Campaign
+      </button>
+    </div>
+  </form>
+</div>

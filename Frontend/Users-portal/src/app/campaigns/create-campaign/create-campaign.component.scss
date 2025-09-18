@@ -1,0 +1,399 @@
+// --- Theme Variables ---
+$primary-color: #7f56d9;
+$primary-light: #f4f2ff;
+$text-color: #1d2939;
+$text-light: #667085;
+$border-color: #eaecf0;
+$card-bg-color: #ffffff;
+$page-bg-color: #f8f9fc;
+$success-color: #039855; // For 'text' type
+$warning-color: #f79009;
+// --- Modal Overlay & Card (reused styles) ---
+.form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(16, 24, 40, 0.6);
+  z-index: 1000;
+}
+
+.form-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 600px; // A bit wider for this more complex form
+  background-color: $card-bg-color;
+  border-radius: 12px;
+  box-shadow: 0 12px 24px -4px rgba(16, 24, 40, 0.1);
+  z-index: 1001;
+  overflow: hidden;
+}
+
+// --- Form Header & Body ---
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid $border-color;
+  h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+}
+
+.btn-close {
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  color: $text-light;
+  cursor: pointer;
+  &:hover {
+    color: $text-color;
+  }
+}
+
+.form-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+// --- Form Sections (Fieldset) ---
+.form-section {
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  legend {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: $text-color;
+    padding: 0;
+    margin-bottom: 12px;
+    width: 100%;
+    padding-bottom: 12px;
+  }
+}
+
+// --- General Form Group Styling ---
+.form-group {
+  label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: $text-color;
+  }
+  input[type="text"],
+  textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    font-size: 1rem;
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px $primary-light;
+    }
+  }
+  textarea {
+    resize: vertical;
+    min-height: 60px;
+  }
+}
+
+// --- Tag Input (reused styles) ---
+.tag-input-wrapper {
+  display: flex;
+  gap: 8px;
+  input {
+    flex-grow: 1;
+  }
+}
+.btn-add-tag {
+  background-color: $primary-light;
+  color: $primary-color;
+  border: 1px solid $primary-light;
+  border-radius: 8px;
+  padding: 0 16px;
+  font-weight: 500;
+  cursor: pointer;
+  &:hover {
+    background-color: darken($primary-light, 5%);
+  }
+}
+.tag-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+.tag-container-wrapper {
+  display: flex;
+  gap: 5px;
+}
+.tag-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: $primary-light;
+  color: $primary-color;
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 0.9rem;
+}
+.btn-remove-tag {
+  background: none;
+  border: none;
+  color: $primary-color;
+  font-size: 1rem;
+  cursor: pointer;
+  opacity: 0.7;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+// --- Message Selector & Preview ---
+
+.message-selector-wrapper {
+  position: relative; // This is the anchor for the absolute-positioned menu
+  margin-bottom: 1rem; // Add space between dropdown and preview
+}
+
+.select-message-trigger {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background-color: $card-bg-color;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    border-color: darken($border-color, 10%);
+  }
+
+  .selection-text {
+    color: $text-color;
+  }
+}
+
+.chevron {
+  width: 20px;
+  height: 20px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23667085' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: transform 0.25s ease-in-out;
+  &.rotated {
+    transform: rotate(180deg);
+  }
+}
+
+/* ========== Message list in the dropdown ========== */
+
+.message-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 280px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+  background: #ffffff;
+  border: 1px solid #eaecf0;
+  border-radius: 6px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+
+  /* keeps it anchored to the selector button */
+  z-index: 10;
+
+  /* Smooth scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: #ccc transparent;
+
+  li {
+    display: flex;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      "name type"
+      "text text";
+    row-gap: 6px;
+    column-gap: 8px;
+    border: 1px solid $border-color;
+    padding: 10px 12px;
+    font-size: 14px;
+    color: #1d2939;
+    cursor: pointer;
+    transition: background 0.15s ease;
+
+    &:hover {
+      background-color: #f4f2ff;
+    }
+
+    .item-name {
+      grid-area: name;
+      font-weight: 600;
+      color: #1d2939;
+    }
+
+    .type-image {
+      grid-area: type;
+      font-size: 12px;
+      color: #7f56d9;
+      font-weight: 500;
+    }
+
+    /* text content */
+    .item-type {
+      &.type-image {
+        grid-area: type;
+      }
+
+      &:not(.type-image) {
+        grid-area: text;
+        font-size: 13px;
+        line-height: 1.4;
+        color: #667085;
+      }
+
+      img {
+        max-width: 48px;
+        max-height: 48px;
+        object-fit: cover;
+        border-radius: 4px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+}
+
+/* Optional: make the parent wrapper relative so the list anchors nicely */
+.message-selector-wrapper {
+  position: relative;
+}
+
+// --- Message Preview Styling (Keep your existing styles) ---
+.message-preview {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #ffffff;
+  border: 1px solid #eaecf0;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 100%;
+
+  .preview-header {
+    h4 {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #1d2939;
+      border-bottom: 1px solid #f0f0f0;
+      padding-bottom: 0.5rem;
+    }
+  }
+  .preview-info {
+    display: flex;
+    gap: 2rem;
+    .message-type {
+      padding: 4px 10px;
+      border-radius: 16px;
+      font-size: 0.8rem;
+      font-weight: 500;
+
+      &.type-text {
+        background-color: lighten($success-color, 20%);
+        color: $success-color;
+      }
+    }
+  }
+
+  .preview-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    .preview-image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 6px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    .preview-text {
+      font-size: 0.95rem;
+      line-height: 1.4;
+      color: #1d2939;
+      background: #f9fafb;
+      padding: 0.75rem;
+      border-radius: 4px;
+      border: 1px solid #eaecf0;
+      word-break: break-word;
+    }
+  }
+}
+
+// --- Form Actions ---
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 12px;
+}
+
+.btn {
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid;
+  &.btn-secondary {
+    background-color: #fff;
+    border-color: $border-color;
+    &:hover {
+      background-color: #f9fafb;
+    }
+  }
+  &.btn-primary {
+    background-color: $primary-color;
+    border-color: $primary-color;
+    color: #fff;
+    &:hover {
+      background-color: darken($primary-color, 8%);
+    }
+  }
+}

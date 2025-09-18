@@ -11,6 +11,7 @@ import { UserInterceptor } from './dashboard/user.interceptor';
 import { ContactsModule } from './contacts/contacts.module';
 import { PageNotFoundModule } from './pagenotfound/pagenotfound.module';
 import { MessagesModule } from './messages/messages.module';
+import { CampaignsModule } from './campaigns/campaigns.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +23,7 @@ import { MessagesModule } from './messages/messages.module';
     ContactsModule,
     MessagesModule,
     PageNotFoundModule,
+    CampaignsModule,
   ],
   providers: [
     JwtService,

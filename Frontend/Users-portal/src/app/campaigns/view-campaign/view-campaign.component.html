@@ -1,0 +1,72 @@
+<div class="view-overlay"></div>
+
+<div class="view-card" *ngIf="campaignData">
+  <div class="view-header">
+    <div class="header-content">
+      <span class="header-label">Campaign Details</span>
+      <h2 class="campaign-name">{{ campaignData.name }}</h2>
+    </div>
+    <button class="btn-close" (click)="closeViewForm()">×</button>
+  </div>
+
+  <div class="view-body">
+    <div class="detail-section">
+      <div class="detail-group">
+        <label>Description</label>
+        <p class="description-text">{{ campaignData.description }}</p>
+      </div>
+
+      <div class="detail-group">
+        <label>Target Tags</label>
+        <div class="tag-container">
+          <span class="tag-pill" *ngFor="let tag of campaignData.selectedTags">
+            {{ tag }}
+          </span>
+          <span
+            class="no-tags"
+            *ngIf="
+              !campaignData.selectedTags ||
+              campaignData.selectedTags.length === 0
+            "
+          >
+            No tags assigned
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-section message-preview-section">
+      <label>Associated Message</label>
+      <div class="message-preview">
+        <div class="preview-header">
+          <h4>{{ campaignData.message.message_name }}</h4>
+          <span
+            class="message-type"
+            [ngClass]="{
+              'type-text': campaignData.message.type === 'Text',
+              'type-image': campaignData.message.type === 'Text-Image'
+            }"
+          >
+            {{ campaignData.message.type }}
+          </span>
+        </div>
+        <div class="preview-body">
+          <div
+            class="preview-image"
+            *ngIf="
+              campaignData.message.type === 'Text-Image' &&
+              campaignData.message.imageUrl
+            "
+          >
+            <img [src]="campaignData.message.imageUrl" alt="Message Preview" />
+          </div>
+          <p class="preview-text">{{ campaignData.message.text }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="view-footer">
+    <button class="btn btn-primary" (click)="closeViewForm()">Close</button>
+  </div>
+</div>
