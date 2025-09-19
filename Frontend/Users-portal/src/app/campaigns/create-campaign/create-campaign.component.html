@@ -19,6 +19,15 @@
           formControlName="name"
           placeholder="e.g., Q4 Holiday Promotion"
         />
+        <div
+          class="error"
+          *ngIf="
+            formControls.name.invalid &&
+            (formControls.name.dirty || formControls.name.touched)
+          "
+        >
+          Campaign name is required
+        </div>
       </div>
 
       <div class="form-group">
@@ -29,6 +38,15 @@
           rows="3"
           placeholder="A brief summary of the campaign's goal..."
         ></textarea>
+        <div
+          class="error"
+          *ngIf="
+            formControls.description.invalid &&
+            (formControls.description.dirty || formControls.description.touched)
+          "
+        >
+          Description is required
+        </div>
       </div>
 
       <div class="form-group">
@@ -44,13 +62,26 @@
           <button
             type="button"
             class="btn-add-tag"
-            (click)="addTag(tagInput.value)"
+            (click)="addTag(tagInput.value); tagInput.value = ''"
           >
             Add
           </button>
+          <div
+            class="error"
+            *ngIf="
+              formControls.selectedTags.invalid &&
+              (formControls.selectedTags.dirty ||
+                formControls.selectedTags.touched)
+            "
+          >
+            Please add at least one tag
+          </div>
         </div>
         <div class="tag-container-wrapper">
-          <div class="tag-container" *ngFor="let tag of selectedTags">
+          <div
+            class="tag-container"
+            *ngFor="let tag of formControls.selectedTags.value"
+          >
             <span class="tag-pill"
               >{{ tag
               }}<button class="btn-remove-tag" (click)="removeTag(tag)">

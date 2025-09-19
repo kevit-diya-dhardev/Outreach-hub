@@ -1,0 +1,79 @@
+<div class="report-page" *ngIf="campaignPerContact">
+  <header class="page-header">
+    <div class="header-content">
+      <div class="status-icon">✔</div>
+      <div class="title-group">
+        <h1>Campaign Report</h1>
+        <p>Launched on {{ campaignPerContact.sentAt | date : "fullDate" }}</p>
+      </div>
+    </div>
+    <button class="btn btn-secondary" (click)="navigateToCampaigns()">
+      ← Back to Campaigns
+    </button>
+  </header>
+
+  <main class="report-content-layout">
+    <aside class="summary-sidebar">
+      <div class="summary-card">
+        <h3>Campaign Details</h3>
+
+        <div class="summary-item">
+          <label>Campaign Name</label>
+          <span>{{ campaignPerContact.campaignId?.name }}</span>
+        </div>
+
+        <div class="summary-item">
+          <label>Description</label>
+          <p class="description-text">
+            {{ campaignPerContact.campaignId?.description }}
+          </p>
+        </div>
+
+        <div class="summary-item">
+          <label>Targeted Tags</label>
+          <div class="tag-container">
+            <span
+              class="tag-pill"
+              *ngFor="let tag of campaignPerContact.tags"
+              >{{ tag }}</span
+            >
+          </div>
+        </div>
+
+        <div class="summary-item">
+          <label>Message Template Used</label>
+          <span>{{
+            campaignPerContact.campaignId?.message?.message_name
+          }}</span>
+        </div>
+      </div>
+    </aside>
+
+    <section class="details-main">
+      <h3>
+        Contacts Reached ({{ campaignPerContact.messagePerContact.length }})
+      </h3>
+
+      <div class="contact-list">
+        <div
+          class="contact-item"
+          *ngFor="let item of campaignPerContact.messagePerContact"
+        >
+          <div class="message-content">
+            <div
+              class="message-image"
+              *ngIf="item.type === 'Text-Image' && item.imageUrl"
+            >
+              <img [src]="item.imageUrl" alt="Sent Image" />
+            </div>
+            <p class="message-text">{{ item.text }}</p>
+          </div>
+          <div class="contact-info">
+            <span class="contact-name">{{ item.contact_name }}</span>
+            <span class="contact-phone">{{ item.phoneNumber }}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>

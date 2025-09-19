@@ -12,6 +12,7 @@ import { ContactsModule } from './contacts/contacts.module';
 import { PageNotFoundModule } from './pagenotfound/pagenotfound.module';
 import { MessagesModule } from './messages/messages.module';
 import { CampaignsModule } from './campaigns/campaigns.module';
+import { NavbarComponent } from './dashboard/navbar/navbar.component';
 
 @NgModule({
   declarations: [AppComponent],

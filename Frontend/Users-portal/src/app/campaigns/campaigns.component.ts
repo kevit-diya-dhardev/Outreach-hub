@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Campaigns } from './models/campaigns';
 import { CampaignsService } from './campaigns.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-campaigns',
@@ -8,7 +9,10 @@ import { CampaignsService } from './campaigns.service';
   styleUrl: './campaigns.component.scss',
 })
 export class CampaignsComponent {
-  constructor(private campaignService: CampaignsService) {}
+  constructor(
+    private campaignService: CampaignsService,
+    private router: Router
+  ) {}
   createFormVisible = false;
   role = localStorage.getItem('role');
   campaigns!: any;
@@ -49,6 +53,7 @@ export class CampaignsComponent {
       },
       error: (error) => {
         console.log(error);
+        alert(error.error.message);
       },
     });
   }
@@ -61,6 +66,7 @@ export class CampaignsComponent {
       },
       error: (error) => {
         console.error(error);
+        alert(error.error.message);
       },
     });
   }
@@ -80,11 +86,15 @@ export class CampaignsComponent {
     this.campaignService.launchCampaign(campaign._id!).subscribe({
       next: (response) => {
         console.log(response);
-        this.getCampaigns();
+        this.navigateToDetails(campaign);
       },
       error: (error) => {
         console.log(error);
+        alert(error.error.message);
       },
     });
+  }
+  navigateToDetails(campaign: Campaigns) {
+    this.router.navigate([`/campaigns/${campaign._id}`]);
   }
 }

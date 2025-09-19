@@ -11,8 +11,14 @@ $danger-color: #d92d20;
 $primary-dark: #6941c6;
 // --- Main Dashboard Layout ---
 .messages-dashboard {
-  padding: 2rem;
-  font-family: "Inter", sans-serif;
+  background-color: $card-bg-color;
+  border: 1px solid $border-color;
+  border-radius: 16px; // Softer corners
+  padding: 24px 32px;
+  margin: 2rem;
+  height: 80vh;
+  box-shadow: 0 4px 8px -2px rgba(16, 24, 40, 0.03),
+    0 12px 24px -4px rgba(16, 24, 40, 0.08);
 }
 
 // --- Dashboard Header ---
@@ -38,7 +44,8 @@ $primary-dark: #6941c6;
   border-radius: 8px;
   font-weight: 500;
   cursor: pointer;
-  // Add shadow to the primary button for emphasis
+  position: absolute;
+  right: 19rem;
   box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
   transition: all 0.2s ease;
   &:hover {
@@ -285,6 +292,13 @@ $primary-dark: #6941c6;
       cursor: not-allowed;
     }
   }
+}
+.empty-grid {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem;
+  color: $text-light;
+  background-color: transparent;
 }
 .modal-overlay {
   position: fixed; // Stays in place even when scrolling

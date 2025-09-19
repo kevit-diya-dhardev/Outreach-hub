@@ -1,3 +1,4 @@
+<app-navbar></app-navbar>
 <div class="campaigns-dashboard">
   <header class="dashboard-header">
     <h1>Campaigns</h1>
@@ -64,6 +65,13 @@
           (click)="showLoadingScreen(campaign)"
         >
           Launch
+        </button>
+        <button
+          *ngIf="campaign.status == 'Completed'"
+          class="btn-campaign-details"
+          (click)="navigateToDetails(campaign)"
+        >
+          View details
         </button>
       </div>
     </div>

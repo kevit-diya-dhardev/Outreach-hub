@@ -1,0 +1,138 @@
+// SCSS Variables for easy theme management
+$sidebar-width: 260px;
+$sidebar-width-collapsed: 55px;
+$transition-speed: 0.3s ease;
+$text-color: #1d2939;
+$border-color: #e0e6ed;
+$primary-color: #4a90e2;
+$sidebar-width: 260px;
+$primary-color: #7f56d9;
+$secondary-color: #f8f9fc;
+$sidebar-bg: #ffffff;
+$background-color: #ffffff;
+$text-color: #1d2939;
+$text-light: #667085;
+$border-color: #eaecf0;
+
+//navbar header styles
+
+.navbar {
+  background-color: $background-color;
+  border-bottom: 1px solid $border-color;
+  padding: 0 2rem;
+  height: 70px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 1000; // Ensures it stays on top of other content
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.navbar-left,
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-right: 2rem;
+  border-right: 1px solid $border-color;
+  h3 {
+    margin: 0;
+    color: $primary-color;
+  }
+  span {
+    font-size: 0.8rem;
+    color: $text-light;
+    padding: 0.2rem 0.5rem;
+    background-color: #f4f7fa;
+    border-radius: 4px;
+  }
+}
+
+.navbar-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: $text-color;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.5rem 0;
+  position: relative;
+  transition: color 0.2s ease-in-out;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: $primary-color;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+    transform-origin: center;
+  }
+
+  &:hover {
+    color: $primary-color;
+  }
+
+  &.active {
+    color: $primary-color;
+    &::after {
+      transform: scaleX(1);
+    }
+  }
+}
+
+// --- Theme Variables ---
+$danger-color: #d92d20; // A red for destructive actions like logout
+$border-color: #eaecf0;
+
+// --- Logout Button Styling ---
+.logout-button {
+  background-color: transparent;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+
+  span {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: black; // $text-light
+    transition: color 0.2s ease;
+  }
+  &::before {
+    content: "→"; // Simple arrow icon
+    font-size: 1.2rem;
+    line-height: 1;
+    color: black; // $text-light
+    transition: color 0.2s ease;
+  }
+
+  &:hover {
+    border-color: lighten($primary-color, 25%);
+    background-color: lighten($background-color, 100%);
+  }
+}

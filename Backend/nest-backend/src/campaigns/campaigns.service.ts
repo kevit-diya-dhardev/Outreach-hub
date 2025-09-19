@@ -153,4 +153,20 @@ export class CampaignsService {
       throw new HttpException('Server error in launching a campaign!', 500);
     }
   }
+
+  async getLaunchCampaign(campaignId: string) {
+    if (!isValidObjectId(campaignId))
+      throw new NotFoundException("Campaign doesn't exists!");
+    try {
+      const campaign: any = await this.campaignPerContactModel
+        .findOne({
+          campaignId: campaignId,
+        })
+        .populate(['campaignId', 'messagePerContact.contact_id']);
+      console.log(campaign);
+      return campaign;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }

@@ -46,4 +46,9 @@ export class CampaignsService {
   getMessages() {
     return this.messageService.getAllMessages(this.workspace_id);
   }
+
+  getLaunchedCampaign(campaignId: string) {
+   
+    return this.http.get(`${this.url}/launch-campaign/${campaignId}`);
+  }
 }

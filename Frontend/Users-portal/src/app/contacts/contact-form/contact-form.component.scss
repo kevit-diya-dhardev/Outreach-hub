@@ -20,7 +20,7 @@ $card-bg-color: #ffffff;
 .form-card {
   background-color: $card-bg-color;
   border-radius: 12px;
-  box-shadow: 0 12px 24px -4px rgba(16, 24, 40, 0.1);
+
   z-index: 1001;
   overflow: hidden;
 }
@@ -71,7 +71,7 @@ $card-bg-color: #ffffff;
 
   input[type="text"],
   input[type="tel"] {
-    width: 100%;
+    width: 90%;
     padding: 10px 14px;
     border: 1px solid $border-color;
     border-radius: 8px;

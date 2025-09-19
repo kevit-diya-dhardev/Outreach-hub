@@ -62,4 +62,11 @@ export class CampaignsController {
     console.log('controller', campaignId);
     return await this.campaignService.launchCampaign(campaignId);
   }
+
+  @Get('/launch-campaign/:campaignId')
+  @Roles('Viewer')
+  async launchCampaignDetails(@Param('campaignId') campaignId: string) {
+    console.log('Inside launched campaign....', campaignId);
+    return await this.campaignService.getLaunchCampaign(campaignId);
+  }
 }

@@ -50,41 +50,46 @@ export class CreateCampaignComponent {
     name: ['', [Validators.required]],
     description: ['', [Validators.required]],
     selectedTags: [[] as string[], [Validators.required]],
-    message: {
-      message_name: ['', [Validators.required]],
-      type: ['', [Validators.required]],
-      text: ['', [Validators.required]],
-      imageUrl: ['', [Validators.required]],
-    },
+    message_name: [null],
+    type: [null],
+    text: [null],
+    imageUrl: [null],
   });
   closeForm() {
     this.createFormVisible.emit(false);
   }
-  get selectedTags(): string[] {
-    return this.campaignForm.get('selectedTags')?.value || [];
-  }
+
   get formControls() {
     return this.campaignForm.controls;
   }
   addTag(tagValue: string) {
-    this.tagInput = tagValue;
-    if (this.tagInput && !this.selectedTags.includes(this.tagInput)) {
-      this.selectedTags.push(this.tagInput.trim());
+    const tags = this.campaignForm.get('selectedTags')?.value ?? [];
+    if (tagValue && !tags.includes(tagValue)) {
+      this.campaignForm
+        .get('selectedTags')
+        ?.setValue([...tags, tagValue.trim()]);
       this.tagInput = '';
     }
   }
+
   removeTag(tagToRemove: string): void {
-    const currentTags = this.selectedTags!.filter((tag) => tag !== tagToRemove);
-    this.campaignForm.get('selectedTags')?.setValue(currentTags);
+    const control = this.campaignForm.get('selectedTags');
+    const tags = control?.value ?? [];
+    const current = control?.value ?? [];
+    const updated = current.filter((tag: string) => tag !== tagToRemove);
+    control?.setValue(updated);
+    control?.markAsDirty();
+    control?.markAsTouched();
   }
+
   ngOnInit() {
     this.campaigService.getMessages().subscribe({
       next: (response: any) => {
-        console.log('Inside campaign component ', response.messages);
         this.messages = response.messages;
       },
       error: (error) => {
         console.log(error);
+        alert(error.error.message);
       },
     });
     if (this.mode == 'edit') {
@@ -126,6 +131,7 @@ export class CreateCampaignComponent {
         },
         error: (error) => {
           console.log(error);
+          alert(error.error.message);
         },
       });
   }
@@ -145,15 +151,18 @@ export class CreateCampaignComponent {
         message_id: this.selectedMessage._id,
       },
     };
-    console.log(campaignData);
-    this.campaigService.createCampaigns(campaignData).subscribe({
-      next: (response: any) => {
-        console.log('Inside campaign component ', response);
-        this.createFormVisible.emit(false);
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
+    console.log(this.campaignForm);
+    if (this.campaignForm.valid && this.selectedMessage) {
+      this.campaigService.createCampaigns(campaignData).subscribe({
+        next: (response: any) => {
+          console.log('Inside campaign component ', response);
+          this.createFormVisible.emit(false);
+        },
+        error: (error) => {
+          console.log(error);
+          alert(error.error.message);
+        },
+      });
+    }
   }
 }

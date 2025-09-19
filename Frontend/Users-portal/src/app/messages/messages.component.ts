@@ -18,11 +18,13 @@ export class MessagesComponent {
     this.getMyMessages();
   }
   constructor(private messageService: MessageService) {}
+  allmessages: any;
+  mymessages: any;
   messages: any;
   currentPath: string = 'myMessages';
   workspace: string = localStorage.getItem('workspace_id')!;
   userRole = localStorage.getItem('role');
-  activeView: any;
+  activeView!: string;
   isOpen = false;
   selectedOption = 'Text';
   mode = '';
@@ -45,8 +47,16 @@ export class MessagesComponent {
     this.viewMessageVisible = true;
     this.messageData = message;
   }
-
+  switchView(view: string) {
+    this.activeView = view;
+    if (this.activeView == 'my') {
+      this.getMyMessages();
+    } else {
+      this.getAllMessages();
+    }
+  }
   ngOnInit() {
+    this.activeView = 'my';
     this.getMyMessages();
   }
 
@@ -72,7 +82,8 @@ export class MessagesComponent {
     this.messageService.getMyMessages(this.workspace).subscribe({
       next: (response: any) => {
         console.log(response);
-        this.messages = response.messages;
+        this.mymessages = response.messages;
+        this.messages = this.mymessages;
       },
       error: (error) => {
         console.log(error);
@@ -81,9 +92,10 @@ export class MessagesComponent {
   }
   getAllMessages() {
     this.messageService.getAllMessages(this.workspace).subscribe({
-      next: (response) => {
+      next: (response: any) => {
         console.log(response);
-        this.messages = response;
+        this.allmessages = response.messages;
+        this.messages = this.allmessages;
       },
       error: (error) => {
         console.log(error);

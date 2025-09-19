@@ -3,6 +3,7 @@ import { DashboardService } from '../dashboard/dashboard.service';
 import { ContactsService } from './contacts.service';
 import { Contact } from './contact-form/models/contacts';
 import { concatAll } from 'rxjs';
+import { JwtService } from '../jwt.service';
 
 @Component({
   selector: 'app-contacts',
@@ -14,17 +15,24 @@ export class ContactsComponent {
   contactFormVisible = false;
   modeType!: string;
   contacts: any;
+  allcontacts: any;
   activeView: any;
   workspace = localStorage.getItem('workspace_id')!;
   formValue!: Contact;
   role: string = localStorage.getItem('role')!;
   contactData: any;
+  userId = this.jwtService.decode(localStorage.getItem('token')!).userId;
   constructor(
     private dashboardService: DashboardService,
-    private contactService: ContactsService
+    private contactService: ContactsService,
+    private jwtService: JwtService
   ) {}
   recieveFormCloseData(formClose: boolean) {
     this.contactFormVisible = formClose;
+  }
+  switchView(view: string) {
+    this.activeView = view;
+    this.getContacts();
   }
   recieveFormSubmitData({ phoneNumber, ...formData }: Contact) {
     this.contactFormVisible = false;
@@ -67,6 +75,7 @@ export class ContactsComponent {
     });
   }
   ngOnInit() {
+    this.activeView = 'my';
     this.getContacts();
   }
   viewContact(contact: any) {
@@ -86,8 +95,14 @@ export class ContactsComponent {
   getContacts() {
     this.contactService.getContacts(this.workspace).subscribe({
       next: (response: any) => {
-        console.log(response);
-        this.contacts = response.contacts;
+        this.allcontacts = response.contacts;
+        if (this.activeView == 'my') {
+          this.contacts = this.allcontacts.filter((contact: any) => {
+            return contact.createdBy == this.userId;
+          });
+        } else {
+          this.contacts = this.allcontacts;
+        }
       },
       error: (error) => {
         console.log(error);

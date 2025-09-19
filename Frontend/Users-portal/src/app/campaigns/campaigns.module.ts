@@ -8,12 +8,14 @@ import { CreateCampaignComponent } from './create-campaign/create-campaign.compo
 
 import { ViewCampaignComponent } from './view-campaign/view-campaign.component';
 import { CampaignsService } from './campaigns.service';
+import { LaunchCampaignComponent } from './launch-campaign/launch-campaign.component';
+import { DashboardModule } from "../dashboard/dashboard.module";
 
 @NgModule({
   declarations: [
     CampaignsComponent,
     CreateCampaignComponent,
-
+    LaunchCampaignComponent,
     ViewCampaignComponent,
   ],
   imports: [
@@ -22,7 +24,8 @@ import { CampaignsService } from './campaigns.service';
     HttpClientModule,
     CampaignsRoutingModule,
     FormsModule,
-  ],
+    DashboardModule
+],
   providers: [CampaignsService],
 })
 export class CampaignsModule {}

@@ -1,3 +1,4 @@
+<app-navbar></app-navbar>
 <div class="messages-dashboard">
   <header class="dashboard-header">
     <h1>Messages</h1>
@@ -23,10 +24,10 @@
 
   <nav class="view-switcher">
     <ng-container *ngIf="userRole === 'Editor'">
-      <a (click)="activeView = 'my'" [class.active]="activeView === 'my'">
+      <a [class.active]="activeView === 'my'" (click)="switchView('my')">
         My Messages
       </a>
-      <a (click)="activeView = 'all'" [class.active]="activeView === 'all'">
+      <a [class.active]="activeView === 'all'" (click)="switchView('all')">
         All Messages
       </a>
     </ng-container>
@@ -75,8 +76,8 @@
     </div>
   </div>
 
-  <div class="empty-grid" *ngIf="messages == null">
-    <p>No message found in this view.</p>
+  <div class="empty-grid" *ngIf="messages.length == 0 || messages == null">
+    <p>No message templates found in this view.</p>
   </div>
 </div>
 <div class="modal-overlay" *ngIf="messageFormVisible">

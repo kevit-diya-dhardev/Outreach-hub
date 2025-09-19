@@ -35,22 +35,6 @@ export class DashboardComponent {
     });
   }
 
-  ngAfterViewInit() {
-    let id = 0;
-    this.isOpen = !this.isOpen;
-    for (let workspace_id of this.workspaces_id) {
-      this.dashboardService.getWorkspace(workspace_id).subscribe({
-        next: (response: any) => {
-          console.log(response);
-          this.workspaces[id++] = response.workspace_name;
-        },
-        error: (error) => {
-          console.log(error);
-        },
-      });
-    }
-  }
-
   selectWorkspace(id: string) {
     this.selectedOne = id;
   }

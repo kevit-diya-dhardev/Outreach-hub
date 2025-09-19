@@ -1,3 +1,4 @@
+<app-navbar></app-navbar>
 <div class="page-card">
   <header class="contacts-header">
     <h1>Contacts</h1>
@@ -12,10 +13,10 @@
 
   <nav class="view-switcher">
     <ng-container *ngIf="role === 'Editor'; else viewerView">
-      <a (click)="activeView = 'my'" [class.active]="activeView === 'my'">
+      <a (click)="switchView('my')" [class.active]="activeView === 'my'">
         My Contacts
       </a>
-      <a (click)="activeView = 'all'" [class.active]="activeView === 'all'">
+      <a (click)="switchView('all')" [class.active]="activeView === 'all'">
         All Contacts
       </a>
     </ng-container>
@@ -54,7 +55,7 @@
       </div>
     </div>
 
-    <div class="empty-grid" *ngIf="contacts == null">
+    <div class="empty-grid" *ngIf="contacts.length == 0 || contacts == null">
       <p>No contacts found in this view.</p>
     </div>
   </div>

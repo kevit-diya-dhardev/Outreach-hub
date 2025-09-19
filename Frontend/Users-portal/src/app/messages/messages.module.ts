@@ -7,15 +7,21 @@ import { MessagesRoutingModule } from './messages-routing.module';
 
 import { CreateMessageComponent } from './create-message/create-message.component';
 import { ViewMessageComponent } from './view-message/view-message.component';
+import { DashboardModule } from '../dashboard/dashboard.module';
 
 @NgModule({
-  declarations: [MessagesComponent, CreateMessageComponent, ViewMessageComponent],
+  declarations: [
+    MessagesComponent,
+    CreateMessageComponent,
+    ViewMessageComponent,
+  ],
   imports: [
     CommonModule,
     MessagesRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-  ],
+    DashboardModule
+],
 })
 export class MessagesModule {}

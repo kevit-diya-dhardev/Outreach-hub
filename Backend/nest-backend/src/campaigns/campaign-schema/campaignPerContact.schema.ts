@@ -14,7 +14,7 @@ export class Submessage {
 
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Contact',
+    ref: 'Contacts',
     required: true,
   })
   contact_id: mongoose.Types.ObjectId;
@@ -36,7 +36,11 @@ export class CampaignPerContacts {
   @Prop({ required: true, type: mongoose.Schema.Types.ObjectId })
   workspace_id: mongoose.Types.ObjectId;
 
-  @Prop({ required: true, type: mongoose.Schema.Types.ObjectId })
+  @Prop({
+    required: true,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Campaign',
+  })
   campaignId: mongoose.Types.ObjectId;
 
   @Prop({ required: true, type: Date, default: Date.now() })

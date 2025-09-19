@@ -18,10 +18,14 @@ $warning-color: #f79009; // For 'text & image' type
 $danger-color: #d92d20;
 // --- Main Dashboard Layout ---
 .campaigns-dashboard {
-  padding: 2rem;
-  background-color: $page-bg-color;
-  font-family: "Inter", sans-serif;
-  height: 92vh;
+  background-color: $card-bg-color;
+  border: 1px solid $border-color;
+  border-radius: 16px; // Softer corners
+  padding: 24px 32px;
+  margin: 2rem;
+  height: 80vh;
+  box-shadow: 0 4px 8px -2px rgba(16, 24, 40, 0.03),
+    0 12px 24px -4px rgba(16, 24, 40, 0.08);
 }
 
 // --- Dashboard Header ---
@@ -235,6 +239,16 @@ $danger-color: #d92d20;
     background-color: darken($success-color, 8%);
   }
 }
+
+.btn-campaign-details {
+  border-radius: 2rem;
+  border: none;
+  color: #ffffff;
+  background-color: #7f56d9;
+  width: 6rem;
+  cursor: pointer;
+}
+
 $primary-color: #7f56d9; // The color of the spinning part
 $spinner-bg-color: #eaecf0; // The color of the spinner track
 $overlay-bg-color: rgba(

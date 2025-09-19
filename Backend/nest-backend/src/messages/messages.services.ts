@@ -42,7 +42,6 @@ export class MessageService {
       .skip((page - 1) * 10)
       .exec();
 
-    if (messages.length < 1) throw new NotFoundException('No messages exists!');
     const totalDocs = await this.messageModel.countDocuments().exec();
 
     return { messages: messages, totalPages: Math.ceil(totalDocs / 10) };
@@ -59,7 +58,6 @@ export class MessageService {
       .skip((page - 1) * 10)
       .exec();
 
-    if (messages.length < 1) throw new NotFoundException('No messages exists!');
     const totalDocs = await this.messageModel.countDocuments().exec();
 
     return { messages: messages, totalPages: Math.ceil(totalDocs / 10) };
