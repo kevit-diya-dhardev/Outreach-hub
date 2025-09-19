@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { CampaignsService } from '../campaigns.service';
 import { Campaigns } from '../models/campaigns';
+import { SnackbarService } from '../../snackbar/snackbar.service';
 
 @Component({
   selector: 'app-create-campaign',
@@ -18,7 +19,8 @@ export class CreateCampaignComponent {
   isDropdownOpen: boolean = false;
   constructor(
     private fb: FormBuilder,
-    private campaigService: CampaignsService
+    private campaigService: CampaignsService,
+    private snackbarService:SnackbarService
   ) {}
   selectedMessage!: {
     _id?: string;
@@ -127,11 +129,13 @@ export class CreateCampaignComponent {
       .subscribe({
         next: (response: any) => {
           console.log('Inside campaign edit component ', response);
+           this.snackbarService.show('Camapaign edited successfully','success')
           this.createFormVisible.emit(false);
         },
         error: (error) => {
           console.log(error);
-          alert(error.error.message);
+           this.snackbarService.show(error.error.message,'error')
+         
         },
       });
   }
@@ -156,10 +160,12 @@ export class CreateCampaignComponent {
       this.campaigService.createCampaigns(campaignData).subscribe({
         next: (response: any) => {
           console.log('Inside campaign component ', response);
+           this.snackbarService.show('Campaign created successfully','success')
           this.createFormVisible.emit(false);
         },
         error: (error) => {
           console.log(error);
+           this.snackbarService.show(error.error.message,'error')
           alert(error.error.message);
         },
       });

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MessageService } from '../messages.service';
+import { SnackbarService } from '../../snackbar/snackbar.service';
 
 @Component({
   selector: 'app-create-message',
@@ -12,7 +13,8 @@ export class CreateMessageComponent {
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private snackbarServie: SnackbarService
   ) {}
   workspace_id: string = localStorage.getItem('workspace_id')!;
   ngOnInit() {
@@ -57,10 +59,12 @@ export class CreateMessageComponent {
       .subscribe({
         next: (response) => {
           console.log(response);
+          this.snackbarServie.show('Message edited successfully', 'success');
           this.formVisible.emit(false);
         },
         error: (error) => {
           console.log(error);
+          this.snackbarServie.show(error.error.message, 'error');
         },
       });
   }
@@ -80,11 +84,12 @@ export class CreateMessageComponent {
 
     this.messageService.createMessge(finalFormData).subscribe({
       next: (response) => {
-        console.log(response);
+        console.log(response);this.snackbarServie.show('Message edited successfully','success')
         this.formVisible.emit(false);
       },
       error: (error) => {
         console.log(error);
+        this.snackbarServie.show(error.error.message,'error')
       },
     });
   }

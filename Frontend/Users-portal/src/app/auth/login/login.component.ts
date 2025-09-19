@@ -4,6 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from '../models/user';
 import { AuthService } from '../auth.service';
+import { SnackbarService } from '../../snackbar/snackbar.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,7 +14,8 @@ export class LoginComponent {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private snackbarService:SnackbarService
   ) {}
   userData: any;
   submitted = false;
@@ -44,10 +46,11 @@ export class LoginComponent {
     this.authService.sendLoginData(user).subscribe({
       next: async (response: any) => {
         localStorage.setItem('token', response.token);
+        this.snackbarService.show('logged in successfully','success')
         this.router.navigate(['dashboard']);
       },
       error: (error: any) => {
-        this.valid = false;
+        this.valid = false;this.snackbarService.show(error.error.message,'error')
         console.log(error);
       },
     });

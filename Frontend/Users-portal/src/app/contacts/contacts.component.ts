@@ -4,6 +4,7 @@ import { ContactsService } from './contacts.service';
 import { Contact } from './contact-form/models/contacts';
 import { concatAll } from 'rxjs';
 import { JwtService } from '../jwt.service';
+import { SnackbarService } from '../snackbar/snackbar.service';
 
 @Component({
   selector: 'app-contacts',
@@ -24,6 +25,7 @@ export class ContactsComponent {
   userId = this.jwtService.decode(localStorage.getItem('token')!).userId;
   constructor(
     private dashboardService: DashboardService,
+    private snackbarService:SnackbarService,
     private contactService: ContactsService,
     private jwtService: JwtService
   ) {}
@@ -67,10 +69,12 @@ export class ContactsComponent {
     this.contactService.deleteContact(contact._id).subscribe({
       next: (response) => {
         console.log(response);
+        this.snackbarService.show('Contact deleted successfully!!','success')
         this.getContacts();
       },
       error: (error) => {
         console.log(error);
+        this.snackbarService.show(error.error.message,'error')
       },
     });
   }
@@ -85,10 +89,12 @@ export class ContactsComponent {
   editContact({ _id, ...contactData }: Contact) {
     this.contactService.editContact(_id, { ...contactData }).subscribe({
       next: (response) => {
+        this.snackbarService.show('Contact editted successfully','success')
         this.getContacts();
       },
       error: (error) => {
         console.log(error);
+        this.snackbarService.show(error.error.message,'error')
       },
     });
   }
@@ -113,10 +119,12 @@ export class ContactsComponent {
   createContact(contactData: Contact) {
     this.contactService.createContact(contactData).subscribe({
       next: (response) => {
+        this.snackbarService.show('Contact created successfully!!','success')
         this.getContacts();
       },
       error: (error) => {
-        console.log(error);
+        this.snackbarService.show(error.error.message,'error')
+        console.log("errorrrrr",error.error.message);
       },
     });
   }

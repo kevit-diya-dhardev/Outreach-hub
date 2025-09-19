@@ -1,1 +1,9 @@
-<p>snackbar works!</p>
+<div class="snackbar-container" [ngClass]="'snackbar-' + type" [@state]="isVisible ? 'visible' : 'hidden'">
+  
+  <div class="snackbar-icon">
+    <span *ngIf="type === 'success'">✔</span>
+    <span *ngIf="type === 'error'">!</span>
+  </div>
+
+  <p class="snackbar-message">{{ message }}</p>
+</div>

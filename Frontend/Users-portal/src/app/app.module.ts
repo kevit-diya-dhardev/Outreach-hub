@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { AuthModule } from './auth/auth.module';
 import { JwtService } from './jwt.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -13,6 +13,7 @@ import { PageNotFoundModule } from './pagenotfound/pagenotfound.module';
 import { MessagesModule } from './messages/messages.module';
 import { CampaignsModule } from './campaigns/campaigns.module';
 import { NavbarComponent } from './dashboard/navbar/navbar.component';
+import { SnackbarModule } from './snackbar/snackbar.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +26,7 @@ import { NavbarComponent } from './dashboard/navbar/navbar.component';
     MessagesModule,
     PageNotFoundModule,
     CampaignsModule,
+    SnackbarModule
   ],
   providers: [
     JwtService,

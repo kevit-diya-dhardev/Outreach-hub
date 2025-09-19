@@ -3,6 +3,7 @@ import { Campaigns } from '../models/campaigns';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CampaignPerContact } from '../models/campaignPerContact';
 import { CampaignsService } from '../campaigns.service';
+import { SnackbarService } from '../../snackbar/snackbar.service';
 
 @Component({
   selector: 'app-launch-campaign',
@@ -15,7 +16,8 @@ export class LaunchCampaignComponent {
   constructor(
     private router: ActivatedRoute,
     private route: Router,
-    private campaignService: CampaignsService
+    private campaignService: CampaignsService,
+    private snackbarService:SnackbarService
   ) {}
   campaignId!: string;
   ngOnInit() {
@@ -27,10 +29,12 @@ export class LaunchCampaignComponent {
     this.campaignService.getLaunchedCampaign(this.campaignId).subscribe({
       next: (response: any) => {
         console.log(response);
+         
         this.campaignPerContact = response;
       },
       error: (error) => {
         console.error(error);
+         
       },
     });
   }

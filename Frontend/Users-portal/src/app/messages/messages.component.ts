@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MessageService } from './messages.service';
 import { ActivatedRoute } from '@angular/router';
+import { SnackbarService } from '../snackbar/snackbar.service';
 
 @Component({
   selector: 'app-messages',
@@ -17,7 +18,7 @@ export class MessagesComponent {
     this.messageFormVisible = formVisible;
     this.getMyMessages();
   }
-  constructor(private messageService: MessageService) {}
+  constructor(private messageService: MessageService,private snackbarService:SnackbarService) {}
   allmessages: any;
   mymessages: any;
   messages: any;
@@ -35,9 +36,11 @@ export class MessagesComponent {
     this.messageService.deleteMessage(message._id).subscribe({
       next: (response) => {
         console.log(response);
+        this.snackbarService.show('Message deleted successfully','success')
         this.getMyMessages();
       },
       error: (error) => {
+         this.snackbarService.show(error.error.message,'error')
         console.log(error);
       },
     });
@@ -86,6 +89,7 @@ export class MessagesComponent {
         this.messages = this.mymessages;
       },
       error: (error) => {
+         this.snackbarService.show(error.error.message,'error')
         console.log(error);
       },
     });

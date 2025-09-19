@@ -1,0 +1,64 @@
+// --- Theme Variables ---
+$error-color: #d92d20;
+$error-light-bg: #fef3f2;
+$success-color: #027a48;
+$success-light-bg: #ecfdf3;
+$card-bg-color: #ffffff;
+
+// --- Base Container Style ---
+.snackbar-container {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: 1px solid;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Inter', sans-serif;
+  z-index: 10000;
+}
+
+// --- Icon Base Style ---
+.snackbar-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  color: blue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.snackbar-message {
+  margin: 0;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+// --- Modifier for Success State ---
+.snackbar-success {
+  background-color: $success-light-bg;
+  border-color: lighten($success-color, 40%);
+  color: $success-color;
+
+  .snackbar-icon {
+    background-color: $success-color;
+  }
+}
+
+// --- Modifier for Error State ---
+.snackbar-error {
+  background-color: $error-light-bg;
+  border-color: lighten($error-color, 30%);
+  color: $error-color;
+  
+  .snackbar-icon {
+    background-color: $error-color;
+  }
+}
