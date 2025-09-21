@@ -9,7 +9,6 @@ import { User, UserSchema } from './users.schema';
 import { UserController } from './users.controller';
 import { UserService } from './users.service';
 import { Workspace, WorkspaceSchema } from 'src/workspace/workspace.schema';
-import { RolesGuard } from 'src/Auth/roles.guard';
 import { AuthGuard } from 'src/Auth/auth.guard';
 import { AuthModule } from 'src/Auth/auth.module';
 import { WorkspaceModule } from 'src/workspace/workspace.module';

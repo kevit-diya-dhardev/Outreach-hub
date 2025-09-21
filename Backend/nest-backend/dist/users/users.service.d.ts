@@ -18,6 +18,7 @@ export declare class UserService {
             __v: number;
         })[];
         totalPages: number;
+        totalDocs: number;
     }>;
     getSingleUser(id: String): Promise<import("mongoose").Document<unknown, {}, User, {}, {}> & User & {
         _id: import("mongoose").Types.ObjectId;
@@ -42,4 +43,9 @@ export declare class UserService {
         })[];
         totalPages: number;
     }>;
+    getWorkspaceUsers(workspace_id: string): Promise<(import("mongoose").Document<unknown, {}, User, {}, {}> & User & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    })[]>;
 }

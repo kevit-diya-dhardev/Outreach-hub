@@ -31,9 +31,17 @@
           <span class="detail-label">Role</span>
           <span class="detail-value">{{ user.role }}</span>
         </div>
-        <div class="detail-item">
-          <span class="detail-label">Workspace</span>
-          <span class="detail-value">{{ user.workspace_id }}</span>
+
+        <div class="detail-item-workspaces">
+          <span class="detail-label">Workspaces</span>
+          <div class="workspaces-list">
+            <span
+              class="workspace-badge"
+              *ngFor="let workspace of user.workspace_id"
+            >
+              {{ workspace.workspace_name }}
+            </span>
+          </div>
         </div>
       </div>
 
@@ -50,32 +58,14 @@
       </div>
     </div>
   </div>
+</div>
 
-  <div class="pagination-controls">
-    <button
-      class="pagination-btn"
-      (click)="decreasePage()"
-      [disabled]="page === 1"
-    >
-      &larr; Previous
-    </button>
-    <span class="page-info"> Page {{ page }} of {{ totalPages }} </span>
-    <button
-      class="pagination-btn"
-      (click)="increasePage()"
-      [disabled]="page === totalPages"
-    >
-      Next &rarr;
-    </button>
-  </div>
-
-  <div class="modal-overlay" *ngIf="userFormVisible">
-    <div class="modal-content">
-      <app-create-user
-        (dataEvent)="recieveData($event)"
-        [isEditForm]="isEditForm"
-        [user]="user"
-      ></app-create-user>
-    </div>
+<div class="modal-overlay" *ngIf="userFormVisible">
+  <div class="modal-content">
+    <app-create-user
+      (dataEvent)="recieveData($event)"
+      [isEditForm]="isEditForm"
+      [user]="user"
+    ></app-create-user>
   </div>
 </div>

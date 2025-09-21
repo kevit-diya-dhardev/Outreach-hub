@@ -58,14 +58,14 @@
             </button>
             <button
               class="btn-action btn-edit"
-              [disabled]="userRole !== 'Editor'"
+              *ngIf="userRole === 'Editor'"
               (click)="editMessageForm(message)"
             >
               Edit
             </button>
             <button
               class="btn-action btn-delete"
-              [disabled]="userRole !== 'Editor'"
+              *ngIf="userRole === 'Editor'"
               (click)="deletemessage(message)"
             >
               Delete

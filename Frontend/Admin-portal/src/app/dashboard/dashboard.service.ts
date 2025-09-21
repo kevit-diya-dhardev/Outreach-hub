@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 @Injectable({ providedIn: 'root' })
 export class DashboardServices {
   constructor(private http: HttpClient) {}
-  workspace_url = 'http://localhost:3000/workspace/';
+  workspace_url = 'http://localhost:3000/workspaces/';
   user_url = 'http://localhost:3000/users';
 
   options: any = { params: new HttpParams().set('page', 1) };

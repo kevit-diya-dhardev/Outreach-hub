@@ -123,26 +123,65 @@ $text-light: #667085;
 
 .card-body {
   padding: 1.25rem;
+  // Use flexbox for better alignment
   display: flex;
-  justify-content: space-around;
-  background-color: #f8f9fc; // A slightly different background for the body
+  justify-content: space-between; // Puts space between Role and Workspaces
+  align-items: flex-start; // Aligns items to the top
+  gap: 1rem; // Adds space if they wrap
+  background-color: #f8f9fc;
 }
 
+// --- ORIGINAL DETAIL ITEM STYLE (for Role) ---
 .detail-item {
   text-align: center;
+  flex-shrink: 0; // Prevents the 'Role' item from shrinking
+
   .detail-label {
     display: block;
-    color: $text-light;
+    color: #667085; // $text-light
     font-size: 0.8rem;
     margin-bottom: 0.25rem;
     text-transform: uppercase;
   }
   .detail-value {
     display: block;
-    color: $text-color;
+    color: #1d2939; // $text-color
     font-size: 1rem;
     font-weight: 500;
   }
+}
+
+.detail-item-workspaces {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1; // Allows this item to take up remaining space
+
+  .detail-label {
+    // Re-using the same label style
+    display: block;
+    color: #667085;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem; // A bit more space for the list
+    text-transform: uppercase;
+  }
+
+  .workspaces-list {
+    display: flex;
+    flex-wrap: wrap; // Allows badges to wrap to the next line
+    gap: 0.5rem; // Space between badges
+    justify-content: center; // Center the badges within the available space
+  }
+}
+
+.workspace-badge {
+  background-color: #f9f5ff; // A light purple from your theme
+  color: #7f56d9; // Your primary purple color
+  padding: 0.25rem 0.75rem;
+  border-radius: 16px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  white-space: nowrap; // Prevents long names from breaking onto two lines
 }
 
 .card-footer {

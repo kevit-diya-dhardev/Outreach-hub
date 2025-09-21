@@ -1,8 +1,9 @@
+import mongoose from 'mongoose';
 export declare class userDto {
     name: String;
     email: String;
     password: String;
-    workspace_id: String;
+    workspace_id: mongoose.Types.ObjectId;
     role: String;
     isAdmin: boolean;
 }

@@ -1,0 +1,38 @@
+<div class="workspace-details-page">
+  <header class="workspace-header">
+    <div class="header-info">
+      <h1 class="workspace-name">{{ workspace.workspace_name }}</h1>
+      <p class="workspace-description">{{ workspace.description }}</p>
+    </div>
+  </header>
+
+  <div *ngIf="users.length == 0">No users exists in this workspace.</div>
+  <div class="users-list-section" *ngIf="users.length > 0">
+    <h2>Users in this Workspace</h2>
+
+    <div class="table-container">
+      <table class="users-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td data-label="Name">{{ user.name }}</td>
+            <td data-label="Email">{{ user.email }}</td>
+            <td data-label="Role">
+              <span class="role-badge">{{ user.role }}</span>
+            </td>
+            <td data-label="Actions">
+              <button class="btn btn-tertiary">{{ user.role }}</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

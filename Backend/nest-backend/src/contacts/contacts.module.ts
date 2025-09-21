@@ -10,8 +10,7 @@ import { ContactsController } from './contacts.controller';
 import { ContactsService } from './contacts.service';
 import { User, UserSchema } from 'src/users/users.schema';
 import { Workspace, WorkspaceSchema } from 'src/workspace/workspace.schema';
-import { UserService } from 'src/users/users.service';
-import { RolesGuard } from 'src/Auth/roles.guard';
+
 import { UsersModule } from 'src/users/users.module';
 import { AuthService } from 'src/Auth/auth.service';
 import { AuthModule } from 'src/Auth/auth.module';

@@ -16,10 +16,11 @@ import { messageDataDto } from './dtos/message.dto';
 import { MessageService } from './messages.services';
 import express from 'express';
 import { AuthGuard } from 'src/Auth/auth.guard';
-import { RolesGuard } from 'src/Auth/roles.guard';
-import { Roles } from 'src/Auth/roles.decorator';
 
-@UseGuards(AuthGuard, RolesGuard)
+import { Roles } from 'src/Auth/Roles/roles.decorator';
+import { UserRoleGuard } from 'src/Auth/Roles/userRole.guard';
+
+@UseGuards(AuthGuard, UserRoleGuard)
 @Controller('messages')
 export class MessageController {
   constructor(private messageService: MessageService) {}
@@ -33,7 +34,7 @@ export class MessageController {
   }
 
   @Get('myMessages/:workspace_id')
-  @Roles('Viewer')
+  @Roles('Viewer', 'Editor')
   getMyMessages(
     @Req() request: express.Request,
     @Query('page') page: number,
@@ -44,7 +45,7 @@ export class MessageController {
   }
 
   @Get('allMessages/:workspace_id')
-  @Roles('Viewer')
+  @Roles('Viewer', 'Editor')
   getAllMessages(
     @Req() request: express.Request,
     @Param('workspace_id') workspace_id: string,
@@ -55,7 +56,7 @@ export class MessageController {
   }
 
   @Get(':id')
-  @Roles('Viewer')
+  @Roles('Viewer', 'Editor')
   getSingleMessage(@Param('id') id: String) {
     return this.getSingleMessage(id);
   }

@@ -15,8 +15,16 @@ export class User {
   @Prop({ required: true, enum: ['Editor', 'Viewer'] })
   role: String;
 
-  @Prop({ type: [{ required: true, type: mongoose.Schema.Types.ObjectId }] })
-  workspace_id: String[];
+  @Prop({
+    type: [
+      {
+        required: true,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Workspace',
+      },
+    ],
+  })
+  workspace_id: mongoose.Types.ObjectId[];
 
   @Prop({ required: true, type: Date, default: Date.now() })
   createdAt: String;

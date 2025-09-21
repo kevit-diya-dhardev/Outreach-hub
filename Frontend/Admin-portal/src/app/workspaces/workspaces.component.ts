@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { WorkspacesServices } from './workspaces.service';
 import { Workspace } from './models/workspace';
 import { ActivatedRoute, UrlSegment } from '@angular/router';
+import { SnackbarService } from '../snackbar/snackbar.service';
 
 @Component({
   selector: 'app-workspaces',
@@ -11,11 +12,16 @@ import { ActivatedRoute, UrlSegment } from '@angular/router';
 export class WorkspacesComponent {
   constructor(
     private workspacesService: WorkspacesServices,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackbarService: SnackbarService
   ) {}
+  mode = '';
   totalPages!: number;
   currentPath!: string;
   page: number = 1;
+  workspace!: Workspace;
+  workspaceUsers: any;
+  viewFormVisible = false;
   handleSuccess(value: boolean) {
     this.closeAddWorkspaceModal();
     if (this.currentPath == 'my-workspaces') {
@@ -23,6 +29,16 @@ export class WorkspacesComponent {
     } else {
       this.fetchAllWorkspaces();
     }
+  }
+
+  createMode() {
+    this.mode = 'create';
+    this.openAddWorkspaceModal();
+  }
+  editMode(workspace: Workspace) {
+    this.mode = 'edit';
+    this.workspace = workspace;
+    this.openAddWorkspaceModal();
   }
 
   increasePage() {
@@ -33,7 +49,9 @@ export class WorkspacesComponent {
       this.fetchAllWorkspaces();
     }
   }
-
+  closeViewForm() {
+    this.viewFormVisible = false;
+  }
   decreasePage() {
     this.page--;
     if (this.currentPath == 'my-workspaces') {
@@ -55,18 +73,39 @@ export class WorkspacesComponent {
         console.log(response);
         if (this.currentPath == 'my-workspaces') {
           this.fetchMyWorkspace();
+          this.snackbarService.show(
+            'workspace deleted successfully!',
+            'success'
+          );
         } else {
+          this.snackbarService.show(
+            'workspace deleted successfully!',
+            'success'
+          );
           this.fetchAllWorkspaces();
         }
       },
-      error: () => {},
+      error: (error) => {
+        this.snackbarService.show(error.error.message, 'error');
+      },
     });
   }
-  editWorkspace(arg0: any) {
-    throw new Error('Method not implemented.');
+
+  viewUsers(workspace: Workspace) {
+    this.workspacesService.getWorkspaceUsers(workspace._id!).subscribe({
+      next: (response: any) => {
+        this.workspaceUsers = response;
+        this.viewFormVisible = true;
+        this.workspace = workspace;
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
-  viewUsers(arg0: any) {
-    throw new Error('Method not implemented.');
+
+  recieveViewWorkspaceData(viewFormVisible: boolean) {
+    this.viewFormVisible = viewFormVisible;
   }
 
   selected = '';
@@ -104,13 +143,6 @@ export class WorkspacesComponent {
       error: (error) => {
         console.log(error);
       },
-    });
-  }
-
-  createWorkspace(workspaceData: Workspace) {
-    this.workspacesService.createWorkspaces(workspaceData).subscribe({
-      next: (response) => {},
-      error: (error) => {},
     });
   }
 }

@@ -77,13 +77,14 @@ $success-color: #039855;
     &.active {
       color: $primary-color;
       border-bottom-color: $primary-color;
+      
     }
   }
 }
 
 .view-title {
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: bolder;
   color: $text-color;
   padding: 0.5rem 0.25rem;
   width: 100%;

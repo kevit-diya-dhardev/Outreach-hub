@@ -20,16 +20,16 @@ import { workspaceSchemaDto } from './dto/workspace.dto';
 import { WorkspaceService } from './workspace.service';
 import { updateWorkspaceDto } from './dto/updateWorkspace.schema.dto';
 import { AuthGuard } from 'src/Auth/auth.guard';
-import { RolesGuard } from 'src/Auth/roles.guard';
-import { Roles } from 'src/Auth/roles.decorator';
+import { AdminRoleGuard } from 'src/Auth/Roles/adminRole.guard';
+import { Roles } from 'src/Auth/Roles/roles.decorator';
 
-@UseGuards(AuthGuard, RolesGuard)
+@UseGuards(AuthGuard, AdminRoleGuard)
 @Controller('workspaces')
 export class WorkspaceController {
   constructor(private workspaceService: WorkspaceService) {}
   @Get()
   @Roles('admin')
-  @UseGuards(AuthGuard, RolesGuard)
+  @UseGuards(AuthGuard, AdminRoleGuard)
   async getWorkspaces(@Query('page') page: number) {
     const workspaces = await this.workspaceService.getWorkspaces(page);
 
@@ -41,7 +41,7 @@ export class WorkspaceController {
 
   @Post()
   @Roles('admin')
-  @UseGuards(AuthGuard, RolesGuard)
+  @UseGuards(AuthGuard, AdminRoleGuard)
   async createWorkspace(
     @Body() workspaceData: workspaceSchemaDto,
     @Req() request: any,
@@ -67,7 +67,7 @@ export class WorkspaceController {
   }
 
   @Get(':id')
-  @UseGuards(AuthGuard, RolesGuard)
+  @UseGuards(AuthGuard, AdminRoleGuard)
   async getSingleWorkspace(@Param('id') id: String) {
     const workspace = await this.workspaceService.getSingleWorkspace(id);
     if (!workspace)
@@ -81,7 +81,7 @@ export class WorkspaceController {
 
   @Patch(':id')
   @Roles('admin')
-  @UseGuards(AuthGuard, RolesGuard)
+  @UseGuards(AuthGuard, AdminRoleGuard)
   async updateWorkspace(
     @Param('id') id: String,
     @Body() workspaceData: updateWorkspaceDto,
@@ -98,7 +98,7 @@ export class WorkspaceController {
 
   @Delete(':id')
   @Roles('admin')
-  @UseGuards(AuthGuard, RolesGuard)
+  @UseGuards(AuthGuard, AdminRoleGuard)
   async deleteWorkspace(@Param('id') id: string) {
     console.log('Controller ', id);
     const deletedWorkspace = await this.workspaceService.deleteWorkspace(id);

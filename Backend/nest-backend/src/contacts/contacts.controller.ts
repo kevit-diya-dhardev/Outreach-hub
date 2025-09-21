@@ -5,8 +5,6 @@ import {
   Patch,
   Body,
   Param,
-  UsePipes,
-  ValidationPipe,
   Delete,
   UseGuards,
   Req,
@@ -15,9 +13,10 @@ import {
 import { ContactsService } from './contacts.service';
 import { ContactsDto } from './dto/contacts.dto';
 import { AuthGuard } from 'src/Auth/auth.guard';
-import { RolesGuard } from 'src/Auth/roles.guard';
-import { Roles } from 'src/Auth/roles.decorator';
-@UseGuards(AuthGuard, RolesGuard)
+
+import { Roles } from 'src/Auth/Roles/roles.decorator';
+import { UserRoleGuard } from 'src/Auth/Roles/userRole.guard';
+@UseGuards(AuthGuard, UserRoleGuard)
 @Controller('contacts')
 export class ContactsController {
   constructor(private contactService: ContactsService) {}
@@ -29,7 +28,7 @@ export class ContactsController {
   }
 
   @Get(':workspace_id')
-  @Roles('Viewer')
+  @Roles('Viewer', 'Editor')
   getContacts(
     @Param('workspace_id') workspace_id: string,
     @Query('page') page: number,
@@ -38,7 +37,7 @@ export class ContactsController {
   }
 
   @Get(':contact_id')
-  @Roles('Viewer')
+  @Roles('Viewer', 'Editor')
   getSingleContact(@Param('userid') contact_id: String) {
     return this.contactService.getSingleContact(contact_id);
   }

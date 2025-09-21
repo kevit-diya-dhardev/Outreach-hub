@@ -8,9 +8,9 @@
       <label for="description">Enter workspace description: </label>
       <input type="text" id="description" formControlName="description" />
     </div>
-    <button class="close-btn" type="submit">Create</button>
+    <button class="close-btn" type="submit" *ngIf="mode == 'create'">
+      Create
+    </button>
+    <button class="close-btn" type="submit" *ngIf="mode == 'edit'">Edit</button>
   </form>
-  <div *ngIf="success" class="display-success">
-    Workspace created successfully!
-  </div>
 </div>

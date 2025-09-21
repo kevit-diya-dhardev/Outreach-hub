@@ -43,7 +43,15 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "role", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ type: [{ required: true, type: mongoose_2.default.Schema.Types.ObjectId }] }),
+    (0, mongoose_1.Prop)({
+        type: [
+            {
+                required: true,
+                type: mongoose_2.default.Schema.Types.ObjectId,
+                ref: 'Workspace',
+            },
+        ],
+    }),
     __metadata("design:type", Array)
 ], User.prototype, "workspace_id", void 0);
 __decorate([

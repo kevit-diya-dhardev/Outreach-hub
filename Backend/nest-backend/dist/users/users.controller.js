@@ -16,9 +16,9 @@ exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
 const user_dto_1 = require("./dto/user.dto");
 const users_service_1 = require("./users.service");
-const roles_decorator_1 = require("../Auth/roles.decorator");
+const roles_decorator_1 = require("../Auth/Roles/roles.decorator");
 const auth_guard_1 = require("../Auth/auth.guard");
-const roles_guard_1 = require("../Auth/roles.guard");
+const adminRole_guard_1 = require("../Auth/Roles/adminRole.guard");
 let UserController = class UserController {
     userService;
     constructor(userService) {
@@ -42,12 +42,15 @@ let UserController = class UserController {
     async deleteUser(id) {
         return await this.userService.deleteUser(id);
     }
+    async getWorkspaceUsers(workspace_id) {
+        return this.userService.getWorkspaceUsers(workspace_id);
+    }
 };
 exports.UserController = UserController;
 __decorate([
     (0, common_1.Post)(),
     (0, roles_decorator_1.Roles)('admin'),
-    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard, adminRole_guard_1.AdminRoleGuard),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
@@ -57,7 +60,7 @@ __decorate([
 __decorate([
     (0, common_1.Get)(),
     (0, roles_decorator_1.Roles)('admin'),
-    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard, adminRole_guard_1.AdminRoleGuard),
     __param(0, (0, common_1.Query)('page')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
@@ -66,7 +69,7 @@ __decorate([
 __decorate([
     (0, common_1.Get)('my-users'),
     (0, roles_decorator_1.Roles)('admin'),
-    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard, adminRole_guard_1.AdminRoleGuard),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Query)('page')),
     __metadata("design:type", Function),
@@ -84,7 +87,7 @@ __decorate([
 __decorate([
     (0, common_1.Patch)(':id'),
     (0, roles_decorator_1.Roles)('admin'),
-    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard, adminRole_guard_1.AdminRoleGuard),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -94,14 +97,22 @@ __decorate([
 __decorate([
     (0, common_1.Delete)(':id'),
     (0, roles_decorator_1.Roles)('admin'),
-    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard, adminRole_guard_1.AdminRoleGuard),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "deleteUser", null);
+__decorate([
+    (0, common_1.Get)('workspace-users/:workspace_id'),
+    (0, roles_decorator_1.Roles)('admin'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard, adminRole_guard_1.AdminRoleGuard),
+    __param(0, (0, common_1.Param)('workspace_id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "getWorkspaceUsers", null);
 exports.UserController = UserController = __decorate([
-    (0, common_1.UseGuards)(auth_guard_1.AuthGuard, roles_guard_1.RolesGuard),
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [users_service_1.UserService])
 ], UserController);

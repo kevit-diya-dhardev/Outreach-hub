@@ -10,7 +10,7 @@ import { Mongoose } from 'mongoose';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Workspace, WorkspaceSchema } from './workspace.schema';
 import { UserService } from 'src/users/users.service';
-import { RolesGuard } from 'src/Auth/roles.guard';
+import { AdminRoleGuard } from 'src/Auth/Roles/adminRole.guard';
 import { UsersModule } from 'src/users/users.module';
 import { AuthService } from 'src/Auth/auth.service';
 import { AuthModule } from 'src/Auth/auth.module';

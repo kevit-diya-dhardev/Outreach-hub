@@ -5,6 +5,7 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
+import mongoose from 'mongoose';
 
 export class userDto {
   @IsNotEmpty()
@@ -21,7 +22,7 @@ export class userDto {
 
   @IsNotEmpty()
   @IsString()
-  workspace_id: String;
+  workspace_id: mongoose.Types.ObjectId;
 
   @IsNotEmpty()
   @IsString()

@@ -27,5 +27,13 @@ export class WorkspacesServices {
   deleteWorkspace(id: string) {
     return this.http.delete(`${this.allworkspaces_url}/${id}`);
   }
-  editWorkspace(id: string) {}
+  editWorkspace(id: string, workspaceData: Workspace) {
+    return this.http.patch(`${this.allworkspaces_url}/${id}`, workspaceData);
+  }
+
+  getWorkspaceUsers(workspace_id: string) {
+    return this.http.get(
+      `http://localhost:3000/users/workspace-users/${workspace_id}`
+    );
+  }
 }

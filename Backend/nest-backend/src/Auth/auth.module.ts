@@ -8,11 +8,12 @@ import { jwtConstants } from './constants';
 import { AuthController } from './auth.controller';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth.guard';
-import { RolesGuard } from './roles.guard';
+import { AdminRoleGuard } from './Roles/adminRole.guard';
 import { UsersModule } from 'src/users/users.module';
 import { Auth, AuthSchema } from './auth.schema';
 import { UserService } from 'src/users/users.service';
 import { WorkspaceModule } from 'src/workspace/workspace.module';
+import { UserRoleGuard } from './Roles/userRole.guard';
 
 //For auth configuration
 
@@ -29,8 +30,8 @@ import { WorkspaceModule } from 'src/workspace/workspace.module';
     }),
     forwardRef(() => UsersModule),
   ],
-  providers: [AuthService, AuthGuard, RolesGuard],
+  providers: [AuthService, AuthGuard, AdminRoleGuard, UserRoleGuard],
   controllers: [AuthController],
-  exports: [AuthService, AuthGuard, RolesGuard],
+  exports: [AuthService, AuthGuard, AdminRoleGuard, UserRoleGuard],
 })
 export class AuthModule {}

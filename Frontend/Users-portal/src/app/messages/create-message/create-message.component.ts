@@ -84,7 +84,7 @@ export class CreateMessageComponent {
 
     this.messageService.createMessge(finalFormData).subscribe({
       next: (response) => {
-        console.log(response);this.snackbarServie.show('Message edited successfully','success')
+        console.log(response);this.snackbarServie.show('Message created successfully','success')
         this.formVisible.emit(false);
       },
       error: (error) => {

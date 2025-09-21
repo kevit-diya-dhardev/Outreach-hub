@@ -56,7 +56,7 @@
             Delete
           </button>
         </ng-container>
-        <button class="btn-action btn-copy" (click)="copyCampaign(campaign)">
+        <button *ngIf="role === 'Editor'" class="btn-action btn-copy" (click)="copyCampaign(campaign)">
           Copy
         </button>
         <button

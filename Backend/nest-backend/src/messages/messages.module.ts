@@ -5,7 +5,6 @@ import { Message, MessageSchema } from './messages.schema';
 import { MessageController } from './messages.controller';
 import { MessageService } from './messages.services';
 import { UserService } from 'src/users/users.service';
-import { RolesGuard } from 'src/Auth/roles.guard';
 import { UsersModule } from 'src/users/users.module';
 import { AuthModule } from 'src/Auth/auth.module';
 import { Auth, AuthSchema } from 'src/Auth/auth.schema';

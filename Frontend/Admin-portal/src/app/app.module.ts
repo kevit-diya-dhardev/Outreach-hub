@@ -16,6 +16,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UsersComponent } from './users/users.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { WorkspacesModule } from './workspaces/workspaces.module';
+import { jwtDecode } from 'jwt-decode';
+import { DecodejwtService } from './decodejwt.service';
+import { SnackbarModule } from './snackbar/snackbar.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,6 +30,7 @@ import { WorkspacesModule } from './workspaces/workspaces.module';
     RouterOutlet,
     RouterModule,
     PageNotFoundModule,
+    SnackbarModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AdminInterceptor, multi: true },

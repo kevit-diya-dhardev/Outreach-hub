@@ -1,7 +1,7 @@
 <div class="workspaces-page">
   <header class="page-header">
     <h1>Manage Workspaces</h1>
-    <button class="add-new-btn" (click)="openAddWorkspaceModal()">
+    <button class="add-new-btn" (click)="createMode()">
       <span class="icon">+</span> Add New Workspace
     </button>
   </header>
@@ -26,12 +26,10 @@
       </div>
 
       <div class="card-footer">
-        <button class="btn btn-secondary" (click)="viewUsers(ws._id)">
+        <button class="btn btn-secondary" (click)="viewUsers(ws)">
           View Workspaces
         </button>
-        <button class="btn btn-primary" (click)="editWorkspace(ws._id)">
-          Edit
-        </button>
+        <button class="btn btn-primary" (click)="editMode(ws)">Edit</button>
         <button class="btn btn-danger" (click)="deleteWorkspace(ws._id)">
           Delete
         </button>
@@ -63,9 +61,21 @@
       </button>
 
       <app-create-workspace
-        (isUserCreated)="handleSuccess($event)"
-        (formSubmitted)="closeAddWorkspaceModal()"
+        (isWorkspaceCreated)="handleSuccess($event)"
+        [mode]="mode"
+        [workspaceData]="workspace"
       ></app-create-workspace>
+    </div>
+  </div>
+  <div class="modal-overlay" *ngIf="viewFormVisible">
+    <div class="modal-content">
+      <button class="close-btn" (click)="closeViewForm()">&times;</button>
+
+      <app-view-workspace
+        [users]="workspaceUsers"
+        [workspace]="workspace"
+        (viewWorkspaceVisible)="recieveViewWorkspaceData($event)"
+      ></app-view-workspace>
     </div>
   </div>
 </div>

@@ -11,6 +11,7 @@ export declare class WorkspaceController {
             __v: number;
         })[];
         totalPages: number;
+        totalDocs: number;
     }>;
     createWorkspace(workspaceData: workspaceSchemaDto, request: any): Promise<import("mongoose").Document<unknown, {}, import("./workspace.schema").Workspace, {}, {}> & import("./workspace.schema").Workspace & {
         _id: import("mongoose").Types.ObjectId;

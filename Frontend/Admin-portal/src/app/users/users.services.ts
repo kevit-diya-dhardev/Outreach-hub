@@ -18,7 +18,7 @@ export class UsersServices {
     const options = page ? { params: new HttpParams().set('page', page) } : {};
     return this.http.get(this.user_url);
   }
-  createUser(userData: user) {
+  createUser(userData: any) {
     return this.http.post(this.user_url, userData);
   }
   deleteUser(id: string) {

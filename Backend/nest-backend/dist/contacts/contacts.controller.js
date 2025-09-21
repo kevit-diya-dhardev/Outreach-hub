@@ -17,8 +17,8 @@ const common_1 = require("@nestjs/common");
 const contacts_service_1 = require("./contacts.service");
 const contacts_dto_1 = require("./dto/contacts.dto");
 const auth_guard_1 = require("../Auth/auth.guard");
-const roles_guard_1 = require("../Auth/roles.guard");
-const roles_decorator_1 = require("../Auth/roles.decorator");
+const roles_decorator_1 = require("../Auth/Roles/roles.decorator");
+const userRole_guard_1 = require("../Auth/Roles/userRole.guard");
 let ContactsController = class ContactsController {
     contactService;
     constructor(contactService) {
@@ -52,7 +52,7 @@ __decorate([
 ], ContactsController.prototype, "createContact", null);
 __decorate([
     (0, common_1.Get)(':workspace_id'),
-    (0, roles_decorator_1.Roles)('Viewer'),
+    (0, roles_decorator_1.Roles)('Viewer', 'Editor'),
     __param(0, (0, common_1.Param)('workspace_id')),
     __param(1, (0, common_1.Query)('page')),
     __metadata("design:type", Function),
@@ -61,7 +61,7 @@ __decorate([
 ], ContactsController.prototype, "getContacts", null);
 __decorate([
     (0, common_1.Get)(':contact_id'),
-    (0, roles_decorator_1.Roles)('Viewer'),
+    (0, roles_decorator_1.Roles)('Viewer', 'Editor'),
     __param(0, (0, common_1.Param)('userid')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -85,7 +85,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ContactsController.prototype, "deleteContact", null);
 exports.ContactsController = ContactsController = __decorate([
-    (0, common_1.UseGuards)(auth_guard_1.AuthGuard, roles_guard_1.RolesGuard),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard, userRole_guard_1.UserRoleGuard),
     (0, common_1.Controller)('contacts'),
     __metadata("design:paramtypes", [contacts_service_1.ContactsService])
 ], ContactsController);

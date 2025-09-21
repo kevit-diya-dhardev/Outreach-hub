@@ -12,16 +12,16 @@ import {
 } from '@nestjs/common';
 import { CampaignsService } from './campaigns.service';
 import { AuthGuard } from 'src/Auth/auth.guard';
-import { RolesGuard } from 'src/Auth/roles.guard';
-import { Roles } from 'src/Auth/roles.decorator';
+import { Roles } from 'src/Auth/Roles/roles.decorator';
 import { CampaignDto, updateCampaignDto } from './dtos/campaigns.dto';
-@UseGuards(AuthGuard, RolesGuard)
+import { UserRoleGuard } from 'src/Auth/Roles/userRole.guard';
+@UseGuards(AuthGuard, UserRoleGuard)
 @Controller('campaigns')
 export class CampaignsController {
   constructor(private campaignService: CampaignsService) {}
 
   @Get(':workspace_id')
-  @Roles('Viewer')
+  @Roles('Viewer', 'Editor')
   async getCampaigns(
     @Param('workspace_id') workspace_id: string,
     @Query('page') page: number,
@@ -51,7 +51,7 @@ export class CampaignsController {
   }
 
   @Get('single-campaigns/:campaignId')
-  @Roles('Viewer')
+  @Roles('Viewer', 'Editor')
   async getSingleCampaign(@Param('campaignId') campaignId: string) {
     return await this.campaignService.getSingleCampaign(campaignId);
   }
@@ -64,7 +64,7 @@ export class CampaignsController {
   }
 
   @Get('/launch-campaign/:campaignId')
-  @Roles('Viewer')
+  @Roles('Viewer', 'Editor')
   async launchCampaignDetails(@Param('campaignId') campaignId: string) {
     console.log('Inside launched campaign....', campaignId);
     return await this.campaignService.getLaunchCampaign(campaignId);

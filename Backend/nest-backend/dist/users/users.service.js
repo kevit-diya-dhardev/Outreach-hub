@@ -92,11 +92,16 @@ let UserService = class UserService {
     async getUsers(page) {
         const findUsers = await this.userModel
             .find({})
+            .populate('workspace_id')
             .limit(10)
             .skip((page - 1) * 10)
             .exec();
         const totalDocs = await this.workspaceModel.countDocuments().exec();
-        return { findUsers: findUsers, totalPages: Math.ceil(totalDocs / 10) };
+        return {
+            findUsers: findUsers,
+            totalPages: Math.ceil(totalDocs / 10),
+            totalDocs: totalDocs,
+        };
     }
     async getSingleUser(id) {
         console.log('Inside user service method');
@@ -127,10 +132,20 @@ let UserService = class UserService {
             .find({
             createdBy: req.userData.userId,
         })
+            .populate('workspace_id')
             .limit(10)
-            .skip((page - 1) * 10);
+            .skip((page - 1) * 10)
+            .exec();
         const totalDocs = await this.workspaceModel.countDocuments();
         return { findUsers: myUsers, totalPages: Math.ceil(totalDocs / 10) };
+    }
+    async getWorkspaceUsers(workspace_id) {
+        const getUsers = await this.userModel
+            .find({
+            workspace_id: { $in: workspace_id },
+        })
+            .exec();
+        return getUsers;
     }
 };
 exports.UserService = UserService;

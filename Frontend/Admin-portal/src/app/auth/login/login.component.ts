@@ -3,6 +3,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService, User } from './login.service';
 import { HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
+import { SnackbarService } from '../../snackbar/snackbar.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -11,10 +13,13 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   submitted = false;
   valid = true;
+
   constructor(
     private formBuilder: FormBuilder,
     private loginService: LoginService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
+    private snackbarService: SnackbarService
   ) {}
   userData: any;
   loginForm = this.formBuilder.group(
@@ -45,12 +50,24 @@ export class LoginComponent {
     this.loginService.sendLoginData(user).subscribe({
       next: async (response: any) => {
         localStorage.setItem('token', response.token);
-
-        this.router.navigate(['/admin']);
+        this.authService.getUserDetails().subscribe({
+          next: (userResponse: any) => {
+            if (userResponse && userResponse.isAdmin === true) {
+              this.snackbarService.show('Logged in successfully!', 'success');
+              this.router.navigate(['admin']);
+            } else {
+              this.snackbarService.show('Forbidden resource', 'error');
+              console.log('Forbidden resource');
+            }
+          },
+          error: (error) => {
+            console.log(error);
+          },
+        });
       },
       error: (error) => {
         this.valid = false;
-        console.log(error);
+        this.snackbarService.show(error.error.message, 'error');
       },
     });
   }

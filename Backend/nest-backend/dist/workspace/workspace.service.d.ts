@@ -17,6 +17,7 @@ export declare class WorkspaceService {
             __v: number;
         })[];
         totalPages: number;
+        totalDocs: number;
     } | null>;
     getSingleWorkspace(id: String): Promise<(mongoose.Document<unknown, {}, Workspace, {}, {}> & Workspace & {
         _id: mongoose.Types.ObjectId;

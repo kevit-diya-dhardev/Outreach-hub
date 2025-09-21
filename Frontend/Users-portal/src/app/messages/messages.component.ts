@@ -59,8 +59,14 @@ export class MessagesComponent {
     }
   }
   ngOnInit() {
-    this.activeView = 'my';
+    if(this.userRole=='editor'){
+      this.activeView = 'my';
     this.getMyMessages();
+    }
+    else{
+      this.activeView='all';
+      this.getAllMessages();
+    }
   }
 
   toggleDropdown() {

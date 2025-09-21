@@ -40,14 +40,14 @@
         </button>
         <button
           class="btn-action btn-edit"
-          [disabled]="role !== 'Editor'"
+          *ngIf="role === 'Editor'"
           (click)="editMode('edit', contact)"
         >
           Edit
         </button>
         <button
           class="btn-action btn-delete"
-          [disabled]="role !== 'Editor'"
+          *ngIf="role === 'Editor'"
           (click)="deleteContact(contact)"
         >
           Delete

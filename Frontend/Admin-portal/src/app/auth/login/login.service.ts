@@ -13,6 +13,7 @@ export interface User {
 export class LoginService {
   constructor(private http: HttpClient) {}
   loginUrl: string = 'http://localhost:3000/login';
+
   sendLoginData(userData: User): Observable<User> {
     return this.http.post<User>(this.loginUrl, userData);
   }

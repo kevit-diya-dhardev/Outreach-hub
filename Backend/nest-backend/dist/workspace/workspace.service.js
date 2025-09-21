@@ -34,13 +34,18 @@ let WorkspaceService = class WorkspaceService {
     async getWorkspaces(page) {
         const workspaces = await this.workspaceModel
             .find({})
+            .sort({ createdAt: -1 })
             .limit(10)
             .skip((page - 1) * 10)
             .exec();
         const totalDocs = await this.workspaceModel.countDocuments();
         if (workspaces.length < 1)
             return null;
-        return { workspaces: workspaces, totalPages: Math.ceil(totalDocs / 10) };
+        return {
+            workspaces: workspaces,
+            totalPages: Math.ceil(totalDocs / 10),
+            totalDocs: totalDocs,
+        };
     }
     async getSingleWorkspace(id) {
         const workspace = await this.workspaceModel.findOne({ _id: id });

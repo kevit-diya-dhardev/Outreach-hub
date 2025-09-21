@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AdminService } from '../admin/admin.service';
 import { UsersServices } from './users.services';
 import { ActivatedRoute } from '@angular/router';
+import { SnackbarService } from '../snackbar/snackbar.service';
 
 @Component({
   selector: 'app-users',
@@ -51,12 +52,15 @@ export class UsersComponent {
       next: (response) => {
         if (this.currentPath === 'my-users') {
           this.fetchMyUsers();
+          this.snackbarService.show('Deleted user successfully!!', 'success');
         } else {
           this.fetchAllUsers();
+          this.snackbarService.show('Deleted user successfully!!', 'success');
         }
       },
       error: (error) => {
         console.log('Error ', error);
+        this.snackbarService.show(error.error.message, 'error');
       },
     });
   }
@@ -71,7 +75,8 @@ export class UsersComponent {
   }
   constructor(
     private usersService: UsersServices,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackbarService: SnackbarService
   ) {}
   selected = '';
   users: any[] = [];
@@ -92,7 +97,7 @@ export class UsersComponent {
       next: (response: any) => {
         this.users = response.findUsers;
         this.totalPages = response.totalPages;
-        console.log(this.totalPages);
+        console.log(response);
       },
       error: (error: any) => {
         console.log(error);
@@ -104,6 +109,7 @@ export class UsersComponent {
       next: (response: any) => {
         this.users = response.findUsers;
         this.totalPages = response.totalPages;
+        console.log(response);
       },
       error: (error: any) => {
         console.log(error);

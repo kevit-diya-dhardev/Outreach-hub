@@ -1,0 +1,124 @@
+// --- Theme Color Variables ---
+$primary-color: #7f56d9;
+$border-color: #d0d5dd;
+$text-color: #1d2939;
+$text-light: #667085;
+$background-light: #f8f9fc;
+
+// --- Page Layout ---
+.workspace-details-page {
+  padding: 2rem;
+  height: 60%;
+}
+
+// --- Workspace Header Styling ---
+.workspace-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid $border-color;
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.workspace-name {
+  margin: 0 0 0.5rem 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: $text-color;
+}
+
+.workspace-description {
+  margin: 0;
+  font-size: 1rem;
+  color: $text-light;
+  max-width: 60ch; // Limits line length for readability
+}
+
+// --- Users List Section ---
+.users-list-section {
+  h2 {
+    font-size: 1.5rem;
+    color: $text-color;
+    margin-bottom: 1rem;
+  }
+}
+
+// --- Table Styling ---
+.table-container {
+  background-color: #ffffff;
+  border: 1px solid $border-color;
+  border-radius: 12px;
+  overflow: scroll;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: 1rem 1.25rem;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  thead {
+    background-color: $background-light;
+    th {
+      color: $text-light;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid $border-color;
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+    td {
+      color: $text-color;
+      font-weight: 500;
+    }
+  }
+}
+
+// --- Badge and Button Styling ---
+.role-badge {
+  background-color: #f9f5ff; // Light purple from theme
+  color: $primary-color;
+  padding: 0.25rem 0.75rem;
+  border-radius: 16px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.btn {
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-secondary {
+  background-color: #f2f4f7;
+  color: #344054;
+  border: 1px solid $border-color;
+  &:hover {
+    background-color: darken(#f2f4f7, 5%);
+  }
+}
+
+.btn-tertiary {
+  background: none;
+  color: $primary-color;
+  &:hover {
+    background-color: #f9f5ff;
+  }
+}

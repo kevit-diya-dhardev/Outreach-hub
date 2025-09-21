@@ -79,8 +79,13 @@ export class ContactsComponent {
     });
   }
   ngOnInit() {
-    this.activeView = 'my';
-    this.getContacts();
+    if(this.role=='editor'){
+      this.activeView = 'my';
+    }
+    else{
+      this.activeView='all';
+    }
+    this.getContacts();   
   }
   viewContact(contact: any) {
     this.viewContactVisible = true;
