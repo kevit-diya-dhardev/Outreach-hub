@@ -16,5 +16,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
   ],
   providers: [AuthService],
+  exports: [LogoutComponent],
 })
 export class AuthModule {}

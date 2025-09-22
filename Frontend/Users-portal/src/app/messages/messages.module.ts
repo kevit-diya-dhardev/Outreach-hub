@@ -21,7 +21,7 @@ import { DashboardModule } from '../dashboard/dashboard.module';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    DashboardModule
-],
+    DashboardModule,
+  ],
 })
 export class MessagesModule {}

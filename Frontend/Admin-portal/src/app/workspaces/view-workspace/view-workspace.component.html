@@ -28,7 +28,9 @@
               <span class="role-badge">{{ user.role }}</span>
             </td>
             <td data-label="Actions">
-              <button class="btn btn-tertiary">{{ user.role }}</button>
+              <button class="btn btn-tertiary">
+                {{ user.role.slice(0, 4) }}
+              </button>
             </td>
           </tr>
         </tbody>

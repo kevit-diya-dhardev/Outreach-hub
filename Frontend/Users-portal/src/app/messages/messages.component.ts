@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MessageService } from './messages.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SnackbarService } from '../snackbar/snackbar.service';
 
 @Component({
@@ -18,7 +18,11 @@ export class MessagesComponent {
     this.messageFormVisible = formVisible;
     this.getMyMessages();
   }
-  constructor(private messageService: MessageService,private snackbarService:SnackbarService) {}
+  constructor(
+    private messageService: MessageService,
+    private snackbarService: SnackbarService,
+    private router: Router
+  ) {}
   allmessages: any;
   mymessages: any;
   messages: any;
@@ -36,11 +40,11 @@ export class MessagesComponent {
     this.messageService.deleteMessage(message._id).subscribe({
       next: (response) => {
         console.log(response);
-        this.snackbarService.show('Message deleted successfully','success')
+        this.snackbarService.show('Message deleted successfully', 'success');
         this.getMyMessages();
       },
       error: (error) => {
-         this.snackbarService.show(error.error.message,'error')
+        this.snackbarService.show(error.error.message, 'error');
         console.log(error);
       },
     });
@@ -59,12 +63,11 @@ export class MessagesComponent {
     }
   }
   ngOnInit() {
-    if(this.userRole=='editor'){
+    if (this.userRole == 'editor') {
       this.activeView = 'my';
-    this.getMyMessages();
-    }
-    else{
-      this.activeView='all';
+      this.getMyMessages();
+    } else {
+      this.activeView = 'all';
       this.getAllMessages();
     }
   }
@@ -95,8 +98,10 @@ export class MessagesComponent {
         this.messages = this.mymessages;
       },
       error: (error) => {
-         this.snackbarService.show(error.error.message,'error')
-        console.log(error);
+        this.snackbarService.show(error.error.message, 'error');
+        if (error.error.message == 'Unauthorized') {
+          this.router.navigate(['/login']);
+        }
       },
     });
   }
@@ -109,6 +114,9 @@ export class MessagesComponent {
       },
       error: (error) => {
         console.log(error);
+        if (error.error.message == 'Unauthorized') {
+          this.router.navigate(['/login']);
+        }
       },
     });
   }

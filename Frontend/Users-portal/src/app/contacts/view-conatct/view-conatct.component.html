@@ -3,7 +3,6 @@
 <div class="view-card" *ngIf="contactData">
   <div class="view-header">
     <h2 class="contact-name">{{ contactData.contact_name }}</h2>
-    <button class="btn-close" (click)="close()">×</button>
   </div>
 
   <div class="view-body">
@@ -13,8 +12,10 @@
     </div>
 
     <div class="detail-group">
-      <span class="detail-label">Workspace ID</span>
-      <span class="detail-value code-font">{{ contactData.workspace_id }}</span>
+      <span class="detail-label">Workspace </span>
+      <span class="detail-value code-font">{{
+        contactData.workspace_id.workspace_name
+      }}</span>
     </div>
 
     <div class="detail-group">

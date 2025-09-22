@@ -12,6 +12,18 @@ export class AdminComponent {
   isUsersMenuOpen: boolean = false;
   constructor(private adminService: AdminService, private router: Router) {}
   isSidebarCollapsed = false;
+
+  logoutUser() {
+    this.adminService.logoutUser().subscribe({
+      next: (response) => {
+        console.log(response);
+        this.router.navigate(['/login']);
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }
   toggleSidebar(): void {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
     if (this.isSidebarCollapsed == true) {

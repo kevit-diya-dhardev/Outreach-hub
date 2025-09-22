@@ -64,6 +64,7 @@ let ContactsService = class ContactsService {
     async getContacts(page, workspace_id) {
         const contacts = await this.contactsModel
             .find({ workspace_id: workspace_id })
+            .populate('workspace_id')
             .limit(10)
             .skip(page * 10);
         const totalDocs = await this.contactsModel.countDocuments();

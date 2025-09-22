@@ -57,6 +57,7 @@ export class ContactsService {
   async getContacts(page: number, workspace_id: string) {
     const contacts = await this.contactsModel
       .find({ workspace_id: workspace_id })
+      .populate('workspace_id')
       .limit(10)
       .skip(page * 10);
 

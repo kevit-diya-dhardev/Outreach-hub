@@ -24,6 +24,9 @@ export class DashboardComponent {
       },
       error: (error) => {
         console.error(error);
+        if (error.error.message == 'Unauthorized') {
+          this.router.navigate(['/login']);
+        }
       },
     });
 

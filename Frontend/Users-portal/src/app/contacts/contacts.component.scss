@@ -77,7 +77,6 @@ $success-color: #039855;
     &.active {
       color: $primary-color;
       border-bottom-color: $primary-color;
-      
     }
   }
 }
@@ -243,6 +242,7 @@ $success-color: #039855;
   animation: fadeIn 0.3s ease;
   border-radius: 16px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 30%; 
   position: relative; // Needed for positioning the close button
 }
 @keyframes fadeIn {

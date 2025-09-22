@@ -6,9 +6,13 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class AuthService {
-  url: string = 'http://localhost:3000/login';
+  url: string = 'http://localhost:3000';
   constructor(private http: HttpClient) {}
   sendLoginData(user: User) {
-    return this.http.post(this.url, user);
+    return this.http.post(`${this.url}/login`, user);
+  }
+
+  userLogout() {
+    return this.http.post(`${this.url}/logout`, null);
   }
 }

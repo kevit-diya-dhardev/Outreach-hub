@@ -11,8 +11,6 @@ import { AuthGuard } from './auth.guard';
 import { AdminRoleGuard } from './Roles/adminRole.guard';
 import { UsersModule } from 'src/users/users.module';
 import { Auth, AuthSchema } from './auth.schema';
-import { UserService } from 'src/users/users.service';
-import { WorkspaceModule } from 'src/workspace/workspace.module';
 import { UserRoleGuard } from './Roles/userRole.guard';
 
 //For auth configuration
