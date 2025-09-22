@@ -1,0 +1,17 @@
+<div class="chart-container">
+  <h2>Workspace Analytics</h2>
+
+  <div class="chart-wrapper">
+    <h3>Campaigns Launched Per Day</h3>
+    <canvas
+      baseChart
+      class="chart"
+      [data]="barChartData"
+      [options]="barChartOptions"
+      [plugins]="barChartPlugins"
+      [legend]="barChartLegend"
+      type="bar"
+    >
+    </canvas>
+  </div>
+</div>
