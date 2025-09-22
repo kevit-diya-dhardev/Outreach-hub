@@ -9,10 +9,10 @@ export class AuthService {
   url: string = 'http://localhost:3000';
   constructor(private http: HttpClient) {}
   sendLoginData(user: User) {
-    return this.http.post(`${this.url}/login`, user);
+    return this.http.post(`${this.url}/login/user`, user);
   }
 
   userLogout() {
-    return this.http.post(`${this.url}/logout`, null);
+    return this.http.post(`${this.url}/logout/user`, null);
   }
 }

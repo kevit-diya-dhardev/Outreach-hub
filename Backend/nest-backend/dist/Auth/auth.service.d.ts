@@ -3,7 +3,7 @@ import { Model } from 'mongoose';
 import { User } from 'src/users/users.schema';
 import { AuthDto } from './dto/auth.dto';
 import { Auth } from './auth.schema';
-export declare class AuthService {
+export declare class AdminAuthService {
     private userModel;
     private jwtService;
     private authModel;

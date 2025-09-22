@@ -10,7 +10,7 @@ exports.AuthModule = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const users_schema_1 = require("../users/users.schema");
-const auth_service_1 = require("./auth.service");
+const admin_auth_service_1 = require("./services/admin-auth.service");
 const jwt_1 = require("@nestjs/jwt");
 const constants_1 = require("./constants");
 const auth_controller_1 = require("./auth.controller");
@@ -19,6 +19,7 @@ const adminRole_guard_1 = require("./Roles/adminRole.guard");
 const users_module_1 = require("../users/users.module");
 const auth_schema_1 = require("./auth.schema");
 const userRole_guard_1 = require("./Roles/userRole.guard");
+const user_auth_service_1 = require("./services/user-auth.service");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
@@ -36,9 +37,21 @@ exports.AuthModule = AuthModule = __decorate([
             }),
             (0, common_1.forwardRef)(() => users_module_1.UsersModule),
         ],
-        providers: [auth_service_1.AuthService, auth_guard_1.AuthGuard, adminRole_guard_1.AdminRoleGuard, userRole_guard_1.UserRoleGuard],
+        providers: [
+            admin_auth_service_1.AdminAuthService,
+            auth_guard_1.AuthGuard,
+            user_auth_service_1.UserAuthService,
+            adminRole_guard_1.AdminRoleGuard,
+            userRole_guard_1.UserRoleGuard,
+        ],
         controllers: [auth_controller_1.AuthController],
-        exports: [auth_service_1.AuthService, auth_guard_1.AuthGuard, adminRole_guard_1.AdminRoleGuard, userRole_guard_1.UserRoleGuard],
+        exports: [
+            admin_auth_service_1.AdminAuthService,
+            auth_guard_1.AuthGuard,
+            user_auth_service_1.UserAuthService,
+            adminRole_guard_1.AdminRoleGuard,
+            userRole_guard_1.UserRoleGuard,
+        ],
     })
 ], AuthModule);
 //# sourceMappingURL=auth.module.js.map

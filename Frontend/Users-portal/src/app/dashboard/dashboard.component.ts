@@ -26,6 +26,9 @@ export class DashboardComponent {
     this.dashboardService.getUser(decoded.userId).subscribe({
       next: (response: any) => {
         this.user = response;
+        if (this.user.isAdmin == true) {
+          this.router.navigate(['/login']);
+        }
         localStorage.setItem('role', response.role);
         this.workspaces_id = response.workspace_id;
         localStorage.setItem('workspace_id', this.workspaces_id[0]);

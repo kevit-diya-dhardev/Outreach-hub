@@ -1,7 +1,7 @@
 import { forwardRef, Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from 'src/users/users.schema';
-import { AuthService } from './auth.service';
+import { AdminAuthService } from './services/admin-auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { constants } from 'buffer';
 import { jwtConstants } from './constants';
@@ -12,6 +12,7 @@ import { AdminRoleGuard } from './Roles/adminRole.guard';
 import { UsersModule } from 'src/users/users.module';
 import { Auth, AuthSchema } from './auth.schema';
 import { UserRoleGuard } from './Roles/userRole.guard';
+import { UserAuthService } from './services/user-auth.service';
 
 //For auth configuration
 
@@ -28,8 +29,20 @@ import { UserRoleGuard } from './Roles/userRole.guard';
     }),
     forwardRef(() => UsersModule),
   ],
-  providers: [AuthService, AuthGuard, AdminRoleGuard, UserRoleGuard],
+  providers: [
+    AdminAuthService,
+    AuthGuard,
+    UserAuthService,
+    AdminRoleGuard,
+    UserRoleGuard,
+  ],
   controllers: [AuthController],
-  exports: [AuthService, AuthGuard, AdminRoleGuard, UserRoleGuard],
+  exports: [
+    AdminAuthService,
+    AuthGuard,
+    UserAuthService,
+    AdminRoleGuard,
+    UserRoleGuard,
+  ],
 })
 export class AuthModule {}

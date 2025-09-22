@@ -242,7 +242,6 @@ $success-color: #039855;
   animation: fadeIn 0.3s ease;
   border-radius: 16px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  width: 30%; 
   position: relative; // Needed for positioning the close button
 }
 @keyframes fadeIn {
@@ -262,5 +261,40 @@ $success-color: #039855;
   to {
     opacity: 1;
     transform: translate(-50%, -50%);
+  }
+}
+.pagination-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 0;
+  margin-top: 1rem;
+  border-top: 1px solid #eaecf0; // Your border color
+}
+
+.page-info {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #667085; // Your text-light color
+}
+
+.pagination-btn {
+  background-color: #ffffff; // Your background color
+  border: 1px solid #d0d5dd; // Your border color
+  color: #344054;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  margin: 0 5rem 0 5rem;
+  &:hover:not(:disabled) {
+    background-color: #f8f9fc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 }

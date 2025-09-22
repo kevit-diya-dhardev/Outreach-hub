@@ -8,12 +8,12 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from 'src/users/users.schema';
 import * as bcrypt from 'bcrypt';
-import { AuthDto } from './dto/auth.dto';
-import { Auth } from './auth.schema';
+import { AuthDto } from '../dto/auth.dto';
+import { Auth } from '../auth.schema';
 
 //Service that generates token
 
-export class AuthService {
+export class AdminAuthService {
   constructor(
     @InjectModel(User.name) private userModel: Model<User>,
     private jwtService: JwtService,
@@ -30,6 +30,11 @@ export class AuthService {
 
     const isValid = await bcrypt.compare(password, findUser.password);
     if (!isValid) throw new UnauthorizedException('User not found!!!!');
+
+    let role = findUser.isAdmin;
+    if (!role) {
+      throw new HttpException('Forbidden access!', 400);
+    }
 
     let userId = findUser._id;
 

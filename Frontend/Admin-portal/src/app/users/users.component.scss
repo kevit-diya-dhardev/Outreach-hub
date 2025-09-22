@@ -282,7 +282,7 @@ $text-light: #667085;
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s, box-shadow 0.2s;
-
+  margin: 0 12px 0 12px;
   &:hover:not(:disabled) {
     background-color: #f8f9fc;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);

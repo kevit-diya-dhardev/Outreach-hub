@@ -24,6 +24,8 @@ export class MessagesComponent {
     private router: Router
   ) {}
   allmessages: any;
+  totalPages!: number;
+  page: number = 1;
   mymessages: any;
   messages: any;
   currentPath: string = 'myMessages';
@@ -91,10 +93,11 @@ export class MessagesComponent {
   }
 
   getMyMessages() {
-    this.messageService.getMyMessages(this.workspace).subscribe({
+    this.messageService.getMyMessages(this.workspace, this.page).subscribe({
       next: (response: any) => {
         console.log(response);
         this.mymessages = response.messages;
+        this.totalPages = response.totalPages;
         this.messages = this.mymessages;
       },
       error: (error) => {
@@ -106,10 +109,11 @@ export class MessagesComponent {
     });
   }
   getAllMessages() {
-    this.messageService.getAllMessages(this.workspace).subscribe({
+    this.messageService.getAllMessages(this.workspace, this.page).subscribe({
       next: (response: any) => {
         console.log(response);
         this.allmessages = response.messages;
+        this.totalPages = response.totalPages;
         this.messages = this.allmessages;
       },
       error: (error) => {
@@ -119,5 +123,23 @@ export class MessagesComponent {
         }
       },
     });
+  }
+
+  increasePage() {
+    this.page++;
+    if (this.activeView == 'my') {
+      this.getMyMessages();
+    } else {
+      this.getAllMessages();
+    }
+  }
+
+  decreasePage() {
+    this.page--;
+    if (this.activeView == 'my') {
+      this.getMyMessages();
+    } else {
+      this.getAllMessages();
+    }
   }
 }

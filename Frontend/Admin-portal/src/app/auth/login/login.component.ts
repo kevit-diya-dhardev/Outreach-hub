@@ -48,22 +48,9 @@ export class LoginComponent {
       password: this.userData.password!,
     };
     this.loginService.sendLoginData(user).subscribe({
-      next: async (response: any) => {
+      next: (response: any) => {
         localStorage.setItem('token', response.token);
-        this.authService.getUserDetails().subscribe({
-          next: (userResponse: any) => {
-            if (userResponse && userResponse.isAdmin === true) {
-              this.snackbarService.show('Logged in successfully!', 'success');
-              this.router.navigate(['admin']);
-            } else {
-              this.snackbarService.show('Forbidden resource', 'error');
-              console.log('Forbidden resource');
-            }
-          },
-          error: (error) => {
-            console.log(error);
-          },
-        });
+        this.router.navigate(['admin']);
       },
       error: (error) => {
         this.valid = false;

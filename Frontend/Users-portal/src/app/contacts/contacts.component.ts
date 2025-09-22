@@ -19,6 +19,8 @@ export class ContactsComponent {
   contacts: any;
   allcontacts: any;
   activeView: any;
+  page: number = 1;
+  totalPages!: number;
   workspace = localStorage.getItem('workspace_id')!;
   formValue!: Contact;
   role: string = localStorage.getItem('role')!;
@@ -109,6 +111,7 @@ export class ContactsComponent {
     this.contactService.getContacts(this.workspace).subscribe({
       next: (response: any) => {
         this.allcontacts = response.contacts;
+        this.totalPages = response.totalPages;
         if (this.activeView == 'my') {
           this.contacts = this.allcontacts.filter((contact: any) => {
             return contact.createdBy == this.userId;
@@ -137,5 +140,15 @@ export class ContactsComponent {
         console.log('errorrrrr', error.error.message);
       },
     });
+  }
+
+  increasePage() {
+    this.page++;
+    this.getContacts();
+  }
+
+  decreasePage() {
+    this.page--;
+    this.getContacts();
   }
 }

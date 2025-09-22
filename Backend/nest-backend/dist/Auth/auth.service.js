@@ -45,7 +45,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthService = void 0;
+exports.AdminAuthService = void 0;
 const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
 const mongoose_1 = require("@nestjs/mongoose");
@@ -53,7 +53,7 @@ const mongoose_2 = require("mongoose");
 const users_schema_1 = require("../users/users.schema");
 const bcrypt = __importStar(require("bcrypt"));
 const auth_schema_1 = require("./auth.schema");
-let AuthService = class AuthService {
+let AdminAuthService = class AdminAuthService {
     userModel;
     jwtService;
     authModel;
@@ -71,6 +71,10 @@ let AuthService = class AuthService {
         const isValid = await bcrypt.compare(password, findUser.password);
         if (!isValid)
             throw new common_1.UnauthorizedException('User not found!!!!');
+        let role = findUser.isAdmin;
+        if (!role) {
+            throw new common_1.HttpException('Forbidden access!', 400);
+        }
         let userId = findUser._id;
         const payload = { userId };
         const token = await this.jwtService.signAsync(payload);
@@ -91,12 +95,12 @@ let AuthService = class AuthService {
         return await this.authModel.deleteOne({ token });
     }
 };
-exports.AuthService = AuthService;
-exports.AuthService = AuthService = __decorate([
+exports.AdminAuthService = AdminAuthService;
+exports.AdminAuthService = AdminAuthService = __decorate([
     __param(0, (0, mongoose_1.InjectModel)(users_schema_1.User.name)),
     __param(2, (0, mongoose_1.InjectModel)(auth_schema_1.Auth.name)),
     __metadata("design:paramtypes", [mongoose_2.Model,
         jwt_1.JwtService,
         mongoose_2.Model])
-], AuthService);
+], AdminAuthService);
 //# sourceMappingURL=auth.service.js.map

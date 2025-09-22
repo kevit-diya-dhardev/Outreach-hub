@@ -24,6 +24,8 @@ export class CampaignsComponent {
   viewFormVisible: boolean = false;
   copiedCampaign!: Campaigns;
   isLoading: boolean = false;
+  page: number = 1;
+  totalPages!: number;
   async recieveCreateFormData(createFormVisible: boolean) {
     this.createFormVisible = createFormVisible;
     await this.getCampaigns();
@@ -48,10 +50,11 @@ export class CampaignsComponent {
     this.mode = 'edit';
   }
   getCampaigns() {
-    this.campaignService.getCampaigns().subscribe({
+    this.campaignService.getCampaigns(this.page).subscribe({
       next: (response: any) => {
         console.log(response.campaigns);
         this.campaigns = response.campaigns;
+        this.totalPages = response.totalPages;
       },
       error: (error) => {
         console.log(error);
@@ -105,5 +108,13 @@ export class CampaignsComponent {
   }
   navigateToDetails(campaign: Campaigns) {
     this.router.navigate([`/campaigns/${campaign._id}`]);
+  }
+  increasePage() {
+    this.page++;
+    this.getCampaigns();
+  }
+  decreasePage() {
+    this.page--;
+    this.getCampaigns();
   }
 }
