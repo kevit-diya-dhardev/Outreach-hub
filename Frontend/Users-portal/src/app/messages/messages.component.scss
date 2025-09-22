@@ -156,7 +156,7 @@ $primary-dark: #6941c6;
 // --- Individual Message Card Styling ---
 .message-card {
   background-color: $card-bg-color;
-
+  text-wrap: wrap;
   box-shadow: 0 4px 8px -2px rgba(16, 24, 40, 0.05);
   display: flex;
   flex-direction: column;
@@ -222,6 +222,7 @@ $primary-dark: #6941c6;
   color: $text-light;
   line-height: 1.6;
   margin: 0;
+  text-wrap: wrap;
   // Prevents long text from overflowing the card
   display: -webkit-box;
 
@@ -321,7 +322,41 @@ $primary-dark: #6941c6;
     8px
   ); // For Safari support  animation: fadeIn 0.3s ease;
 }
+.pagination-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 0;
+  margin-top: 1rem;
+  border-top: 1px solid #eaecf0; // Your border color
+}
 
+.page-info {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #667085; // Your text-light color
+}
+
+.pagination-btn {
+  background-color: #ffffff; // Your background color
+  border: 1px solid #d0d5dd; // Your border color
+  color: #344054;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  margin: 0 5rem 0 5rem;
+  &:hover:not(:disabled) {
+    background-color: #f8f9fc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
 // The actual modal window where the form lives
 .modal-content {
   padding: 2rem;

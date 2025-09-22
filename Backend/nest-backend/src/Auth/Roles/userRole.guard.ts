@@ -14,12 +14,13 @@ export class UserRoleGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const requiredRoles = this.reflector.getAllAndOverride<string[]>(
       ROLES_KEY,
-      [context.getClass()],
+      [context.getHandler(), context.getClass()],
     );
     console.log('Inside users roleguard!!');
     const req = context.switchToHttp().getRequest();
     const userId = req.userData.userId;
     const findUser = await this.usersService.getSingleUser(userId);
+
     const role = findUser.role;
     return requiredRoles.some((userRole) => {
       return role.includes(userRole);

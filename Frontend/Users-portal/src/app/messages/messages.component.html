@@ -80,6 +80,23 @@
     <p>No message templates found in this view.</p>
   </div>
 </div>
+<div class="pagination-controls">
+  <button
+    class="pagination-btn"
+    (click)="decreasePage()"
+    [disabled]="page === 1"
+  >
+    &larr; Previous
+  </button>
+  <span class="page-info"> Page {{ page }} of {{ totalPages }} </span>
+  <button
+    class="pagination-btn"
+    (click)="increasePage()"
+    [disabled]="page === totalPages"
+  >
+    Next &rarr;
+  </button>
+</div>
 <div class="modal-overlay" *ngIf="messageFormVisible">
   <div class="modal-content">
     <app-create-message

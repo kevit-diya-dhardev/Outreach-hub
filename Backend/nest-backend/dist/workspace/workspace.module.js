@@ -21,7 +21,8 @@ exports.WorkspaceModule = WorkspaceModule;
 exports.WorkspaceModule = WorkspaceModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            mongoose_1.MongooseModule.forFeature([{ name: auth_schema_1.Auth.name, schema: auth_schema_1.AuthSchema },
+            mongoose_1.MongooseModule.forFeature([
+                { name: auth_schema_1.Auth.name, schema: auth_schema_1.AuthSchema },
                 {
                     name: workspace_schema_1.Workspace.name,
                     schema: workspace_schema_1.WorkspaceSchema,

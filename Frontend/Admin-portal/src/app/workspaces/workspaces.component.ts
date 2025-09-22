@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { WorkspacesServices } from './workspaces.service';
 import { Workspace } from './models/workspace';
-import { ActivatedRoute, UrlSegment } from '@angular/router';
+import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { SnackbarService } from '../snackbar/snackbar.service';
 
 @Component({
@@ -13,7 +13,8 @@ export class WorkspacesComponent {
   constructor(
     private workspacesService: WorkspacesServices,
     private route: ActivatedRoute,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
+    private router: Router
   ) {}
   mode = '';
   totalPages!: number;
@@ -130,6 +131,9 @@ export class WorkspacesComponent {
       },
       error: (error) => {
         console.log(error);
+        if (error.error.message == 'Unauthorized') {
+          this.router.navigate(['/login']);
+        }
       },
     });
   }
@@ -142,6 +146,9 @@ export class WorkspacesComponent {
       },
       error: (error) => {
         console.log(error);
+        if (error.error.message == 'Unauthorized') {
+          this.router.navigate(['/login']);
+        }
       },
     });
   }

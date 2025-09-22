@@ -16,4 +16,8 @@ export class ViewWorkspaceComponent {
   closeForm() {
     this.viewWorkspaceVisible.emit(false);
   }
+  
+  ngOnInit(){
+    
+  }
 }

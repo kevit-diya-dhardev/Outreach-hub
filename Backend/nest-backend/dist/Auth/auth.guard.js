@@ -42,20 +42,22 @@ let AuthGuard = class AuthGuard {
                 secret: constants_1.jwtConstants.secret,
             });
             req.userData = payload;
-            await this.checkForToken(token);
+            const isTokenPresent = await this.checkForToken(token);
+            if (isTokenPresent) {
+                return true;
+            }
+            else {
+                throw new common_1.UnauthorizedException();
+            }
         }
         catch (error) {
             console.log(error);
             throw new common_1.UnauthorizedException();
         }
-        return true;
     }
     async checkForToken(token) {
         const existToken = await this.authModel.find({ token: token });
-        if (!existToken) {
-            throw new Error();
-        }
-        return;
+        return existToken.length > 0;
     }
 };
 exports.AuthGuard = AuthGuard;

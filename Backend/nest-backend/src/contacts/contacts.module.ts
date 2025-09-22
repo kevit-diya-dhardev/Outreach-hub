@@ -12,7 +12,7 @@ import { User, UserSchema } from 'src/users/users.schema';
 import { Workspace, WorkspaceSchema } from 'src/workspace/workspace.schema';
 
 import { UsersModule } from 'src/users/users.module';
-import { AuthService } from 'src/Auth/auth.service';
+
 import { AuthModule } from 'src/Auth/auth.module';
 import { Auth, AuthSchema } from 'src/Auth/auth.schema';
 

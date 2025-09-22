@@ -33,15 +33,19 @@ export class MessageService {
     return savedMessage;
   }
 
-  async getAllMessages(id: string, page: number) {
-    const messages = await this.messageModel
-      .find({
-        workspace_id: id,
-      })
-      .limit(10)
-      .skip((page - 1) * 10)
-      .exec();
-
+  async getAllMessages(id: string, page?: number) {
+    let messages: any;
+    if (page) {
+      messages = await this.messageModel
+        .find({
+          workspace_id: id,
+        })
+        .limit(10)
+        .skip((page - 1) * 10)
+        .exec();
+    } else {
+      messages = await this.messageModel.find({ workspace_id: id });
+    }
     const totalDocs = await this.messageModel.countDocuments().exec();
 
     return { messages: messages, totalPages: Math.ceil(totalDocs / 10) };

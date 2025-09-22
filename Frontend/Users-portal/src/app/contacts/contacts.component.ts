@@ -5,6 +5,7 @@ import { Contact } from './contact-form/models/contacts';
 import { concatAll } from 'rxjs';
 import { JwtService } from '../jwt.service';
 import { SnackbarService } from '../snackbar/snackbar.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-contacts',
@@ -18,6 +19,8 @@ export class ContactsComponent {
   contacts: any;
   allcontacts: any;
   activeView: any;
+  page: number = 1;
+  totalPages!: number;
   workspace = localStorage.getItem('workspace_id')!;
   formValue!: Contact;
   role: string = localStorage.getItem('role')!;
@@ -25,9 +28,10 @@ export class ContactsComponent {
   userId = this.jwtService.decode(localStorage.getItem('token')!).userId;
   constructor(
     private dashboardService: DashboardService,
-    private snackbarService:SnackbarService,
+    private snackbarService: SnackbarService,
     private contactService: ContactsService,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private router: Router
   ) {}
   recieveFormCloseData(formClose: boolean) {
     this.contactFormVisible = formClose;
@@ -69,37 +73,37 @@ export class ContactsComponent {
     this.contactService.deleteContact(contact._id).subscribe({
       next: (response) => {
         console.log(response);
-        this.snackbarService.show('Contact deleted successfully!!','success')
+        this.snackbarService.show('Contact deleted successfully!!', 'success');
         this.getContacts();
       },
       error: (error) => {
         console.log(error);
-        this.snackbarService.show(error.error.message,'error')
+        this.snackbarService.show(error.error.message, 'error');
       },
     });
   }
   ngOnInit() {
-    if(this.role=='editor'){
+    if (this.role == 'editor') {
       this.activeView = 'my';
+    } else {
+      this.activeView = 'all';
     }
-    else{
-      this.activeView='all';
-    }
-    this.getContacts();   
+    this.getContacts();
   }
   viewContact(contact: any) {
     this.viewContactVisible = true;
+    console.log('Contact ', contact);
     this.contactData = contact;
   }
   editContact({ _id, ...contactData }: Contact) {
     this.contactService.editContact(_id, { ...contactData }).subscribe({
       next: (response) => {
-        this.snackbarService.show('Contact editted successfully','success')
+        this.snackbarService.show('Contact editted successfully', 'success');
         this.getContacts();
       },
       error: (error) => {
         console.log(error);
-        this.snackbarService.show(error.error.message,'error')
+        this.snackbarService.show(error.error.message, 'error');
       },
     });
   }
@@ -107,6 +111,7 @@ export class ContactsComponent {
     this.contactService.getContacts(this.workspace).subscribe({
       next: (response: any) => {
         this.allcontacts = response.contacts;
+        this.totalPages = response.totalPages;
         if (this.activeView == 'my') {
           this.contacts = this.allcontacts.filter((contact: any) => {
             return contact.createdBy == this.userId;
@@ -116,7 +121,10 @@ export class ContactsComponent {
         }
       },
       error: (error) => {
-        console.log(error);
+        console.log('Error ', error);
+        if (error.error.message == 'Unauthorized') {
+          this.router.navigate(['/login']);
+        }
       },
     });
   }
@@ -124,13 +132,23 @@ export class ContactsComponent {
   createContact(contactData: Contact) {
     this.contactService.createContact(contactData).subscribe({
       next: (response) => {
-        this.snackbarService.show('Contact created successfully!!','success')
+        this.snackbarService.show('Contact created successfully!!', 'success');
         this.getContacts();
       },
       error: (error) => {
-        this.snackbarService.show(error.error.message,'error')
-        console.log("errorrrrr",error.error.message);
+        this.snackbarService.show(error.error.message, 'error');
+        console.log('errorrrrr', error.error.message);
       },
     });
+  }
+
+  increasePage() {
+    this.page++;
+    this.getContacts();
+  }
+
+  decreasePage() {
+    this.page--;
+    this.getContacts();
   }
 }

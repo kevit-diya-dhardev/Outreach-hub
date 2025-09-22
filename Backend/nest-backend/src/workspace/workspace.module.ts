@@ -12,13 +12,14 @@ import { Workspace, WorkspaceSchema } from './workspace.schema';
 import { UserService } from 'src/users/users.service';
 import { AdminRoleGuard } from 'src/Auth/Roles/adminRole.guard';
 import { UsersModule } from 'src/users/users.module';
-import { AuthService } from 'src/Auth/auth.service';
+
 import { AuthModule } from 'src/Auth/auth.module';
 import { Auth, AuthSchema } from 'src/Auth/auth.schema';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([ { name: Auth.name, schema: AuthSchema },
+    MongooseModule.forFeature([
+      { name: Auth.name, schema: AuthSchema },
       {
         name: Workspace.name,
         schema: WorkspaceSchema,

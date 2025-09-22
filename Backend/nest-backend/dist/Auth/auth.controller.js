@@ -15,19 +15,35 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
 const auth_dto_1 = require("./dto/auth.dto");
-const auth_service_1 = require("./auth.service");
+const admin_auth_service_1 = require("./services/admin-auth.service");
+const user_auth_service_1 = require("./services/user-auth.service");
 let AuthController = class AuthController {
-    authService;
-    constructor(authService) {
-        this.authService = authService;
+    adminAuthService;
+    userAuthService;
+    constructor(adminAuthService, userAuthService) {
+        this.adminAuthService = adminAuthService;
+        this.userAuthService = userAuthService;
     }
-    async login(userData) {
-        return await this.authService.generateToken(userData);
+    async loginAdmin(userData) {
+        return await this.adminAuthService.generateToken(userData);
     }
-    async logout(req) {
+    async loginUser(userData) {
+        return await this.userAuthService.generateToken(userData);
+    }
+    async logoutAdmin(req) {
         try {
             const token = req.headers.authorization.split(' ')[1];
-            return await this.authService.deleteTokenFromDb(token);
+            return await this.adminAuthService.deleteTokenFromDb(token);
+        }
+        catch (error) {
+            console.log(error);
+            throw new common_1.HttpException('Token deleting error in logout', 500);
+        }
+    }
+    async logoutUser(req) {
+        try {
+            const token = req.headers.authorization.split(' ')[1];
+            return await this.userAuthService.deleteTokenFromDb(token);
         }
         catch (error) {
             console.log(error);
@@ -37,21 +53,36 @@ let AuthController = class AuthController {
 };
 exports.AuthController = AuthController;
 __decorate([
-    (0, common_1.Post)('login'),
+    (0, common_1.Post)('login/admin'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [auth_dto_1.AuthDto]),
     __metadata("design:returntype", Promise)
-], AuthController.prototype, "login", null);
+], AuthController.prototype, "loginAdmin", null);
 __decorate([
-    (0, common_1.Post)('logout'),
+    (0, common_1.Post)('login/user'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [auth_dto_1.AuthDto]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "loginUser", null);
+__decorate([
+    (0, common_1.Post)('logout/admin'),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], AuthController.prototype, "logout", null);
+], AuthController.prototype, "logoutAdmin", null);
+__decorate([
+    (0, common_1.Post)('logout/user'),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "logoutUser", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)(),
-    __metadata("design:paramtypes", [auth_service_1.AuthService])
+    __metadata("design:paramtypes", [admin_auth_service_1.AdminAuthService,
+        user_auth_service_1.UserAuthService])
 ], AuthController);
 //# sourceMappingURL=auth.controller.js.map

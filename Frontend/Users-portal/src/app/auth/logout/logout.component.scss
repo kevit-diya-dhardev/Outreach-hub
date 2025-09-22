@@ -1,0 +1,33 @@
+$border-color: #e0e6ed;
+$primary-color: #4a90e2;
+$background-color: #ffffff;
+.logout-button {
+  background-color: transparent;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+
+  span {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: black; // $text-light
+    transition: color 0.2s ease;
+  }
+  &::before {
+    content: "→"; // Simple arrow icon
+    font-size: 1.2rem;
+    line-height: 1;
+    color: black; // $text-light
+    transition: color 0.2s ease;
+  }
+
+  &:hover {
+    border-color: lighten($primary-color, 25%);
+    background-color: lighten($background-color, 100%);
+  }
+}

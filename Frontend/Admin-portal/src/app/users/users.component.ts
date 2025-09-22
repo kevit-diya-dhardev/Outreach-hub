@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AdminService } from '../admin/admin.service';
 import { UsersServices } from './users.services';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SnackbarService } from '../snackbar/snackbar.service';
 
 @Component({
@@ -76,7 +76,8 @@ export class UsersComponent {
   constructor(
     private usersService: UsersServices,
     private route: ActivatedRoute,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
+    private router: Router
   ) {}
   selected = '';
   users: any[] = [];
@@ -101,6 +102,9 @@ export class UsersComponent {
       },
       error: (error: any) => {
         console.log(error);
+        if (error.error.message == 'Unauthorized') {
+          this.router.navigate(['/login']);
+        }
       },
     });
   }
@@ -113,6 +117,9 @@ export class UsersComponent {
       },
       error: (error: any) => {
         console.log(error);
+        if (error.error.message == 'Unauthorized') {
+          this.router.navigate(['/login']);
+        }
       },
     });
   }

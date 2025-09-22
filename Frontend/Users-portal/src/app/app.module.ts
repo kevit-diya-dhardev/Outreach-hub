@@ -12,7 +12,6 @@ import { ContactsModule } from './contacts/contacts.module';
 import { PageNotFoundModule } from './pagenotfound/pagenotfound.module';
 import { MessagesModule } from './messages/messages.module';
 import { CampaignsModule } from './campaigns/campaigns.module';
-import { NavbarComponent } from './dashboard/navbar/navbar.component';
 import { SnackbarModule } from './snackbar/snackbar.module';
 
 @NgModule({
@@ -23,10 +22,10 @@ import { SnackbarModule } from './snackbar/snackbar.module';
     RouterOutlet,
     AuthModule,
     ContactsModule,
-    MessagesModule,
+    MessagesModule  ,
     PageNotFoundModule,
     CampaignsModule,
-    SnackbarModule
+    SnackbarModule,
   ],
   providers: [
     JwtService,

@@ -21,8 +21,8 @@ export class CampaignsService {
     return this.http.post(`${this.url}`, finalData);
   }
 
-  getCampaigns() {
-    return this.http.get(`${this.url}/${this.workspace_id}`);
+  getCampaigns(page: number) {
+    return this.http.get(`${this.url}/${this.workspace_id}?page=${page}`);
   }
 
   deleteCampaign(campaignId: string) {
@@ -48,7 +48,6 @@ export class CampaignsService {
   }
 
   getLaunchedCampaign(campaignId: string) {
-   
     return this.http.get(`${this.url}/launch-campaign/${campaignId}`);
   }
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { JwtService } from '../jwt.service';
 import { DashboardService } from './dashboard.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,7 +16,8 @@ export class DashboardComponent {
   selectedOne!: any;
   constructor(
     private jwtService: JwtService,
-    private dashboardService: DashboardService
+    private dashboardService: DashboardService,
+    private router: Router
   ) {}
   ngOnInit() {
     const token: string = localStorage.getItem('token')!;
@@ -24,6 +26,9 @@ export class DashboardComponent {
     this.dashboardService.getUser(decoded.userId).subscribe({
       next: (response: any) => {
         this.user = response;
+        if (this.user.isAdmin == true) {
+          this.router.navigate(['/login']);
+        }
         localStorage.setItem('role', response.role);
         this.workspaces_id = response.workspace_id;
         localStorage.setItem('workspace_id', this.workspaces_id[0]);
@@ -31,6 +36,9 @@ export class DashboardComponent {
       },
       error: (error) => {
         console.log('error respone: ', error);
+        if (error.error.message == 'Unauthorized') {
+          this.router.navigate(['/login']);
+        }
       },
     });
   }

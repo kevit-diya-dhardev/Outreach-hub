@@ -5,6 +5,7 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { DashboardModule } from '../dashboard/dashboard.module';
 import { WorkspacesModule } from '../workspaces/workspaces.module';
 import { UsersModule } from '../users/users.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -13,6 +14,7 @@ import { UsersModule } from '../users/users.module';
     DashboardModule,
     WorkspacesModule,
     UsersModule,
+    HttpClientModule
   ],
   declarations: [AdminComponent],
 })

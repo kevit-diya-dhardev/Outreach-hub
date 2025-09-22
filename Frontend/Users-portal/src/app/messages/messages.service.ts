@@ -8,11 +8,11 @@ export class MessageService {
   constructor(private http: HttpClient) {}
   url = 'http://localhost:3000/messages';
 
-  getAllMessages(id: string) {
-    return this.http.get(`${this.url}/allMessages/${id}`);
+  getAllMessages(id: string, page?: number) {
+    return this.http.get(`${this.url}/allMessages/${id}?page=${page}`);
   }
-  getMyMessages(id: string) {
-    return this.http.get(`${this.url}/myMessages/${id}`);
+  getMyMessages(id: string, page: number) {
+    return this.http.get(`${this.url}/myMessages/${id}?page=${page}`);
   }
   deleteMessage(id: string) {
     return this.http.delete(`${this.url}/${id}`);

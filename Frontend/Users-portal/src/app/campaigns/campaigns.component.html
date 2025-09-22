@@ -56,12 +56,16 @@
             Delete
           </button>
         </ng-container>
-        <button *ngIf="role === 'Editor'" class="btn-action btn-copy" (click)="copyCampaign(campaign)">
+        <button
+          *ngIf="role === 'Editor'"
+          class="btn-action btn-copy"
+          (click)="copyCampaign(campaign)"
+        >
           Copy
         </button>
         <button
           class="btn-launch"
-          *ngIf="campaign.status == 'Draft'"
+          *ngIf="campaign.status == 'Draft' && role == 'Editor'"
           (click)="showLoadingScreen(campaign)"
         >
           Launch
@@ -76,7 +80,25 @@
       </div>
     </div>
   </div>
+  <div class="pagination-controls">
+    <button
+      class="pagination-btn"
+      (click)="decreasePage()"
+      [disabled]="page === 1"
+    >
+      &larr; Previous
+    </button>
+    <span class="page-info"> Page {{ page }} of {{ totalPages }} </span>
+    <button
+      class="pagination-btn"
+      (click)="increasePage()"
+      [disabled]="page === totalPages"
+    >
+      Next &rarr;
+    </button>
+  </div>
 </div>
+
 <div class="modal-overlay" *ngIf="createFormVisible">
   <div class="modal-content">
     <app-create-campaign

@@ -13,7 +13,7 @@ export class CampaignsComponent {
   constructor(
     private campaignService: CampaignsService,
     private router: Router,
-    private snackbarService:SnackbarService
+    private snackbarService: SnackbarService
   ) {}
   createFormVisible = false;
   role = localStorage.getItem('role');
@@ -24,6 +24,8 @@ export class CampaignsComponent {
   viewFormVisible: boolean = false;
   copiedCampaign!: Campaigns;
   isLoading: boolean = false;
+  page: number = 1;
+  totalPages!: number;
   async recieveCreateFormData(createFormVisible: boolean) {
     this.createFormVisible = createFormVisible;
     await this.getCampaigns();
@@ -48,14 +50,17 @@ export class CampaignsComponent {
     this.mode = 'edit';
   }
   getCampaigns() {
-    this.campaignService.getCampaigns().subscribe({
+    this.campaignService.getCampaigns(this.page).subscribe({
       next: (response: any) => {
         console.log(response.campaigns);
         this.campaigns = response.campaigns;
+        this.totalPages = response.totalPages;
       },
       error: (error) => {
         console.log(error);
-        alert(error.error.message);
+        if (error.error.message == 'Unauthorized') {
+          this.router.navigate(['/login']);
+        }
       },
     });
   }
@@ -64,19 +69,19 @@ export class CampaignsComponent {
     this.campaignService.deleteCampaign(campaign._id!).subscribe({
       next: (response) => {
         console.log(response);
-         this.snackbarService.show('Campaign deleted successfully','success')
+        this.snackbarService.show('Campaign deleted successfully', 'success');
         this.getCampaigns();
       },
       error: (error) => {
         console.error(error);
-         this.snackbarService.show(error.error.message,'error')
+        this.snackbarService.show(error.error.message, 'error');
         alert(error.error.message);
       },
     });
   }
   copyCampaign(campaign: Campaigns) {
     this.copiedCampaign = campaign;
-     this.snackbarService.show('Campaign copied','success')
+    this.snackbarService.show('Campaign copied', 'success');
   }
 
   showLoadingScreen(campaign: Campaigns) {
@@ -90,16 +95,26 @@ export class CampaignsComponent {
     this.isLoading = false;
     this.campaignService.launchCampaign(campaign._id!).subscribe({
       next: (response) => {
-        console.log(response);this.snackbarService.show('Campaign launched successfully','success')
+        console.log(response);
+        this.snackbarService.show('Campaign launched successfully', 'success');
         this.navigateToDetails(campaign);
       },
       error: (error) => {
-        console.log(error);this.snackbarService.show(error.error.message,'error')
+        console.log(error);
+        this.snackbarService.show(error.error.message, 'error');
         alert(error.error.message);
       },
     });
   }
   navigateToDetails(campaign: Campaigns) {
     this.router.navigate([`/campaigns/${campaign._id}`]);
+  }
+  increasePage() {
+    this.page++;
+    this.getCampaigns();
+  }
+  decreasePage() {
+    this.page--;
+    this.getCampaigns();
   }
 }
