@@ -10,15 +10,19 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { CampaignsService } from './campaigns.service';
+import { CampaignsService } from './Services/campaigns.service';
 import { AuthGuard } from 'src/Auth/auth.guard';
 import { Roles } from 'src/Auth/Roles/roles.decorator';
 import { CampaignDto, updateCampaignDto } from './dtos/campaigns.dto';
 import { UserRoleGuard } from 'src/Auth/Roles/userRole.guard';
+import { ChartService } from './Services/charts.services';
 @UseGuards(AuthGuard, UserRoleGuard)
 @Controller('campaigns')
 export class CampaignsController {
-  constructor(private campaignService: CampaignsService) {}
+  constructor(
+    private campaignService: CampaignsService,
+    private chartService: ChartService,
+  ) {}
 
   @Get(':workspace_id')
   @Roles('Viewer', 'Editor')
@@ -68,5 +72,19 @@ export class CampaignsController {
   async launchCampaignDetails(@Param('campaignId') campaignId: string) {
     console.log('Inside launched campaign....', campaignId);
     return await this.campaignService.getLaunchCampaign(campaignId);
+  }
+
+  @Get('charts/campaigns-done/:workspace_id')
+  @Roles('Viewer', 'Editor')
+  async getChartsCampaigns(
+    @Param('workspace_id') workspace_id: string,
+    @Query('startDate') startDate: string,
+    @Query('endDate') endDate: string,
+  ) {
+    return this.chartService.getChartsCampaignsDone(
+      workspace_id,
+      startDate,
+      endDate,
+    );
   }
 }

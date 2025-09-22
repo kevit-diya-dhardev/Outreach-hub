@@ -1,10 +1,10 @@
 import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Campaign, Submessage } from './campaign-schema/campaigns.schema';
+import { Campaign, Submessage } from '../campaign-schema/campaigns.schema';
 import { Mode } from 'fs';
 import { isValidObjectId, Model } from 'mongoose';
-import { CampaignPerContacts } from './campaign-schema/campaignPerContact.schema';
-import { CampaignDto, updateCampaignDto } from './dtos/campaigns.dto';
+import { CampaignPerContacts } from '../campaign-schema/campaignPerContact.schema';
+import { CampaignDto, updateCampaignDto } from '../dtos/campaigns.dto';
 import { Contacts } from 'src/contacts/contacts.schema';
 import { ContactsDto } from 'src/contacts/dto/contacts.dto';
 

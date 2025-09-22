@@ -13,6 +13,7 @@ import { PageNotFoundModule } from './pagenotfound/pagenotfound.module';
 import { MessagesModule } from './messages/messages.module';
 import { CampaignsModule } from './campaigns/campaigns.module';
 import { SnackbarModule } from './snackbar/snackbar.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,10 +23,11 @@ import { SnackbarModule } from './snackbar/snackbar.module';
     RouterOutlet,
     AuthModule,
     ContactsModule,
-    MessagesModule  ,
+    MessagesModule,
     PageNotFoundModule,
     CampaignsModule,
     SnackbarModule,
+    DashboardModule,
   ],
   providers: [
     JwtService,
