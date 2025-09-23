@@ -8,6 +8,7 @@ import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
 import { UserService } from 'src/users/users.service';
 import { ROLES_KEY } from './roles.decorator';
+import { userDto } from 'src/users/dto/user.dto';
 
 @Injectable()
 export class AdminRoleGuard implements CanActivate {
@@ -24,7 +25,7 @@ export class AdminRoleGuard implements CanActivate {
     console.log('Inside admin roleguard!');
     const req = context.switchToHttp().getRequest();
     const userId = req.userData.userId;
-    const findUser = await this.userService.getSingleUser(userId);
+    const findUser: any = await this.userService.getSingleUser(userId);
     const isAdmin = findUser.isAdmin;
     console.log('isAdmin: ', isAdmin, 'requiredRoles: ', requiredRoles);
     if (!requiredRoles) return true;

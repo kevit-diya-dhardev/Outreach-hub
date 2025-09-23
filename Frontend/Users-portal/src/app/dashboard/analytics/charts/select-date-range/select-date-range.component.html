@@ -1,0 +1,27 @@
+<form
+  class="filter-form"
+  [formGroup]="dateRangeForm"
+  (ngSubmit)="applyDateFilter()"
+>
+  <div class="form-group">
+    <label for="start-date">Start Date</label>
+    <input
+      type="date"
+      id="start-date"
+      class="form-control"
+      formControlName="startDate"
+      value="2025-09-7"
+    />
+  </div>
+  <div class="form-group">
+    <label for="end-date">End Date</label>
+    <input
+      type="date"
+      id="end-date"
+      class="form-control"
+      formControlName="endDate"
+      value="2025-09-7"
+    />
+  </div>
+  <button type="submit" class="btn btn-primary">Apply Filter</button>
+</form>

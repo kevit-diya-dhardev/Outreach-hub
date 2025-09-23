@@ -1,13 +1,9 @@
-/* src/app/home/home.component.scss */
-
-// ... (keep all your existing chart styles)
-
-// Styles for the new filter form
 .filter-form {
   display: flex;
   align-items: flex-end;
   gap: 1rem;
   margin-bottom: 1.5rem;
+
   flex-wrap: wrap; // Allows form to stack on smaller screens
 }
 
@@ -40,9 +36,3 @@ label {
   background-color: #007bff;
   color: white;
 }
-
-// .chart {
-//   display: block;
-//   width: 1rem;
-//   height: 1rem;
-// }

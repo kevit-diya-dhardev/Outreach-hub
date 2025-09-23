@@ -105,7 +105,10 @@ let UserService = class UserService {
     }
     async getSingleUser(id) {
         console.log('Inside user service method');
-        const findUser = await this.userModel.findById(id);
+        const findUser = await this.userModel
+            .findOne({ _id: id })
+            .populate('workspace_id')
+            .exec();
         if (!findUser)
             throw new common_1.NotFoundException('User not found!');
         return findUser;

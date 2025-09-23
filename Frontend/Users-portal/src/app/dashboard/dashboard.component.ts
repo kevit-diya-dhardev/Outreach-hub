@@ -10,10 +10,12 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent {
   user: any;
-  workspaces_id!: string[];
-  workspaces!: string[];
+  workspaces!: any;
   isOpen: boolean = false;
   selectedOne!: any;
+  isWorkspaceSelected: any;
+  isListVisible: any = false;
+  selectedWorkspace!: string;
   constructor(
     private jwtService: JwtService,
     private dashboardService: DashboardService,
@@ -26,13 +28,8 @@ export class DashboardComponent {
     this.dashboardService.getUser(decoded.userId).subscribe({
       next: (response: any) => {
         this.user = response;
-        if (this.user.isAdmin == true) {
-          this.router.navigate(['/login']);
-        }
         localStorage.setItem('role', response.role);
-        this.workspaces_id = response.workspace_id;
-        localStorage.setItem('workspace_id', this.workspaces_id[0]);
-        console.log(response);
+        this.workspaces = response.workspace_id;
       },
       error: (error) => {
         console.log('error respone: ', error);
@@ -43,7 +40,12 @@ export class DashboardComponent {
     });
   }
 
-  selectWorkspace(id: string) {
-    this.selectedOne = id;
+  selectWorkspace(ws: any) {
+    this.selectedOne = ws._id;
+    this.selectedWorkspace = ws.workspace_name;
+    this.isListVisible = !this.isListVisible;
+    localStorage.setItem('workspace_id', this.selectedOne);
+    console.log('Workspace: ', this.selectedOne);
+    this.isWorkspaceSelected = true;
   }
 }

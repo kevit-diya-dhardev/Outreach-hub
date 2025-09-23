@@ -16,12 +16,15 @@ import { Roles } from 'src/Auth/Roles/roles.decorator';
 import { CampaignDto, updateCampaignDto } from './dtos/campaigns.dto';
 import { UserRoleGuard } from 'src/Auth/Roles/userRole.guard';
 import { ChartService } from './Services/charts.services';
+import { start } from 'repl';
+import { TablesService } from './Services/tables.service';
 @UseGuards(AuthGuard, UserRoleGuard)
 @Controller('campaigns')
 export class CampaignsController {
   constructor(
     private campaignService: CampaignsService,
     private chartService: ChartService,
+    private tablesService: TablesService,
   ) {}
 
   @Get(':workspace_id')
@@ -81,10 +84,49 @@ export class CampaignsController {
     @Query('startDate') startDate: string,
     @Query('endDate') endDate: string,
   ) {
-    return this.chartService.getChartsCampaignsDone(
+    return await this.chartService.getChartsCampaignsDone(
       workspace_id,
       startDate,
       endDate,
     );
+  }
+
+  @Get('charts/messagesPerType/:workspace_id')
+  @Roles('Viewer', 'Editor')
+  async getMessagesPerType(
+    @Param('workspace_id') workspace_id: string,
+    @Query('startDate') startDate: string,
+    @Query('endDate') endDate: string,
+    @Query('messageType') messageType: string,
+  ) {
+    return this.chartService.getMessagesPerType(
+      workspace_id,
+      startDate,
+      endDate,
+      messageType,
+    );
+  }
+  @Get('charts/contacts-reached/:workspace_id')
+  @Roles('Viewer', 'Editor')
+  async getContactsReached(
+    @Param('workspace_id') workspace_id: string,
+    @Query('startDate') startDate: string,
+    @Query('endDate') endDate: string,
+  ) {
+    return this.chartService.getContactsReached(
+      workspace_id,
+      startDate,
+      endDate,
+    );
+  }
+  @Get('tables/recent-campaigns/:workspace_id')
+  @Roles('Viewer', 'Editor')
+  async getRecentCampaigns(@Param('workspace_id') workspace_id: string) {
+    return await this.tablesService.getRecentCampaigns(workspace_id);
+  }
+  @Get('tables/top-tags/:workspace_id')
+  @Roles('Viewer', 'Editor')
+  async getTopTags(@Param('workspace_id') workspace_id: string) {
+    return await this.tablesService.getTopTags(workspace_id);
   }
 }

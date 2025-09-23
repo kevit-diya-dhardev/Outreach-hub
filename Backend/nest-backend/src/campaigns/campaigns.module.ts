@@ -12,6 +12,7 @@ import { UsersModule } from 'src/users/users.module';
 import { Auth, AuthSchema } from 'src/Auth/auth.schema';
 import { Contacts, ContactSchema } from 'src/contacts/contacts.schema';
 import { ChartService } from './Services/charts.services';
+import { TablesService } from './Services/tables.service';
 
 @Module({
   imports: [
@@ -25,6 +26,6 @@ import { ChartService } from './Services/charts.services';
     UsersModule,
   ],
   controllers: [CampaignsController],
-  providers: [CampaignsService, ChartService],
+  providers: [CampaignsService, ChartService, TablesService],
 })
 export class CampaignsModule {}

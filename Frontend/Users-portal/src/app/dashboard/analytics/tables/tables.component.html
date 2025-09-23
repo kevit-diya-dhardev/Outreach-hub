@@ -1,1 +1,54 @@
-<p>tables works!</p>
+<div class="dashboard-container">
+  <div class="table-card">
+    <h2>Recent Campaigns</h2>
+    <div class="table-responsive">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Campaign Name</th>
+            <th>Targeted Tags</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let campaign of recentCampaigns">
+            <td>{{ campaign.name }}</td>
+            <td>
+              <div class="tags-container">
+                <span
+                  *ngFor="let tag of campaign.selectedTags"
+                  class="tag-badge"
+                >
+                  {{ tag }}
+                </span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <h2>Top Contact Tags</h2>
+    <div class="table-responsive">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Tag</th>
+            <th class="text-right">No. of Contacts</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tag of topTags">
+            <td>
+              <span class="tag-badge tag-badge-highlight">
+                {{ tag.tags }}
+              </span>
+            </td>
+            <td class="text-right">{{ tag.count }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

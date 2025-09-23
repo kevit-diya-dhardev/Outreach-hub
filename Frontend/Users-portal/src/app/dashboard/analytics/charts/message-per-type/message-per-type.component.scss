@@ -1,0 +1,90 @@
+// // --- Theme Colors ---
+// $primary-color: #7f56d9;
+// $border-color: #d0d5dd;
+// $text-color: #1d2939;
+// $background-color: #ffffff;
+// $background-light: #f8f9fc;
+
+// // --- Main Dropdown Container ---
+// .chart-display {
+//   display: flex;
+//   justify-content: flex-end;
+//   padding: 1rem;
+//   margin-bottom: 1rem; // space between dropdown and chart
+// }
+
+// .message-type {
+//   position: relative;
+//   width: 220px;
+// }
+
+// .display-type {
+//   background-color: $background-color;
+//   border: 1px solid $border-color;
+//   border-radius: 8px;
+//   padding: 0.75rem 1rem;
+//   font-size: 1rem;
+//   font-weight: 500;
+//   color: $text-color;
+//   cursor: pointer;
+//   user-select: none;
+//   transition: border-color 0.2s, box-shadow 0.2s;
+
+//   &:focus,
+//   &:active {
+//     outline: none;
+//     border-color: $primary-color;
+//     box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+//   }
+// }
+
+// ul {
+//   position: absolute;
+//   top: 100%;
+//   left: 0;
+//   right: 0;
+//   margin-top: 0.25rem;
+
+//   background-color: $background-color;
+//   border: 1px solid $border-color;
+//   border-radius: 8px;
+//   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+//   list-style: none;
+//   padding: 0.5rem;
+//   z-index: 10;
+// }
+
+// li {
+//   padding: 0.75rem 1rem;
+//   border-radius: 6px;
+//   font-weight: 500;
+//   color: $text-color;
+//   cursor: pointer;
+//   transition: background-color 0.2s;
+
+//   &:hover {
+//     background-color: lighten($primary-color, 30);
+//   }
+// }
+
+// // --- Chart Container ---
+// .chart-container {
+//   width: 100%;
+//   max-width: 600px; // optional
+//   height: 400px; // important for Chart.js
+//   z-index: 1;
+// }
+
+// .chart-container canvas {
+//   width: 100% !important;
+//   height: 100% !important;
+// }
+.chart-container {
+  width: 35%;
+  height: 35%;
+  canvas {
+    width: 100%;
+    height: 100%;
+  }
+}

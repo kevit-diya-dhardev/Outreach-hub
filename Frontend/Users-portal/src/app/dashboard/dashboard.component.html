@@ -1,1 +1,51 @@
-<app-navbar></app-navbar> <app-charts></app-charts>
+<div class="dashboard-page">
+  <app-navbar></app-navbar>
+
+  <main class="dashboard-content">
+    <header class="dashboard-header">
+      <div class="welcome-message">
+        <h2>Welcome Back, {{ user.name }}! 👋</h2>
+        <p *ngIf="!isWorkspaceSelected">
+          Select a workspace to view its analytics and campaign data.
+        </p>
+      </div>
+
+      <div class="workspace-selector">
+        <div class="select-wrapper">
+          <div class="display-type" (click)="isListVisible = !isListVisible">
+            {{ selectedWorkspace || "Select your workspace" }}
+          </div>
+          <ul *ngIf="isListVisible">
+            <li
+              *ngFor="let ws of workspaces"
+              (click)="(ws)"
+              (click)="selectWorkspace(ws)"
+            >
+              {{ ws.workspace_name }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <div class="analytics-container" *ngIf="isWorkspaceSelected">
+      <app-select-date-range></app-select-date-range>
+
+      <div class="charts-grid">
+        <app-charts></app-charts>
+        <app-message-per-type></app-message-per-type>
+        <app-contacts-reached></app-contacts-reached>
+      </div>
+
+      <app-tables></app-tables>
+    </div>
+
+    <div class="placeholder-container" *ngIf="!isWorkspaceSelected">
+      <div class="placeholder-content">
+        <span class="placeholder-icon">📊</span>
+        <h3>Please select a workspace to get started.</h3>
+        <p>Analytics and recent activity will be displayed here.</p>
+      </div>
+    </div>
+  </main>
+</div>
