@@ -14,6 +14,7 @@ export class LogoutComponent {
     this.authService.userLogout().subscribe({
       next: (response) => {
         console.log(response);
+        localStorage.clear();
         this.router.navigate(['/login']);
       },
       error: (error) => {

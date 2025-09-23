@@ -26,6 +26,31 @@ export class ChartsComponent {
   dateRangeForm!: FormGroup;
   public barChartOptions: ChartConfiguration<'bar'>['options'] = {
     responsive: true,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'bottom', // Position the legend below the chart
+        labels: {
+          color: '#667085', // Your text-light color
+          font: {
+            size: 14,
+            weight: '500',
+          },
+          boxWidth: 20,
+
+          padding: 20,
+        },
+      },
+      // 🎨 Styling for the Tooltips (what appears on hover)
+      tooltip: {
+        enabled: true,
+        backgroundColor: '#1D2939', // Your dark text color
+        titleColor: '#FFFFFF',
+        bodyColor: '#EAECF0',
+        cornerRadius: 8,
+        padding: 12,
+      },
+    },
   };
   constructor(
     private filterService: SharedChartsService,

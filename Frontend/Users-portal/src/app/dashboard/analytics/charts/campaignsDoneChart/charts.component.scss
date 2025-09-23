@@ -1,1 +1,17 @@
-  
+// --- Main Component Container (styled as a card) ---
+.chart-display {
+  // --- Add these properties to control the width ---
+  width: 100%; // Makes the card fill its container in the grid
+  max-width: 500px; // Sets a maximum width to prevent it from becoming too large
+  margin: 0 auto; // Centers the card if the grid column is wider than max-width
+
+  // --- Existing styles ---
+  background-color: #ffffff;
+  border: 1px solid #d0d5dd;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}

@@ -114,11 +114,9 @@ li {
 
 // --- Charts & Tables Layout ---
 .charts-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-  margin-top: 1.5rem;
-  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 // --- Placeholder Styling ---

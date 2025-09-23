@@ -3,6 +3,7 @@ import { SharedChartsService } from '../shared-charts.service';
 import { ChartData, ChartOptions, ChartType } from 'chart.js';
 import { ChartsService } from '../chart.service';
 import { BaseChartDirective } from 'ng2-charts';
+import { SnackbarService } from '../../../../snackbar/snackbar.service';
 
 @Component({
   selector: 'app-message-per-type',
@@ -12,7 +13,8 @@ import { BaseChartDirective } from 'ng2-charts';
 export class MessagePerTypeComponent {
   constructor(
     private filterService: SharedChartsService,
-    private chartService: ChartsService
+    private chartService: ChartsService,
+    private snackbarService: SnackbarService
   ) {}
   startDate!: string;
   endDate!: string;
@@ -49,7 +51,11 @@ export class MessagePerTypeComponent {
   selectMessageType(value: string) {
     this.isListVisible = !this.isListVisible;
     this.selectedMessageType = value;
-    this.getMessagePerType();
+    if (!this.startDate || !this.endDate) {
+      this.snackbarService.show('Select valid range first!', 'error');
+    } else {
+      this.getMessagePerType();
+    }
   }
   getMessagePerType() {
     this.chartService
