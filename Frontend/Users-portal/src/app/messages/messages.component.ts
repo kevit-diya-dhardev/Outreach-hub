@@ -65,12 +65,14 @@ export class MessagesComponent {
     }
   }
   ngOnInit() {
-    if (this.userRole == 'editor') {
-      this.activeView = 'my';
-      this.getMyMessages();
-    } else {
-      this.activeView = 'all';
-      this.getAllMessages();
+    if (localStorage.getItem('workspace_id')) {
+      if (this.userRole == 'editor') {
+        this.activeView = 'my';
+        this.getMyMessages();
+      } else {
+        this.activeView = 'all';
+        this.getAllMessages();
+      }
     }
   }
 

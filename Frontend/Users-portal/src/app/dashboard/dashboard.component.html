@@ -4,7 +4,7 @@
   <main class="dashboard-content">
     <header class="dashboard-header">
       <div class="welcome-message">
-        <h2>Welcome Back, {{ user.name }}! 👋</h2>
+        <h2>Welcome Back, {{ username }}! 👋</h2>
         <p *ngIf="!isWorkspaceSelected">
           Select a workspace to view its analytics and campaign data.
         </p>
@@ -32,7 +32,7 @@
       <app-select-date-range></app-select-date-range>
 
       <div class="charts-grid">
-        <div class="campaign"><app-charts></app-charts></div>
+        <app-charts></app-charts>
         <app-message-per-type></app-message-per-type>
         <app-contacts-reached></app-contacts-reached>
       </div>

@@ -16,12 +16,23 @@ export class DashboardComponent {
   isWorkspaceSelected: any;
   isListVisible: any = false;
   selectedWorkspace!: string;
+  username!: string;
   constructor(
     private jwtService: JwtService,
     private dashboardService: DashboardService,
     private router: Router
   ) {}
   ngOnInit() {
+    if (!localStorage.getItem('workspace_id')) {
+      this.getLoginUser();
+    } else {
+      this.isWorkspaceSelected = true;
+      this.username = localStorage.getItem('username')!;
+      this.selectedOne = localStorage.getItem('workspace_id');
+      this.getLoginUser();
+    }
+  }
+  getLoginUser() {
     const token: string = localStorage.getItem('token')!;
     const decoded = this.jwtService.decode(token);
     console.log(decoded.userId);
@@ -29,7 +40,9 @@ export class DashboardComponent {
       next: (response: any) => {
         this.user = response;
         localStorage.setItem('role', response.role);
+        localStorage.setItem('username', this.user.name);
         this.workspaces = response.workspace_id;
+        this.username = this.user.name;
       },
       error: (error) => {
         console.log('error respone: ', error);
@@ -39,7 +52,6 @@ export class DashboardComponent {
       },
     });
   }
-
   selectWorkspace(ws: any) {
     this.selectedOne = ws._id;
     this.selectedWorkspace = ws.workspace_name;
@@ -47,5 +59,6 @@ export class DashboardComponent {
     localStorage.setItem('workspace_id', this.selectedOne);
     console.log('Workspace: ', this.selectedOne);
     this.isWorkspaceSelected = true;
+    this.getLoginUser();
   }
 }

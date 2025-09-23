@@ -34,7 +34,7 @@ export class ChartsComponent {
           color: '#667085', // Your text-light color
           font: {
             size: 14,
-            weight: '500',
+            weight: 'bold',
           },
           boxWidth: 20,
 

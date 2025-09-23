@@ -39,7 +39,9 @@ export class CampaignsComponent {
     this.viewFormVisible = true;
   }
   ngOnInit() {
-    this.getCampaigns();
+    if (localStorage.getItem('workspace_id')) {
+      this.getCampaigns();
+    }
   }
   recieveViewCampaignData(viewFormVisible: boolean) {
     this.viewFormVisible = viewFormVisible;

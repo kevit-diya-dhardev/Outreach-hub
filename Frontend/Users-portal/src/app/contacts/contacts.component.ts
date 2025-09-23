@@ -83,12 +83,14 @@ export class ContactsComponent {
     });
   }
   ngOnInit() {
-    if (this.role == 'editor') {
-      this.activeView = 'my';
-    } else {
-      this.activeView = 'all';
+    if (localStorage.getItem('workspace_id')) {
+      if (this.role == 'editor') {
+        this.activeView = 'my';
+      } else {
+        this.activeView = 'all';
+      }
+      this.getContacts();
     }
-    this.getContacts();
   }
   viewContact(contact: any) {
     this.viewContactVisible = true;
