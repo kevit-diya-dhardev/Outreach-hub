@@ -16,6 +16,7 @@ $status-running-text: #344054;
 $success-color: #039855; // For 'text' type
 $warning-color: #f79009; // For 'text & image' type
 $danger-color: #d92d20;
+$spinner-bg-color: #e9ecef;
 // --- Main Dashboard Layout ---
 .campaigns-dashboard {
   background-color: $card-bg-color;
@@ -23,7 +24,7 @@ $danger-color: #d92d20;
   border-radius: 16px; // Softer corners
   padding: 24px 32px;
   margin: 2rem;
-  height: 80vh;
+  height: 70vh;
   box-shadow: 0 4px 8px -2px rgba(16, 24, 40, 0.03),
     0 12px 24px -4px rgba(16, 24, 40, 0.08);
 }
@@ -96,22 +97,53 @@ $danger-color: #d92d20;
   color: $text-color;
 }
 
+.status-container {
+  // Use Flexbox to align the spinner and status pill side-by-side
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; // Adds a small space between the spinner and the text
+}
+
+//== The Inline Spinner ==//
+// This replaces your full-screen .spinner style.
+.inline-spinner {
+  width: 16px; // Much smaller width
+  height: 16px; // Much smaller height
+  border-radius: 50%;
+
+  // Thinner border for a more subtle look
+  border: 2px solid $spinner-bg-color;
+
+  // The colored part of the spinner that moves
+  border-top-color: $primary-color;
+
+  // Use the same animation keyframes
+  animation: spin 1s linear infinite;
+}
 .status-pill {
-  padding: 4px 12px;
-  border-radius: 16px;
-  font-size: 0.8rem;
-  font-weight: 500;
-  &.status-draft {
-    background-color: $status-draft-bg;
-    color: $status-draft-text;
+  border-radius: 9px;
+  padding: 3px;
+  border: none;
+}
+.status-draft {
+  background-color: $status-draft-bg;
+  color: $status-draft-text;
+}
+.status-running {
+  background-color: $status-running-bg;
+  color: $status-running-text;
+}
+.status-completed {
+  background-color: $status-completed-bg;
+  color: $status-completed-text;
+}
+//== Keyframes (You can reuse your existing one) ==//
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
   }
-  &.status-completed {
-    background-color: $status-completed-bg;
-    color: $status-completed-text;
-  }
-  &.status-running {
-    background-color: $status-running-bg;
-    color: $status-running-text;
+  to {
+    transform: rotate(360deg);
   }
 }
 
@@ -258,42 +290,6 @@ $overlay-bg-color: rgba(
   0.7
 ); // Semi-transparent white background
 
-// --- The Overlay ---
-// This covers the entire screen to block user interaction during the load.
-.loading-overlay {
-  position: fixed; // Or 'absolute' if you want it inside a specific container
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: $overlay-bg-color;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999; // Ensure it's on top of all other content
-  backdrop-filter: blur(4px); // A nice blur effect for modern browsers
-}
-
-.spinner {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-
-  border: 5px solid $spinner-bg-color;
-
-  border-top-color: $primary-color;
-
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 .pagination-controls {
   display: flex;
   justify-content: space-between;

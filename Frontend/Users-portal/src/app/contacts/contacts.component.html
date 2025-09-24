@@ -40,14 +40,14 @@
         </button>
         <button
           class="btn-action btn-edit"
-          *ngIf="role === 'Editor'"
+          *ngIf="role === 'Editor' && activeView == 'my'"
           (click)="editMode('edit', contact)"
         >
           Edit
         </button>
         <button
           class="btn-action btn-delete"
-          *ngIf="role === 'Editor'"
+          *ngIf="role === 'Editor' && activeView == 'my'"
           (click)="deleteContact(contact)"
         >
           Delete
@@ -61,7 +61,7 @@
   </div>
 </div>
 
-<div class="pagination-controls">
+<div class="pagination-controls" *ngIf="workspace">
   <button
     class="pagination-btn"
     (click)="decreasePage()"

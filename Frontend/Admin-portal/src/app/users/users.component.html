@@ -46,12 +46,17 @@
       </div>
 
       <div class="card-footer">
-        <button class="btn btn-secondary edit-button" (click)="editUser(user)">
+        <button
+          class="btn btn-secondary edit-button"
+          (click)="editUser(user)"
+          *ngIf="currentPath == 'my-users'"
+        >
           Edit
         </button>
         <button
           class="btn btn-secondary delete-button"
           (click)="deleteUser(user._id)"
+          *ngIf="currentPath == 'my-users'"
         >
           Delete
         </button>

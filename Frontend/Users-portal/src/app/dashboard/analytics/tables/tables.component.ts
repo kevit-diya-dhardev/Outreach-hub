@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { TablesService } from './tables-service.service';
 
 export interface Campaign {
@@ -18,10 +18,10 @@ export interface Tags {
 export class TablesComponent {
   topTags!: Tags[];
   recentCampaigns!: Campaign[];
-  workspace_id: string = localStorage.getItem('workspace_id')!;
+  @Input() workspace_id!: string;
   constructor(private tablesService: TablesService) {}
 
-  ngOnInit() {
+  ngOnChanges() {
     this.tablesService.getRecentCampaigns(this.workspace_id).subscribe({
       next: (response: any) => {
         this.recentCampaigns = response;

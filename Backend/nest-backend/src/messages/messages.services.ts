@@ -44,9 +44,12 @@ export class MessageService {
         .skip((page - 1) * 10)
         .exec();
     } else {
+      console.log('Enetrhxcbvnxb');
       messages = await this.messageModel.find({ workspace_id: id });
     }
-    const totalDocs = await this.messageModel.countDocuments().exec();
+    const totalDocs = await this.messageModel
+      .countDocuments({ workspace_id: id })
+      .exec();
 
     return { messages: messages, totalPages: Math.ceil(totalDocs / 10) };
   }
@@ -62,7 +65,10 @@ export class MessageService {
       .skip((page - 1) * 10)
       .exec();
 
-    const totalDocs = await this.messageModel.countDocuments().exec();
+    const totalDocs = await this.messageModel
+      .countDocuments({ workspace_id: id })
+      .exec();
+    console.log('TotalDocs ', totalDocs);
 
     return { messages: messages, totalPages: Math.ceil(totalDocs / 10) };
   }

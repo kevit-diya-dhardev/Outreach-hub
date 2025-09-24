@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChartConfiguration } from 'chart.js';
 import { SnackbarService } from '../../../../snackbar/snackbar.service';
@@ -17,7 +17,7 @@ export class ChartsComponent {
   newDatasets: number[] = [];
   startDate!: string;
   endDate!: string;
-  workspace_id: string = localStorage.getItem('workspace_id')!;
+  @Input() workspace_id!: string;
   public barChartData: ChartConfiguration<'bar'>['data'] = {
     labels: ['2025-09-7'],
     datasets: [{ data: [0], label: 'Campaigns launched' }],
@@ -58,7 +58,7 @@ export class ChartsComponent {
     private chartService: ChartsService
   ) {}
 
-  ngOnInit() {
+  ngOnChanges() {
     this.filterService.filter$.subscribe({
       next: (response: any) => {
         this.startDate = response.startDate;

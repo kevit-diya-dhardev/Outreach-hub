@@ -29,8 +29,18 @@
         <button class="btn btn-secondary" (click)="viewUsers(ws)">
           View Workspaces
         </button>
-        <button class="btn btn-primary" (click)="editMode(ws)">Edit</button>
-        <button class="btn btn-danger" (click)="deleteWorkspace(ws._id)">
+        <button
+          class="btn btn-primary"
+          (click)="editMode(ws)"
+          *ngIf="currentPath == 'my-workspaces'"
+        >
+          Edit
+        </button>
+        <button
+          class="btn btn-danger"
+          (click)="deleteWorkspace(ws._id)"
+          *ngIf="currentPath == 'my-workspaces'"
+        >
           Delete
         </button>
       </div>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SharedChartsService } from '../shared-charts.service';
 import { ChartData, ChartOptions, ChartType } from 'chart.js';
 import { ChartsService } from '../chart.service';
@@ -20,7 +20,7 @@ export class MessagePerTypeComponent {
   endDate!: string;
   selectedMessageType: string = 'Text';
   isListVisible: boolean = false;
-  workspace_id: string = localStorage.getItem('workspace_id')!;
+  @Input() workspace_id!: string;
   public doughnutChartType: 'doughnut' = 'doughnut';
 
   public doughnutChartData: ChartData<'doughnut'> = {

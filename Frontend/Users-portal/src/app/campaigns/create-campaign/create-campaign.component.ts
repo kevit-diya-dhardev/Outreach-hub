@@ -11,6 +11,7 @@ import { SnackbarService } from '../../snackbar/snackbar.service';
 })
 export class CreateCampaignComponent {
   messages: any;
+  workspace_id: string = localStorage.getItem('workspace_id')!;
   selectMessage(message: any) {
     this.selectedMessage = message;
     this.isDropdownOpen = false;
@@ -20,7 +21,7 @@ export class CreateCampaignComponent {
   constructor(
     private fb: FormBuilder,
     private campaigService: CampaignsService,
-    private snackbarService:SnackbarService
+    private snackbarService: SnackbarService
   ) {}
   selectedMessage!: {
     _id?: string;
@@ -85,7 +86,7 @@ export class CreateCampaignComponent {
   }
 
   ngOnInit() {
-    this.campaigService.getMessages().subscribe({
+    this.campaigService.getMessages(this.workspace_id).subscribe({
       next: (response: any) => {
         this.messages = response.messages;
       },
@@ -112,6 +113,7 @@ export class CreateCampaignComponent {
       name: this.formControls.name.value!,
       description: this.formControls.description.value!,
       selectedTags: this.formControls.selectedTags.value!,
+      workspace_id: this.workspace_id,
       message: {
         message_name: this.selectedMessage.name,
         type: this.selectedMessage.type,
@@ -129,13 +131,12 @@ export class CreateCampaignComponent {
       .subscribe({
         next: (response: any) => {
           console.log('Inside campaign edit component ', response);
-           this.snackbarService.show('Camapaign edited successfully','success')
+          this.snackbarService.show('Camapaign edited successfully', 'success');
           this.createFormVisible.emit(false);
         },
         error: (error) => {
           console.log(error);
-           this.snackbarService.show(error.error.message,'error')
-         
+          this.snackbarService.show(error.error.message, 'error');
         },
       });
   }
@@ -144,6 +145,7 @@ export class CreateCampaignComponent {
       name: this.formControls.name.value!,
       description: this.formControls.description.value!,
       selectedTags: this.formControls.selectedTags.value!,
+      workspace_id: this.workspace_id,
       message: {
         message_name: this.selectedMessage.name,
         type: this.selectedMessage.type,
@@ -160,12 +162,12 @@ export class CreateCampaignComponent {
       this.campaigService.createCampaigns(campaignData).subscribe({
         next: (response: any) => {
           console.log('Inside campaign component ', response);
-           this.snackbarService.show('Campaign created successfully','success')
+          this.snackbarService.show('Campaign created successfully', 'success');
           this.createFormVisible.emit(false);
         },
         error: (error) => {
           console.log(error);
-           this.snackbarService.show(error.error.message,'error')
+          this.snackbarService.show(error.error.message, 'error');
           alert(error.error.message);
         },
       });

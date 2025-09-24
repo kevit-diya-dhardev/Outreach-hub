@@ -39,17 +39,22 @@ export class MessagesComponent {
   viewMessageVisible = false;
   messageData: any;
   deletemessage(message: any) {
-    this.messageService.deleteMessage(message._id).subscribe({
-      next: (response) => {
-        console.log(response);
-        this.snackbarService.show('Message deleted successfully', 'success');
-        this.getMyMessages();
-      },
-      error: (error) => {
-        this.snackbarService.show(error.error.message, 'error');
-        console.log(error);
-      },
-    });
+    let confirmation = confirm(
+      'Are you sure you want to delete this message template ?'
+    );
+    if (confirmation) {
+      this.messageService.deleteMessage(message._id).subscribe({
+        next: (response) => {
+          console.log(response);
+          this.snackbarService.show('Message deleted successfully', 'success');
+          this.getMyMessages();
+        },
+        error: (error) => {
+          this.snackbarService.show(error.error.message, 'error');
+          console.log(error);
+        },
+      });
+    }
   }
 
   viewMessage(message: any) {
@@ -101,6 +106,8 @@ export class MessagesComponent {
         this.mymessages = response.messages;
         this.totalPages = response.totalPages;
         this.messages = this.mymessages;
+        console.log('totalpages ', this.totalPages);
+        console.log('pages ', this.page);
       },
       error: (error) => {
         this.snackbarService.show(error.error.message, 'error');

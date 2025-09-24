@@ -21,7 +21,7 @@
               (click)="(ws)"
               (click)="selectWorkspace(ws)"
             >
-              {{ ws.workspace_name }}
+              {{ ws.workspace_name || selectWorkspace }}
             </li>
           </ul>
         </div>
@@ -32,12 +32,16 @@
       <app-select-date-range></app-select-date-range>
 
       <div class="charts-grid">
-        <app-charts></app-charts>
-        <app-message-per-type></app-message-per-type>
-        <app-contacts-reached></app-contacts-reached>
+        <app-charts [workspace_id]="selectedOne"></app-charts>
+        <app-message-per-type
+          [workspace_id]="selectedOne"
+        ></app-message-per-type>
+        <app-contacts-reached
+          [workspace_id]="selectedOne"
+        ></app-contacts-reached>
       </div>
 
-      <app-tables></app-tables>
+      <app-tables [workspace_id]="selectedOne"></app-tables>
     </div>
 
     <div class="placeholder-container" *ngIf="!isWorkspaceSelected">

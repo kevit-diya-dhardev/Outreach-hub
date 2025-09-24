@@ -29,7 +29,9 @@ export class CampaignsService {
       throw new NotFoundException("Campaigns doesn't exist!!");
     }
 
-    const totalDocs = await this.campaignModel.countDocuments().exec();
+    const totalDocs = await this.campaignModel
+      .countDocuments({ workspace_id: workspace_id })
+      .exec();
     return { campaigns: campaigns, totalPages: Math.ceil(totalDocs / 10) };
   }
   async createCampaign({ ...campaignData }: CampaignDto, reqData) {

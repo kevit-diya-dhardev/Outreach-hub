@@ -23,14 +23,14 @@ export class DashboardComponent {
     private router: Router
   ) {}
   ngOnInit() {
-    if (!localStorage.getItem('workspace_id')) {
-      this.getLoginUser();
-    } else {
+    if (localStorage.getItem('workspace_id')) {
       this.isWorkspaceSelected = true;
       this.username = localStorage.getItem('username')!;
       this.selectedOne = localStorage.getItem('workspace_id');
-      this.getLoginUser();
+      this.selectedWorkspace = localStorage.getItem('workspace_name')!;
     }
+
+    this.getLoginUser();
   }
   getLoginUser() {
     const token: string = localStorage.getItem('token')!;
@@ -57,7 +57,7 @@ export class DashboardComponent {
     this.selectedWorkspace = ws.workspace_name;
     this.isListVisible = !this.isListVisible;
     localStorage.setItem('workspace_id', this.selectedOne);
-    console.log('Workspace: ', this.selectedOne);
+    localStorage.setItem('workspace_name', this.selectedWorkspace);
     this.isWorkspaceSelected = true;
     this.getLoginUser();
   }

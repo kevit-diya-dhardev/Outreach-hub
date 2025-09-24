@@ -26,6 +26,7 @@ export class CampaignsComponent {
   isLoading: boolean = false;
   page: number = 1;
   totalPages!: number;
+  workspace_id = localStorage.getItem('workspace_id')!;
   async recieveCreateFormData(createFormVisible: boolean) {
     this.createFormVisible = createFormVisible;
     await this.getCampaigns();
@@ -39,7 +40,7 @@ export class CampaignsComponent {
     this.viewFormVisible = true;
   }
   ngOnInit() {
-    if (localStorage.getItem('workspace_id')) {
+    if (this.workspace_id) {
       this.getCampaigns();
     }
   }
@@ -52,7 +53,7 @@ export class CampaignsComponent {
     this.mode = 'edit';
   }
   getCampaigns() {
-    this.campaignService.getCampaigns(this.page).subscribe({
+    this.campaignService.getCampaigns(this.workspace_id, this.page).subscribe({
       next: (response: any) => {
         console.log(response.campaigns);
         this.campaigns = response.campaigns;
@@ -68,18 +69,23 @@ export class CampaignsComponent {
   }
 
   deleteCampaign(campaign: Campaigns) {
-    this.campaignService.deleteCampaign(campaign._id!).subscribe({
-      next: (response) => {
-        console.log(response);
-        this.snackbarService.show('Campaign deleted successfully', 'success');
-        this.getCampaigns();
-      },
-      error: (error) => {
-        console.error(error);
-        this.snackbarService.show(error.error.message, 'error');
-        alert(error.error.message);
-      },
-    });
+    let confirmation = confirm(
+      'Are you sure you want to delete this campaign?'
+    );
+    if (confirmation) {
+      this.campaignService.deleteCampaign(campaign._id!).subscribe({
+        next: (response) => {
+          console.log(response);
+          this.snackbarService.show('Campaign deleted successfully', 'success');
+          this.getCampaigns();
+        },
+        error: (error) => {
+          console.error(error);
+          this.snackbarService.show(error.error.message, 'error');
+          alert(error.error.message);
+        },
+      });
+    }
   }
   copyCampaign(campaign: Campaigns) {
     this.copiedCampaign = campaign;
@@ -87,6 +93,7 @@ export class CampaignsComponent {
   }
 
   showLoadingScreen(campaign: Campaigns) {
+    campaign.status = 'Running';
     console.log(campaign._id!);
     this.isLoading = true;
     setTimeout(() => {
@@ -95,6 +102,7 @@ export class CampaignsComponent {
   }
   launchCampaign(campaign: Campaigns) {
     this.isLoading = false;
+
     this.campaignService.launchCampaign(campaign._id!).subscribe({
       next: (response) => {
         console.log(response);

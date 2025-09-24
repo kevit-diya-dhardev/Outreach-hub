@@ -12,17 +12,16 @@ export class CampaignsService {
     private messageService: MessageService
   ) {}
   url: string = 'http://localhost:3000/campaigns';
-  workspace_id: string = localStorage.getItem('workspace_id')!;
+
   createCampaigns({ ...CampaignsData }: Campaigns) {
     let finalData = {
       ...CampaignsData,
-      workspace_id: this.workspace_id,
     };
     return this.http.post(`${this.url}`, finalData);
   }
 
-  getCampaigns(page: number) {
-    return this.http.get(`${this.url}/${this.workspace_id}?page=${page}`);
+  getCampaigns(workspace_id: string, page: number) {
+    return this.http.get(`${this.url}/${workspace_id}?page=${page}`);
   }
 
   deleteCampaign(campaignId: string) {
@@ -43,8 +42,8 @@ export class CampaignsService {
     });
   }
 
-  getMessages() {
-    return this.messageService.getAllMessages(this.workspace_id);
+  getMessages(workspace_id: string) {
+    return this.messageService.getAllMessages(workspace_id);
   }
 
   getLaunchedCampaign(campaignId: string) {

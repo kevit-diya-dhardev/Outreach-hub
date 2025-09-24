@@ -51,7 +51,6 @@ export class MessageController {
     @Param('workspace_id') workspace_id: string,
     @Query('page') page: number,
   ) {
-    console.log('All messages ');
     return this.messageService.getAllMessages(workspace_id, page);
   }
 

@@ -69,18 +69,23 @@ export class ContactsComponent {
     this.contactFormVisible = true;
   }
   deleteContact(contact: any) {
-    console.log(contact);
-    this.contactService.deleteContact(contact._id).subscribe({
-      next: (response) => {
-        console.log(response);
-        this.snackbarService.show('Contact deleted successfully!!', 'success');
-        this.getContacts();
-      },
-      error: (error) => {
-        console.log(error);
-        this.snackbarService.show(error.error.message, 'error');
-      },
-    });
+    let confirmation = confirm('Are you sure you want to delete this contact?');
+    if (confirmation) {
+      this.contactService.deleteContact(contact._id).subscribe({
+        next: (response) => {
+          console.log(response);
+          this.snackbarService.show(
+            'Contact deleted successfully!!',
+            'success'
+          );
+          this.getContacts();
+        },
+        error: (error) => {
+          console.log(error);
+          this.snackbarService.show(error.error.message, 'error');
+        },
+      });
+    }
   }
   ngOnInit() {
     if (localStorage.getItem('workspace_id')) {
@@ -134,7 +139,7 @@ export class ContactsComponent {
   createContact(contactData: Contact) {
     this.contactService.createContact(contactData).subscribe({
       next: (response) => {
-        this.snackbarService.show('Contact created successfully!!', 'success');
+        this.snackbarService.show('Contact created successfully!', 'success');
         this.getContacts();
       },
       error: (error) => {

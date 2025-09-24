@@ -37,6 +37,7 @@ let ContactsService = class ContactsService {
         if (!findWorkspace)
             throw new common_1.NotFoundException("Workspace doesn't exists!");
         const findContact = await this.contactsModel.findOne({
+            workspace_id: contactData.workspace_id,
             phoneNumber: contactData.phoneNumber,
         });
         if (findContact)
@@ -68,7 +69,9 @@ let ContactsService = class ContactsService {
             .limit(10)
             .skip((page - 1) * 10)
             .exec();
-        const totalDocs = await this.contactsModel.countDocuments();
+        const totalDocs = await this.contactsModel.countDocuments({
+            workspace_id: workspace_id,
+        });
         return { contacts: contacts, totalPages: Math.ceil(totalDocs / 10) };
     }
     async getSingleContact(contact_id) {

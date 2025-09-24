@@ -58,14 +58,14 @@
             </button>
             <button
               class="btn-action btn-edit"
-              *ngIf="userRole === 'Editor'"
+              *ngIf="userRole === 'Editor' && activeView == 'my'"
               (click)="editMessageForm(message)"
             >
               Edit
             </button>
             <button
               class="btn-action btn-delete"
-              *ngIf="userRole === 'Editor'"
+              *ngIf="userRole === 'Editor' && activeView == 'my'"
               (click)="deletemessage(message)"
             >
               Delete
@@ -80,7 +80,7 @@
     <p>No message templates found in this view.</p>
   </div>
 </div>
-<div class="pagination-controls">
+<div class="pagination-controls" *ngIf="workspace">
   <button
     class="pagination-btn"
     (click)="decreasePage()"

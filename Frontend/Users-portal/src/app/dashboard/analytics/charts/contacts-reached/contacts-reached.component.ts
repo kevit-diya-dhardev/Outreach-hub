@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ChartsService } from '../chart.service';
 import { SharedChartsService } from '../shared-charts.service';
 import { ChartData, ChartOptions } from 'chart.js';
@@ -17,8 +17,8 @@ export class ContactsReachedComponent {
   endDate!: string;
   newLabels: string[] = [];
   newData: number[] = [];
-  workspace_id: string = localStorage.getItem('workspace_id')!;
-  ngOnInit() {
+  @Input() workspace_id!: string;
+  ngOnChanges() {
     this.filterService.filter$.subscribe({
       next: (response) => {
         this.startDate = response.startDate;

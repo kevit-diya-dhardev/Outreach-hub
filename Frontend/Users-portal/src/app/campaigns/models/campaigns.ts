@@ -3,6 +3,8 @@ export interface Campaigns {
   description: string;
   selectedTags: string[];
   _id?: string;
+  status?: string;
+  workspace_id: string;
   message: {
     message_name: string;
     type: string;

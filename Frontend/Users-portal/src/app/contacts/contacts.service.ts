@@ -25,6 +25,7 @@ export class ContactsService {
   createContact(contactData: any) {
     let finalData = contactData;
     finalData.workspace_id = localStorage.getItem('workspace_id');
+    console.log(finalData.workspace_id);
     return this.http.post(this.url, finalData);
   }
 }

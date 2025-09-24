@@ -15,16 +15,23 @@
     <div class="campaign-card" *ngFor="let campaign of campaigns">
       <div class="card-header">
         <span class="campaign-name">{{ campaign.name }}</span>
-        <span
-          class="status-pill"
-          [ngClass]="{
-            'status-draft': campaign.status === 'Draft',
-            'status-completed': campaign.status === 'Completed',
-            'status-running': campaign.status === 'Running'
-          }"
-        >
-          {{ campaign.status }}
-        </span>
+        <div class="status-container">
+          <div
+            *ngIf="campaign.status === 'Running'"
+            class="inline-spinner"
+          ></div>
+
+          <span
+            class="status-pill"
+            [ngClass]="{
+              'status-draft': campaign.status === 'Draft',
+              'status-completed': campaign.status === 'Completed',
+              'status-running': campaign.status === 'Running'
+            }"
+          >
+            {{ campaign.status }}
+          </span>
+        </div>
       </div>
 
       <div class="card-body">
@@ -80,25 +87,24 @@
       </div>
     </div>
   </div>
-  <div class="pagination-controls">
-    <button
-      class="pagination-btn"
-      (click)="decreasePage()"
-      [disabled]="page === 1"
-    >
-      &larr; Previous
-    </button>
-    <span class="page-info"> Page {{ page }} of {{ totalPages }} </span>
-    <button
-      class="pagination-btn"
-      (click)="increasePage()"
-      [disabled]="page === totalPages"
-    >
-      Next &rarr;
-    </button>
-  </div>
 </div>
-
+<div class="pagination-controls" *ngIf="workspace_id">
+  <button
+    class="pagination-btn"
+    (click)="decreasePage()"
+    [disabled]="page === 1"
+  >
+    &larr; Previous
+  </button>
+  <span class="page-info"> Page {{ page }} of {{ totalPages }} </span>
+  <button
+    class="pagination-btn"
+    (click)="increasePage()"
+    [disabled]="page === totalPages"
+  >
+    Next &rarr;
+  </button>
+</div>
 <div class="modal-overlay" *ngIf="createFormVisible">
   <div class="modal-content">
     <app-create-campaign

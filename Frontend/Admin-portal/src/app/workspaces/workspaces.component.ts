@@ -123,6 +123,7 @@ export class WorkspacesComponent {
     });
   }
   fetchAllWorkspaces() {
+    this.currentPath = 'all-workspaces';
     this.workspacesService.getAllWorkspaces(this.page).subscribe({
       next: (response: any) => {
         console.log(response.workspaces);
@@ -138,6 +139,7 @@ export class WorkspacesComponent {
     });
   }
   fetchMyWorkspace() {
+    this.currentPath = 'my-workspaces';
     this.workspacesService.getMyWorkspaces(this.page).subscribe({
       next: (response: any) => {
         console.log(response.workspaces);
