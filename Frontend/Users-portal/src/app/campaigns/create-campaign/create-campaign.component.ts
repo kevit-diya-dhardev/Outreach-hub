@@ -35,6 +35,7 @@ export class CreateCampaignComponent {
   @Output() createFormVisible = new EventEmitter();
   @Input() mode!: string;
   @Input() campaign: any;
+  @Input() iscopiedCampaign!: boolean;
   availableTags: any;
 
   editForm() {
@@ -95,7 +96,7 @@ export class CreateCampaignComponent {
         alert(error.error.message);
       },
     });
-    if (this.mode == 'edit') {
+    if (this.mode == 'edit' || this.iscopiedCampaign) {
       this.editForm();
     }
   }

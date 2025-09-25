@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CampaignsRoutingModule } from './campaigns.routing.module';
 import { CreateCampaignComponent } from './create-campaign/create-campaign.component';
-
 import { ViewCampaignComponent } from './view-campaign/view-campaign.component';
 import { CampaignsService } from './campaigns.service';
 import { LaunchCampaignComponent } from './launch-campaign/launch-campaign.component';
