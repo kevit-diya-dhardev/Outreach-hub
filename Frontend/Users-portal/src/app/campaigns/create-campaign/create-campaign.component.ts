@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  SimpleChange,
+  SimpleChanges,
+} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { CampaignsService } from '../campaigns.service';
 import { Campaigns } from '../models/campaigns';
@@ -35,7 +42,6 @@ export class CreateCampaignComponent {
   @Output() createFormVisible = new EventEmitter();
   @Input() mode!: string;
   @Input() campaign: any;
-  @Input() iscopiedCampaign!: boolean;
   availableTags: any;
 
   editForm() {
@@ -96,20 +102,12 @@ export class CreateCampaignComponent {
         alert(error.error.message);
       },
     });
-    if (this.mode == 'edit' || this.iscopiedCampaign) {
+    if (this.mode == 'edit') {
       this.editForm();
     }
   }
 
   onSubmit() {
-    if (this.mode == 'edit') {
-      this.submitEditFormData();
-    } else {
-      this.submitCreateFormData();
-    }
-  }
-  submitEditFormData() {
-    console.log('edit form!!!', this.selectedMessage);
     let campaignData: Campaigns = {
       name: this.formControls.name.value!,
       description: this.formControls.description.value!,
@@ -126,6 +124,15 @@ export class CreateCampaignComponent {
         message_id: this.selectedMessage._id,
       },
     };
+    if (this.mode == 'edit') {
+      this.submitEditFormData(campaignData);
+    } else {
+      this.submitCreateFormData(campaignData);
+    }
+  }
+  submitEditFormData(campaignData: Campaigns) {
+    console.log('edit form!!!', this.selectedMessage);
+
     console.log(campaignData);
     this.campaigService
       .updateCampaign(this.campaign._id, campaignData)
@@ -141,24 +148,8 @@ export class CreateCampaignComponent {
         },
       });
   }
-  submitCreateFormData() {
-    let campaignData: Campaigns = {
-      name: this.formControls.name.value!,
-      description: this.formControls.description.value!,
-      selectedTags: this.formControls.selectedTags.value!,
-      workspace_id: this.workspace_id,
-      message: {
-        message_name: this.selectedMessage.name,
-        type: this.selectedMessage.type,
-        text: this.selectedMessage.message.text,
-        imageUrl:
-          this.selectedMessage.type == 'Text-Image'
-            ? this.selectedMessage.message.imageUrl
-            : undefined,
-        message_id: this.selectedMessage._id,
-      },
-    };
-    console.log(this.campaignForm);
+  submitCreateFormData(campaignData: Campaigns) {
+    console.log('campaign create ', this.campaignForm);
     if (this.campaignForm.valid && this.selectedMessage) {
       this.campaigService.createCampaigns(campaignData).subscribe({
         next: (response: any) => {

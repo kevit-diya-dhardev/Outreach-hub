@@ -20,7 +20,7 @@ export class CampaignsComponent {
   campaigns!: any;
   mode = '';
   campaignData!: Campaigns;
-  iscopiedCampaign = false;
+  iscopiedCampaign!: boolean;
   viewCampaignData!: Campaigns;
   viewFormVisible: boolean = false;
   copiedCampaign!: string;
@@ -89,19 +89,18 @@ export class CampaignsComponent {
     }
   }
   copyCampaign(campaign: Campaigns) {
-    this.copiedCampaign = JSON.stringify(campaign, null, 2);
-    console.log(campaign);
-    navigator.clipboard.writeText(this.copiedCampaign).then(
-      () => {
-        this.campaignData = campaign;
-        this.mode = 'edit';
-        this.iscopiedCampaign = true;
-        this.snackbarService.show('Campaign copied!', 'success');
+    this.campaignService.createCampaigns(campaign).subscribe({
+      next: (response: any) => {
+        console.log('Inside campaign component ', response);
+        this.snackbarService.show('Campaign copied successfully', 'success');
+        this.getCampaigns()
       },
-      (error) => {
+      error: (error) => {
         console.log(error);
-      }
-    );
+        this.snackbarService.show(error.error.message, 'error');
+        alert(error.error.message);
+      },
+    });
   }
 
   showLoadingScreen(campaign: Campaigns) {
